@@ -1,0 +1,62 @@
+[
+  {
+    "run_id": "a9d994e8",
+    "timestamp": "2026-05-31T23:00:21.793096",
+    "user_input": "How much does a python developer engineer earn?",
+    "agent_used": [
+      "analyst"
+    ],
+    "answer": "**Salary Range for Python Developer Engineer**\n\nAccording to national averages and online sources, a Python Developer Engineer can earn between $120,000 to $200,000 per year. This range is influenced ",
+    "latency_ms": 4158.12,
+    "success": true,
+    "error": null
+  },
+  {
+    "run_id": "ac959cbc",
+    "timestamp": "2026-05-31T23:02:34.349994",
+    "user_input": "Who is the president of Uganda?",
+    "agent_used": [
+      "researcher"
+    ],
+    "answer": "**Current President of Uganda**\n\nAs of 2025, the President of Uganda is Yoweri Kaguta Museveni, who has been serving in this position since 1986.\n\n**Important Note**\n\nPlease be aware that this informa",
+    "latency_ms": 9718.2,
+    "success": true,
+    "error": null
+  },
+  {
+    "run_id": "db6c4860",
+    "timestamp": "2026-05-31T23:04:14.470187",
+    "user_input": "What is the population of Uganda?",
+    "agent_used": [
+      "researcher"
+    ],
+    "answer": "**Population of Uganda**\n\nAs of 2020, the estimated population of Uganda was approximately 43.7 million people, according to United Nations estimates. The country has a high average annual growth rate",
+    "latency_ms": 4845.35,
+    "success": true,
+    "error": null
+  },
+  {
+    "run_id": "4fcd6c72",
+    "timestamp": "2026-05-31T23:06:05.970365",
+    "user_input": "What is the salary of an AI engineer?",
+    "agent_used": [
+      "analyst"
+    ],
+    "answer": "**Salary Information for AI Engineers**\n\nThe salary of an AI engineer can vary significantly depending on several factors, including location, industry, and specific company. To get a more accurate es",
+    "latency_ms": 1810.65,
+    "success": true,
+    "error": null
+  },
+  {
+    "run_id": "50d4f777",
+    "timestamp": "2026-05-31T23:09:15.419206",
+    "user_input": "What is now the hottest market for AI/ML and AI/DL industry?",
+    "agent_used": [
+      "analyst"
+    ],
+    "answer": "**Current Market Trends for AI/ML and AI/DL**\n\nThe AI/ML and AI/DL markets are rapidly evolving, with new technologies and innovations emerging every day. Some of the most in-demand areas include natu",
+    "latency_ms": 1578.26,
+    "success": true,
+    "error": null
+  }
+]

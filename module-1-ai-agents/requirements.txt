@@ -1,0 +1,26 @@
+# Module 1: Production AI Agent
+# Geoffrey Jones Okwi
+
+# Core Agent Framework
+langchain==0.3.25
+langchain-core==0.3.60
+langchain-groq==0.3.2
+langgraph==0.4.7
+
+# LLM Provider
+groq==0.28.0
+
+# Embeddings (reuse from HybridRAG project)
+sentence-transformers==3.0.1
+faiss-cpu==1.9.0
+
+# Frontend
+streamlit==1.45.1
+
+# Utilities
+python-dotenv==1.0.1
+pydantic==2.11.4
+
+# Testing
+pytest==8.3.5
+pytest-asyncio==0.23.8

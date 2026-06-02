@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "module-3-mlops"
+version = "1.0.0"
+description = "Geoffrey Jones Okwi — AI Engineering Portfolio Module 3"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mlflow_tracking*", "monitoring*", "deployment*"]
