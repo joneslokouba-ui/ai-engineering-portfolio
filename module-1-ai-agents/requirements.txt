@@ -1,14 +1,11 @@
 ﻿# Module 1: Production AI Agent
 # Geoffrey Jones Okwi
-# Core Agent Framework
+# Core
 langchain==0.3.13
 langchain-core==0.3.27
 langchain-groq==0.2.3
 langgraph==0.2.73
-# LLM Provider
 groq==0.13.1
-# Frontend
 streamlit==1.45.1
-# Utilities
 python-dotenv==1.0.1
 pydantic==2.11.4
