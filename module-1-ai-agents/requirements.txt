@@ -12,7 +12,7 @@ groq==0.28.0
 
 # Embeddings (reuse from HybridRAG project)
 sentence-transformers==3.0.1
-faiss-cpu==1.9.0
+faiss-cpu==1.14.2
 
 # Frontend
 streamlit==1.45.1
