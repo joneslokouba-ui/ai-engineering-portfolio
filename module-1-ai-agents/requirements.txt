@@ -1,6 +1,5 @@
 ﻿# Module 1: Production AI Agent
 # Geoffrey Jones Okwi
-# Core
 langchain==0.3.13
 langchain-core==0.3.27
 langchain-groq==0.2.3
