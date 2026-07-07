@@ -6,8 +6,8 @@ Module 6: Sentry Architecture — Discrete-Event Fraud-Decision Proof
 This is NOT a production fraud model. It is a discrete-event proof that the
 architecture decisions in ADR-001 (authority boundary), ADR-002 (latency
 budget), ADR-003 (fail-open/fail-closed policy), ADR-004 (asymmetric error
-handling), and ADR-005 (audit/explainability) hold under adversarial and
-degraded conditions.
+handling), ADR-005 (audit/explainability), and ADR-006 (forensic attribution
+feedback) hold under adversarial and degraded conditions.
 
 Each scenario below asserts a specific claim made in an ADR. If any assertion
 fails, the corresponding architectural decision is not actually being honored
@@ -74,6 +74,16 @@ class ScoringResult:
     latency_ms: float
 
 
+# ADR-006: registry entries only affect a decision if human-confirmed and
+# not expired. An unconfirmed or expired entry must have zero effect.
+@dataclass
+class RiskRegistryEntry:
+    identifier: str
+    confirmed: bool   # False = candidate cluster, not yet human-reviewed
+    expired: bool      # True = past its review cadence, requires re-confirmation
+    risk_weight: float # additive weight applied to the fraud score, never a verdict on its own
+
+
 @dataclass
 class DecisionRecord:
     """What ADR-005 requires to be captured for every decision."""
@@ -83,6 +93,7 @@ class DecisionRecord:
     friction_threshold: float
     reason: str
     tier2_type: Tier2Type | None = None
+    registry_weight_applied: float = 0.0  # ADR-006: 0.0 unless a confirmed, non-expired entry matched
 
 
 class IngestionLayer:
@@ -143,6 +154,7 @@ class DecisionLayer:
         audit_latency_ms: float = 5.0,
         audit_force_fail: bool = False,
         forced_tier2_request: Tier2Type | None = None,
+        registry_entry: RiskRegistryEntry | None = None,
     ) -> DecisionRecord:
         # ADR-001: an adversarial or buggy request for a Tier 2 action is
         # NEVER auto-executed, regardless of score or timing. It is only
@@ -184,23 +196,45 @@ class DecisionLayer:
 
         # ADR-004: two independently configurable thresholds, not one
         # global accuracy-optimized cutoff.
-        score = scoring.score
-        if score >= self.decline_threshold:
+        # ADR-006: a confirmed, non-expired registry match adds a risk weight
+        # to the score BEFORE thresholding — it flows through the same
+        # governed mechanism as everything else. An unconfirmed or expired
+        # entry contributes nothing; this is checked explicitly, not assumed.
+        base_score = scoring.score
+        weight_applied = 0.0
+        if registry_entry is not None and registry_entry.confirmed and not registry_entry.expired:
+            weight_applied = registry_entry.risk_weight
+        effective_score = min(1.0, base_score + weight_applied)
+
+        if effective_score >= self.decline_threshold:
             action = Action.DECLINE
-            reason = f"Score {score:.2f} >= decline threshold {self.decline_threshold:.2f}"
-        elif score >= self.friction_threshold:
+            reason = f"Effective score {effective_score:.2f} >= decline threshold {self.decline_threshold:.2f}"
+        elif effective_score >= self.friction_threshold:
             action = Action.HOLD_FOR_REVIEW
-            reason = f"Score {score:.2f} in friction band [{self.friction_threshold:.2f}, {self.decline_threshold:.2f})"
+            reason = (
+                f"Effective score {effective_score:.2f} in friction band "
+                f"[{self.friction_threshold:.2f}, {self.decline_threshold:.2f})"
+            )
         else:
             action = Action.APPROVE
-            reason = f"Score {score:.2f} below friction threshold {self.friction_threshold:.2f}"
+            reason = f"Effective score {effective_score:.2f} below friction threshold {self.friction_threshold:.2f}"
 
+        if weight_applied > 0:
+            reason += f" (base score {base_score:.2f} + registry weight {weight_applied:.2f})"
+
+        # ADR-006's core boundary: no matter how large the registry weight,
+        # it can only push the outcome within the Tier 1 action set already
+        # governed by ADR-004's thresholds. It can NEVER itself produce a
+        # Tier 2 escalation — that still requires the explicit, separately
+        # authorized forced_tier2_request path above, which registry lookups
+        # never call into.
         record = DecisionRecord(
             action=action,
-            score=score,
+            score=base_score,
             decline_threshold=self.decline_threshold,
             friction_threshold=self.friction_threshold,
             reason=reason,
+            registry_weight_applied=weight_applied,
         )
         self._finalize(record, audit, audit_latency_ms, audit_force_fail)
         return record
@@ -386,10 +420,93 @@ def scenario_audit_failure_forces_failclosed():
     )
 
 
+def scenario_unconfirmed_cluster_no_effect():
+    """
+    ADR-006: an unconfirmed candidate cluster must have ZERO effect on the
+    decision. A low base score stays APPROVE even with a large registry
+    weight attached, because that weight was never human-confirmed.
+    """
+    ingestion = IngestionLayer().extract(latency_ms=40)
+    scoring = ScoringLayer().score_transaction(latency_ms=60, score=0.10)
+    audit, escalation = AuditLayer(), HumanEscalationLayer()
+    unconfirmed_entry = RiskRegistryEntry(identifier="device-xyz", confirmed=False, expired=False, risk_weight=0.9)
+    record = DecisionLayer().decide(
+        ingestion, scoring, amount=80.0, trust=TrustCacheEntry(True, True),
+        audit=audit, escalation=escalation, registry_entry=unconfirmed_entry,
+    )
+    report(
+        "Scenario 11: Unconfirmed cluster has zero effect -> still APPROVE",
+        record.action == Action.APPROVE and record.registry_weight_applied == 0.0,
+        f"action={record.action.value}, weight_applied={record.registry_weight_applied}",
+    )
+
+
+def scenario_confirmed_registry_shifts_via_threshold():
+    """
+    ADR-006: a confirmed, non-expired registry match adds its weight to the
+    score, and the RESULT flows through the same governed threshold system
+    as any other transaction — it does not bypass it.
+    """
+    ingestion = IngestionLayer().extract(latency_ms=40)
+    scoring = ScoringLayer().score_transaction(latency_ms=60, score=0.30)  # alone: APPROVE
+    audit, escalation = AuditLayer(), HumanEscalationLayer()
+    confirmed_entry = RiskRegistryEntry(identifier="device-xyz", confirmed=True, expired=False, risk_weight=0.35)
+    record = DecisionLayer().decide(
+        ingestion, scoring, amount=80.0, trust=TrustCacheEntry(True, True),
+        audit=audit, escalation=escalation, registry_entry=confirmed_entry,
+    )
+    report(
+        "Scenario 12: Confirmed registry match shifts 0.30 -> 0.65, into friction band via normal thresholds",
+        record.action == Action.HOLD_FOR_REVIEW and record.registry_weight_applied == 0.35,
+        f"action={record.action.value}, base_score={record.score}, weight_applied={record.registry_weight_applied}",
+    )
+
+
+def scenario_expired_registry_no_effect():
+    """ADR-006: an expired entry (past its review cadence) must have zero effect, same as unconfirmed."""
+    ingestion = IngestionLayer().extract(latency_ms=40)
+    scoring = ScoringLayer().score_transaction(latency_ms=60, score=0.30)
+    audit, escalation = AuditLayer(), HumanEscalationLayer()
+    expired_entry = RiskRegistryEntry(identifier="device-xyz", confirmed=True, expired=True, risk_weight=0.35)
+    record = DecisionLayer().decide(
+        ingestion, scoring, amount=80.0, trust=TrustCacheEntry(True, True),
+        audit=audit, escalation=escalation, registry_entry=expired_entry,
+    )
+    report(
+        "Scenario 13: Expired registry entry has zero effect -> falls back to APPROVE",
+        record.action == Action.APPROVE and record.registry_weight_applied == 0.0,
+        f"action={record.action.value}, weight_applied={record.registry_weight_applied}",
+    )
+
+
+def scenario_registry_cannot_force_tier2():
+    """
+    ADR-006's core claim: even an extreme registry weight, engineered to
+    look like an attempt to force a population-level suspension, can only
+    ever move the outcome within the Tier 1 action set. It can NEVER itself
+    produce a Tier 2 escalation — that path is only reachable through the
+    separately authorized forced_tier2_request mechanism (ADR-001), which a
+    registry match never triggers on its own.
+    """
+    ingestion = IngestionLayer().extract(latency_ms=40)
+    scoring = ScoringLayer().score_transaction(latency_ms=60, score=0.50)
+    audit, escalation = AuditLayer(), HumanEscalationLayer()
+    extreme_entry = RiskRegistryEntry(identifier="device-xyz", confirmed=True, expired=False, risk_weight=5.0)
+    record = DecisionLayer().decide(
+        ingestion, scoring, amount=80.0, trust=TrustCacheEntry(True, True),
+        audit=audit, escalation=escalation, registry_entry=extreme_entry,
+    )
+    report(
+        "Scenario 14: Extreme registry weight still caps at DECLINE, never forces Tier 2 escalation",
+        record.action == Action.DECLINE and record.tier2_type is None and len(escalation.queue) == 0,
+        f"action={record.action.value}, tier2_type={record.tier2_type}, escalation_queue={escalation.queue}",
+    )
+
+
 def run_all():
     print("=" * 70)
     print("Module 6: Sentry Architecture — Fraud-Decision Boundary Proof")
-    print("Validating ADR-001, ADR-002, ADR-003, ADR-004, ADR-005")
+    print("Validating ADR-001, ADR-002, ADR-003, ADR-004, ADR-005, ADR-006")
     print("=" * 70)
     scenario_nominal_approve()
     scenario_nominal_decline()
@@ -401,6 +518,10 @@ def run_all():
     scenario_adversarial_tier2_rejected()
     scenario_threshold_attribution()
     scenario_audit_failure_forces_failclosed()
+    scenario_unconfirmed_cluster_no_effect()
+    scenario_confirmed_registry_shifts_via_threshold()
+    scenario_expired_registry_no_effect()
+    scenario_registry_cannot_force_tier2()
     print("=" * 70)
     print("All scenarios executed. Review PASS/FAIL above against the ADRs.")
     print("=" * 70)
