@@ -2,7 +2,7 @@
 app.py — Module 6: Sentry Architecture Dashboard
 
 Scope note: this dashboard visualizes exactly what has been built and proven —
-ADR-001 through ADR-005 and the 10 validated simulation scenarios in
+ADR-001 through ADR-006 and the 14 validated simulation scenarios in
 sim/sentry_sim.py. It does not include tabs for anything not yet backed by
 an ADR, to keep this dashboard an honest reflection of the module's actual
 state (same discipline as Module 5).
@@ -84,7 +84,7 @@ page = st.sidebar.radio(
 )
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "**Scope:** ADR-001 → ADR-005\n\n"
+    "**Scope:** ADR-001 → ADR-006\n\n"
     "**Domain:** Real-time fraud/anomaly detection\n\n"
     "**Focus:** Decision architecture, not a production fraud model"
 )
@@ -113,9 +113,9 @@ consequences. This module proves the adjacent skill: designing AI systems whose 
     )
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("ADRs Written", "5")
-    col2.metric("Simulation Scenarios", "10")
-    col3.metric("Scenarios Passing", "10 / 10")
+    col1.metric("ADRs Written", "6")
+    col2.metric("Simulation Scenarios", "14")
+    col3.metric("Scenarios Passing", "14 / 14")
 
     st.markdown("### What's actually proven here")
     st.markdown(
@@ -129,9 +129,12 @@ consequences. This module proves the adjacent skill: designing AI systems whose 
   independently tunable thresholds, not one accuracy-optimized cutoff
 - **ADR-005** — every decision requires a confirmed audit record; if the audit write fails, the
   decision is downgraded to the fail-closed action rather than left unlogged
+- **ADR-006** — forensic attribution feedback (fraud-ring clustering) is advisory-only; a
+  confirmed cluster can only shift the score through the existing thresholds, and can never
+  itself trigger a Tier 2 action
 
 Use the sidebar to explore the architecture diagrams, read the ADRs in full, run the decision
-pipeline interactively, or re-run the full 10-scenario test suite.
+pipeline interactively, or re-run the full 14-scenario test suite.
 """
     )
 
@@ -220,7 +223,7 @@ elif page == "Live Simulation":
     st.title("Live Simulation")
     st.caption(
         "Drive the Ingestion, Scoring, and Audit layers yourself and watch the Decision layer "
-        "enforce the ADR-001 through ADR-005 boundaries in real time."
+        "enforce the ADR-001 through ADR-006 boundaries in real time."
     )
 
     col1, col2 = st.columns(2)
@@ -303,11 +306,11 @@ elif page == "Live Simulation":
 elif page == "Test Suite":
     st.title("Test Suite")
     st.caption(
-        "Runs the same 10 scenarios from sim/sentry_sim.py that validate ADR-001 through "
-        "ADR-005. This is the exact proof, not a reimplementation."
+        "Runs the same 14 scenarios from sim/sentry_sim.py that validate ADR-001 through "
+        "ADR-006. This is the exact proof, not a reimplementation."
     )
 
-    if st.button("Run all 10 scenarios", type="primary"):
+    if st.button("Run all 14 scenarios", type="primary"):
         buffer = io.StringIO()
         with contextlib.redirect_stdout(buffer):
             run_all()

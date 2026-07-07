@@ -63,7 +63,7 @@ flowchart TB
 **The arrow from Risk Registry → Decision is deliberately drawn as a signal into the existing
 threshold system, not a new autonomous path.** The Forensic Attribution Layer can only ever
 *recommend*, through the same human-review gate as Tier 2 actions. See
-[ADR-006](adr/ADR-006-forensic%20attribution%20feedback.md).
+[ADR-006](adr/ADR-006-forensic-attribution-feedback.md).
 
 ---
 
@@ -76,7 +76,7 @@ threshold system, not a new autonomous path.** The Forensic Attribution Layer ca
 | [ADR-003](adr/ADR-003-failopen-failclosed.md) | Fail-closed by default on scoring timeout, with a narrow pre-approved fail-open exception | Accepted |
 | [ADR-004](adr/ADR-004-asymmetric-error-handling.md) | False positives and false negatives handled as distinct, independently-tunable paths | Accepted |
 | [ADR-005](adr/ADR-005-audit-explainability.md) | Every decision requires a synchronous, guaranteed-delivery audit record; audit failure is treated as a scoring failure | Accepted |
-| [ADR-006](adr/ADR-006-forensic%20attribution%20feedback.md) | Forensic attribution feedback is advisory-only and requires human sign-off before entering the real-time risk registry | Accepted |
+| [ADR-006](adr/ADR-006-forensic-attribution-feedback.md) | Forensic attribution feedback is advisory-only and requires human sign-off before entering the real-time risk registry | Accepted |
 
 Core architecture coverage is now 6 ADRs. ADR-006 extends the system beyond real-time decisioning
 into forensic fraud-ring attribution — but deliberately keeps that new capability inside the same
@@ -126,7 +126,7 @@ module6-fraud-architecture/
 │   ├── ADR-003-failopen-failclosed.md
 │   ├── ADR-004-asymmetric-error-handling.md
 │   ├── ADR-005-audit-explainability.md
-│   └── ADR-006-forensic attribution feedback.md
+│   └── ADR-006-forensic-attribution-feedback.md
 ├── diagrams/
 │   └── (source diagrams, mirrored from README for standalone viewing)
 └── sim/

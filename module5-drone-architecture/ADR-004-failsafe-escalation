@@ -1,0 +1,72 @@
+# ADR-004: Simultaneous Independent LOST States Escalate to FAIL_SAFE
+
+**Status:** Accepted
+**Date:** 2026-07-03
+**Deciders:** System Architect (portfolio module)
+**Supersedes:** Gap identified during validation of ADR-003 (see `sim/failsafe_sim.py`,
+original Scenario 7)
+
+## Context
+
+ADR-003 defines worst-of aggregation across independent inputs: the Decision layer's overall
+state is the single worst state among everything it depends on. This is correct for the common
+case — one degraded input among otherwise healthy ones.
+
+However, validation surfaced a gap: when **two independent inputs are simultaneously LOST**
+(e.g. perception LOST *and* comms LOST at the same time), worst-of aggregation still produces
+plain `LOST`, which maps to a `RETURN_TO_HOME` intent. That is the correct response when only
+one subsystem has failed — the drone can still navigate (dead reckoning, last known map) or still
+communicate its situation. It is not the correct response when **both** have failed
+simultaneously: the aircraft has no reliable sense of its surroundings *and* no channel to report
+a problem or receive an updated safe route home. Attempting a multi-second, multi-waypoint
+return-to-home maneuver under those conditions asks the system to keep navigating with the exact
+inputs it no longer has.
+
+Worst-of aggregation, as originally specified, treats "one thing failed" and "everything failed
+at once" identically. That is too coarse for a compound-failure case and does not match the
+FAIL_SAFE state's intended meaning in ADR-003 ("comms and primary sensing both unavailable").
+
+## Decision
+
+The Decision layer counts how many of its independent inputs (perception, comms) are
+simultaneously in the `LOST` state. If **two or more** independent inputs are `LOST` at the same
+time, the aggregated state escalates to `FAIL_SAFE`, overriding the plain worst-of result. A
+single `LOST` input, with all other inputs healthy or merely degraded, remains `LOST` and
+continues to produce `RETURN_TO_HOME` — the escalation rule is deliberately narrow so it only
+fires on genuine compound failure, not on any single subsystem issue.
+
+`FAIL_SAFE` maps to the `LAND` intent: commit to landing at the current position rather than
+attempting continued navigation with no sensing and no communication.
+
+## Alternatives Considered
+
+| Option | Pros | Cons | Why rejected |
+|---|---|---|---|
+| Leave worst-of as the only rule (status quo) | No added logic | Compound total failure is treated the same as a single degraded sensor; drone attempts RTH blind | This is the gap being fixed — insufficient |
+| Any single LOST immediately escalates to FAIL_SAFE | Simplest rule | Removes the useful distinction between "one thing failed" and "everything failed"; over-conservative, drone would land immediately for a single sensor glitch | Too coarse in the other direction |
+| Escalate only on 2+ simultaneous LOST inputs (chosen) | Matches FAIL_SAFE's intended meaning from ADR-003; narrow enough to avoid false escalation on single failures | Requires maintaining an explicit count as new independent subsystems are added to the architecture | Correct granularity; the added maintenance cost is small and explicit |
+
+## Consequences
+
+**Positive:**
+- Closes the gap Scenario 7 exposed: compound total failure now produces the single most
+  conservative action (land in place) instead of a multi-step maneuver the system can no longer
+  safely execute or monitor.
+- The escalation rule is explicit and testable, not an emergent side effect of aggregation.
+
+**Negative / accepted tradeoffs:**
+- Landing in place is not always the safest option in every environment (e.g. over water, over a
+  dense urban area, mid-river) — this decision does not yet account for geofence or terrain
+  context. That is flagged as a known limitation requiring a follow-up ADR (geofence-aware
+  fail-safe landing) rather than solved here.
+- Every new independent subsystem added to the architecture (e.g. a secondary sensor or a backup
+  comms link) must be explicitly included in the LOST-count check, or the escalation rule will
+  silently fail to account for it.
+
+## Validation
+
+`sim/failsafe_sim.py` Scenario 7 is updated to assert that simultaneous perception `LOST` +
+comms `LOST` now produces `FAIL_SAFE` → `LAND`, not `LOST` → `RETURN_TO_HOME`. A new Scenario 8
+is added as the negative case: a single `LOST` input (perception LOST, comms NOMINAL) must
+**not** escalate, and must still produce plain `LOST` → `RETURN_TO_HOME` — proving the escalation
+rule is narrow and does not over-trigger on ordinary single-subsystem failure.
