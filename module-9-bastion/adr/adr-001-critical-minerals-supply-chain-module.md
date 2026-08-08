@@ -40,13 +40,24 @@ components:
   quotas, 2023 Ge/Ga export controls).
 
 ## Data Sources & Honesty Boundary
-Production-share and HHI figures are illustrative, built from public
-USGS Mineral Commodity Summaries-style concentration patterns rather
-than pulled live from USGS/Geoscience Australia APIs (no live feed
-integrated in this module). This is stated explicitly in the dashboard
-footer to avoid misrepresenting the data as authoritative real-time
-supply data. This module is a systems/analytics demonstration, not a
-market intelligence product.
+As of this update, 5 of 16 minerals (Nd, Dy, Ga, Co, Li) have production-share
+figures sourced directly from USGS Mineral Commodity Summaries 2025 (2024
+production data), https://doi.org/10.3133/mcs2025. Nd and Dy use the
+aggregate rare-earth mine production split by country, since USGS reports
+REE production in aggregate rather than per-element; this is noted in-app
+rather than presented as element-specific.
+
+The remaining 11 minerals (Ge, Pt, Pd, Nb, Ta, W, Ti, Be, Sb, Re, Hf) retain
+industry-consensus estimates broadly consistent with prior-year USGS data,
+not individually re-verified line-by-line in this pass. Every mineral record
+carries a `data_source` field ("MCS2025" or "estimate") and this is surfaced
+directly in the dashboard UI (Mineral Explorer cards, Supply Concentration
+table) rather than only documented here — a person using the tool should not
+have to read the ADR to know which numbers are verified.
+
+This module remains a systems/analytics demonstration, not a market
+intelligence product, and figures will drift from real-world values over
+time regardless of source.
 
 ## Consequences
 - Positive: demonstrates domain crossover between geoscience background

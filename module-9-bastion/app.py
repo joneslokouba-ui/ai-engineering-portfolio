@@ -63,7 +63,8 @@ with tab1:
                 st.markdown(f"**Chemical:** {cp['formula']} — {cp['reactivity']}")
                 st.markdown(f"**Applications:** {', '.join(m['applications'])}")
                 country, share = dominant_supplier(m)
-                st.markdown(f"**Dominant supplier:** {country} ({share*100:.0f}%)")
+                source_tag = "✅ USGS MCS 2025" if m.get("data_source") == "MCS2025" else "〰 Estimate"
+                st.markdown(f"**Dominant supplier:** {country} ({share*100:.0f}%) · {source_tag}")
 
 # ---------------------------------------------------------------------
 # TAB 2 — Supply Concentration
@@ -71,8 +72,10 @@ with tab1:
 with tab2:
     st.subheader("Supply Concentration & Criticality")
     st.caption(
-        "Production-share figures are illustrative approximations, not a live feed "
-        "(see ADR-001). HHI computed on the standard 0–10,000 scale."
+        "Nd, Dy, Ga, Co, and Li figures are sourced directly from USGS Mineral "
+        "Commodity Summaries 2025 (2024 production data). Remaining minerals use "
+        "industry-consensus estimates not individually re-verified this pass. "
+        "See the Data Source column below. HHI computed on the standard 0–10,000 scale."
     )
 
     rows = []
@@ -89,6 +92,7 @@ with tab2:
             "Dominant Share %": round(share * 100, 1),
             "Substitutability": m["substitutability"],
             "Risk Score": concentration_risk_score(m),
+            "Data Source": "USGS MCS 2025" if m.get("data_source") == "MCS2025" else "Estimate",
         })
     df = pd.DataFrame(rows).sort_values("Risk Score", ascending=False)
 

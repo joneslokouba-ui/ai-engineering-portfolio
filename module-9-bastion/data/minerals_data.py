@@ -1,10 +1,21 @@
 """
 Reference dataset for Bastion — Critical Minerals Supply Chain module.
 
-Production-share figures are illustrative approximations built from
-public USGS Mineral Commodity Summaries-style concentration patterns.
-They are NOT pulled from a live feed. See ADR-001 for the honesty
-boundary on this data.
+Production-share data source (as of this update):
+U.S. Geological Survey, Mineral Commodity Summaries 2025 (data year 2024),
+https://doi.org/10.3133/mcs2025 — individual mineral chapters at
+https://pubs.usgs.gov/periodicals/mcs2025/
+
+Verified directly against MCS 2025 chapter text this pass: Nd, Dy (REE
+aggregate mine production), Ga, Co, Li. These carry a `data_source: "MCS2025"`
+tag on producing_countries.
+
+Remaining minerals (Pt, Pd, Nb, Ta, W, Ti, Be, Sb, Re, Hf, Ge) retain
+industry-consensus production-share estimates that are broadly consistent
+with prior-year USGS data and widely cited secondary sources, but were not
+individually re-verified line-by-line against MCS 2025 in this pass. These
+carry `data_source: "estimate"`. Flagging this explicitly rather than
+implying uniform precision — see ADR-001 for the honesty boundary.
 """
 
 MINERALS = [
@@ -24,7 +35,8 @@ MINERALS = [
             "crystal_structure": "Hexagonal / double hexagonal close-packed",
         },
         "applications": ["Magnetics", "Aerospace", "Medical (MRI magnets)"],
-        "producing_countries": {"China": 0.85, "USA": 0.06, "Myanmar": 0.05, "Other": 0.04},
+        "producing_countries": {"China": 0.69, "USA": 0.13, "Australia": 0.07, "Myanmar": 0.06, "Other": 0.05},
+        "data_source": "MCS2025",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -44,7 +56,8 @@ MINERALS = [
             "crystal_structure": "Hexagonal close-packed",
         },
         "applications": ["Magnetics", "Aerospace", "Lasers"],
-        "producing_countries": {"China": 0.90, "Myanmar": 0.07, "Other": 0.03},
+        "producing_countries": {"China": 0.69, "USA": 0.13, "Australia": 0.07, "Myanmar": 0.06, "Other": 0.05},
+        "data_source": "MCS2025",
         "criticality": "High",
         "substitutability": "Very Low",
     },
@@ -64,7 +77,8 @@ MINERALS = [
             "crystal_structure": "Orthorhombic",
         },
         "applications": ["Computer Hardware", "Lasers", "Aerospace (RF chips)"],
-        "producing_countries": {"China": 0.94, "Other": 0.06},
+        "producing_countries": {"China": 0.99, "Other": 0.01},
+        "data_source": "MCS2025",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -85,6 +99,7 @@ MINERALS = [
         },
         "applications": ["Computer Hardware", "Catalysts", "Medical (infrared optics)"],
         "producing_countries": {"China": 0.68, "Russia": 0.03, "Other": 0.29},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -104,7 +119,8 @@ MINERALS = [
             "crystal_structure": "Hexagonal close-packed",
         },
         "applications": ["Metal Alloys", "Batteries", "Catalysts"],
-        "producing_countries": {"DRC": 0.70, "Indonesia": 0.06, "Other": 0.24},
+        "producing_countries": {"DRC": 0.76, "Indonesia": 0.10, "Other": 0.14},
+        "data_source": "MCS2025",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -124,7 +140,8 @@ MINERALS = [
             "crystal_structure": "Body-centered cubic",
         },
         "applications": ["Batteries", "Catalysts", "Aerospace (alloys)"],
-        "producing_countries": {"Australia": 0.47, "Chile": 0.24, "China": 0.13, "Other": 0.16},
+        "producing_countries": {"Australia": 0.42, "Chile": 0.24, "China": 0.18, "Other": 0.16},
+        "data_source": "MCS2025",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -145,6 +162,7 @@ MINERALS = [
         },
         "applications": ["Catalysts", "Medical (implants)", "Computer Hardware"],
         "producing_countries": {"South Africa": 0.71, "Russia": 0.12, "Other": 0.17},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -165,6 +183,7 @@ MINERALS = [
         },
         "applications": ["Catalysts", "Computer Hardware", "Medical (dental alloys)"],
         "producing_countries": {"Russia": 0.40, "South Africa": 0.36, "Other": 0.24},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -185,6 +204,7 @@ MINERALS = [
         },
         "applications": ["Metal Alloys", "Aerospace", "Medical (implants)"],
         "producing_countries": {"Brazil": 0.90, "Canada": 0.06, "Other": 0.04},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -205,6 +225,7 @@ MINERALS = [
         },
         "applications": ["Computer Hardware", "Medical (implants)", "Aerospace"],
         "producing_countries": {"DRC": 0.40, "Rwanda": 0.24, "Other": 0.36},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -225,6 +246,7 @@ MINERALS = [
         },
         "applications": ["Metal Alloys", "Aerospace", "Catalysts"],
         "producing_countries": {"China": 0.82, "Vietnam": 0.05, "Other": 0.13},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -245,6 +267,7 @@ MINERALS = [
         },
         "applications": ["Aerospace", "Medical (implants)", "Metal Alloys"],
         "producing_countries": {"China": 0.34, "Japan": 0.13, "Other": 0.53},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -265,6 +288,7 @@ MINERALS = [
         },
         "applications": ["Aerospace", "Metal Alloys", "Computer Hardware (RF)"],
         "producing_countries": {"USA": 0.88, "China": 0.08, "Other": 0.04},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Low",
     },
@@ -285,6 +309,7 @@ MINERALS = [
         },
         "applications": ["Metal Alloys", "Catalysts", "Aerospace (flame retardants)"],
         "producing_countries": {"China": 0.48, "Russia": 0.18, "Tajikistan": 0.15, "Other": 0.19},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Moderate",
     },
@@ -305,6 +330,7 @@ MINERALS = [
         },
         "applications": ["Aerospace (superalloys)", "Catalysts", "Metal Alloys"],
         "producing_countries": {"Chile": 0.52, "USA": 0.07, "Other": 0.41},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Very Low",
     },
@@ -325,6 +351,7 @@ MINERALS = [
         },
         "applications": ["Aerospace", "Computer Hardware (semiconductors)", "Metal Alloys"],
         "producing_countries": {"France": 0.35, "China": 0.20, "Other": 0.45},
+        "data_source": "estimate",
         "criticality": "High",
         "substitutability": "Low",
     },
