@@ -1,4 +1,3 @@
-@"
 # 🤖 AI Engineering Portfolio
 ### Geoffrey Jones Okwi | AI/ML Engineer
 
@@ -8,95 +7,49 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Live-red?style=for-the-badge)
 ![AWS](https://img.shields.io/badge/AWS-ECS%20%7C%20ECR-yellow?style=for-the-badge&logo=amazon-aws)
 
-> Production-grade AI engineering portfolio demonstrating end-to-end LLM systems —
-> from single agents to multi-agent orchestration to full MLOps pipelines on AWS.
+> Nine-module AI engineering portfolio spanning single agents, multi-agent
+> orchestration, MLOps, quantum computing, and architecture-first systems
+> engineering for safety-, financial-, and knowledge-critical AI deployments.
+> Each module below links to its own detailed README — architecture
+> decisions, simulations, and proof-of-design live at the module level, not
+> duplicated here.
 
 ---
 
-## 🚀 Live Demos
+## 📦 Modules
 
-| Module | Description | Live Demo | Stack |
-|--------|-------------|-----------|-------|
-| 🤖 Module 1 | Production ReAct Agent | [Launch App](https://module1-ai-agents.streamlit.app) | LangGraph · Groq · Streamlit |
-| 🧠 Module 2 | Multi-Agent System | [Launch App](https://module2-multi-agent.streamlit.app) | Supervisor · RAG · FAISS · DuckDuckGo |
-| 🚀 Module 3 | MLOps Pipeline | [Launch App](https://module3-mlops.streamlit.app) | MLflow · Prometheus · Docker · AWS ECS |
+| # | Module | Domain | Live Demo | Source | Status |
+|---|--------|--------|-----------|--------|--------|
+| 1 | Production ReAct Agent | Single-agent reasoning + tool use | [Launch](https://module1-ai-agents.streamlit.app) | [`module-1-ai-agents`](./module-1-ai-agents) | ✅ Live |
+| 2 | Multi-Agent System | Supervisor pattern + HybridRAG | [Launch](https://module2-multi-agent.streamlit.app) | [`module-2-multi-agent`](./module-2-multi-agent) | ✅ Live |
+| 3 | MLOps Pipeline | Experiment tracking, monitoring, AWS ECS deploy | [Launch](https://module3-mlops.streamlit.app) | [`module-3-mlops`](./module-3-mlops) | 🔨 Building |
+| 4 | Quantum AI Explorer | Qiskit circuits, BB84 crypto, classical vs. quantum ML | [Launch](https://module4-quantum.streamlit.app) | `module-4-*` *(confirm folder name)* | ✅ Live |
+| 5 | Sentinel Architecture | Safety-critical autonomous drone AI — the AI/flight-control boundary | [Launch](https://module5-drone-architecture.streamlit.app) | `module5-*` *(confirm folder name)* | ✅ Live — 8/8 scenarios passing |
+| 6 | Sentry Architecture | Real-time fraud/anomaly detection — decision architecture, not a fraud model | [Launch](https://module6-fraud-architecture.streamlit.app) | `module6-*` *(confirm folder name)* | ✅ Live — 14/14 scenarios passing |
+| 7 | Skylink Architecture | 5G Standalone connectivity for UAV/AAM, grounded in Ericsson's public RF research | [Launch](https://module7-skylink-architecture.streamlit.app) | `module7-*` *(confirm folder name)* | ✅ Live — 13/13 scenarios passing |
+| 8 | Vigil Architecture | AMR surveillance + diagnostic context — zero autonomous tier, grounded in WHO GLASS 2025 | [Launch](https://module8-vigil-architecture.streamlit.app) | [`module8-vigil-architecture`](./module8-vigil-architecture) | ✅ Live — 11/11 scenarios passing |
+| 9 | Bastion — Critical Minerals Supply Chain | Physical/chemical properties, HHI supply concentration, disruption simulation, Hybrid RAG query assistant | [Launch](https://ai-engineering-criticalminera.streamlit.app) | [`module-9-bastion`](./module-9-bastion) | ✅ Live |
 
----
-
-## 📦 Module 1 — Production ReAct Agent
-**🔗 [Live Demo](https://module1-ai-agents.streamlit.app) | [Source Code](./module-1-ai-agents)**
-
-A production-grade ReAct (Reasoning + Acting) agent built with LangGraph and Groq.
-
-### Features
-- ⚡ Ultra-fast inference via Groq llama-3.3-70b-versatile
-- 🔄 LangGraph ReAct loop with tool orchestration
-- 🛠️ Tools: Web Search · Calculator · Job Market Intelligence
-- 💬 Dark-theme Streamlit chat interface
-- 🧠 Embedded AI job market knowledge in system prompt
-
-### Stack
-\`\`\`
-LangGraph 0.2.73 · LangChain 0.3.13 · Groq · Streamlit · Python 3.11
-\`\`\`
-
----
-
-## 🧠 Module 2 — Multi-Agent System
-**🔗 [Live Demo](https://module2-multi-agent.streamlit.app) | [Source Code](./module-2-multi-agent)**
-
-A supervisor-pattern multi-agent system with 4 specialized agents working in concert.
-
-### Agent Team
-| Agent | Role |
-|-------|------|
-| 🎯 Supervisor | Routes tasks to specialist agents |
-| 🔍 Researcher | DuckDuckGo web search with retry logic |
-| 📊 Analyst | Salary + skill gap analysis |
-| 📚 RAG Agent | HybridRAG document search (FAISS + MiniLM) |
-
-### Signature Formula — HybridRAG
-\`\`\`
-Score = α · VectorSimilarity + (1-α) · KeywordScore
-Vector Store: FAISS + all-MiniLM-L6-v2
-\`\`\`
-
-### Stack
-\`\`\`
-LangGraph 0.2.73 · LangChain 0.3.19 · Groq · FAISS · HuggingFace · DuckDuckGo · Streamlit
-\`\`\`
-
----
-
-## 🚀 Module 3 — MLOps Pipeline
-**🔗 [Live Demo](https://module3-mlops.streamlit.app) | [Source Code](./module-3-mlops)**
-
-A full MLOps dashboard demonstrating production ML engineering practices.
-
-### Features
-- 🧪 MLflow experiment tracking with run comparison
-- 📊 Prometheus metrics — CPU · Memory · P95 Latency · Request Rate
-- ☁️ AWS ECS deployment pipeline (Docker → ECR → ECS Fargate)
-- 🔁 GitHub Actions CI/CD workflow
-- 📈 Portfolio complexity visualization
-
-### Stack
-\`\`\`
-MLflow · Prometheus · Docker · AWS ECS/ECR · GitHub Actions · Streamlit · Python 3.11
-\`\`\`
+*Modules 5–8 follow an architecture-first pattern: ADRs → Mermaid diagrams →
+discrete-event simulation → dashboard. Each module's own README documents
+its specific ADRs and validated scenarios in full — see the Source links
+above.*
 
 ---
 
 ## 🎯 Skills Demonstrated
 
-\`\`\`
-LLM Engineering    LangGraph · LangChain · Groq · Prompt Engineering
-Multi-Agent        Supervisor Pattern · Tool Use · Agent Orchestration
-RAG Systems        FAISS · HuggingFace · HybridRAG · Vector Search
-MLOps              MLflow · Prometheus · Docker · AWS ECS · CI/CD
-Frontend           Streamlit · Dark Theme UI · Interactive Dashboards
-Python             Async · Type Hints · Pydantic · pytest
-\`\`\`
+```
+LLM Engineering       LangGraph · LangChain · Groq · Prompt Engineering
+Multi-Agent Systems   Supervisor Pattern · Tool Use · Agent Orchestration
+RAG Systems           FAISS · TF-IDF/Cosine Hybrid Scoring · Source Transparency
+MLOps                 MLflow · Prometheus · Docker · AWS ECS · CI/CD
+Quantum Computing     Qiskit · Circuit Design · BB84 Protocol
+Systems Architecture  ADRs · Discrete-Event Simulation (SimPy) · Safety Boundaries
+Domain Grounding      WHO GLASS · USGS MCS · Ericsson RF Research
+Frontend              Streamlit · Interactive Dashboards
+Python                Async · Type Hints · Pydantic · pytest
+```
 
 ---
 
@@ -104,43 +57,41 @@ Python             Async · Type Hints · Pydantic · pytest
 
 | Role | Salary Range |
 |------|-------------|
-| Senior AI/ML Engineer | \$150K+ |
-| MLOps Engineer | \$140K–\$180K |
-| AI Platform Engineer | \$160K+ |
-| Staff AI Engineer | \$180K+ |
+| Senior AI/ML Engineer | $150K+ |
+| MLOps Engineer | $140K–$180K |
+| AI Platform Engineer | $160K+ |
+| Staff AI Engineer | $180K+ |
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ Repository Structure
 
-\`\`\`
+```
 ai-engineering-portfolio/
-├── module-1-ai-agents/       # ReAct Agent
-│   ├── app.py                # Streamlit frontend
-│   ├── agent/                # LangGraph agent core
-│   └── requirements.txt
-├── module-2-multi-agent/     # Multi-Agent System
-│   ├── app.py                # Streamlit frontend
-│   ├── agents/               # Supervisor · Researcher · Analyst · RAG
-│   ├── graph/                # LangGraph orchestration
-│   ├── rag/                  # HybridRAG engine
-│   └── requirements.txt
-├── module-3-mlops/           # MLOps Pipeline
-│   ├── app/main.py           # Streamlit dashboard
-│   ├── mlflow_tracking/      # Experiment tracker
-│   ├── monitoring/           # Prometheus metrics
-│   ├── deployment/           # AWS ECS deployer
-│   ├── Dockerfile
-│   └── requirements.txt
-└── README.md
-\`\`\`
+├── module-1-ai-agents/
+├── module-2-multi-agent/
+├── module-3-mlops/
+├── module-4-*/                  # confirm exact folder name
+├── module5-*/                   # confirm exact folder name
+├── module6-*/                   # confirm exact folder name
+├── module7-*/                   # confirm exact folder name
+├── module8-vigil-architecture/
+├── module-9-bastion/
+└── README.md                    # you are here — index only
+```
+
+Each module folder contains its own README with full architecture
+rationale, ADRs, diagrams, and (for Modules 5–9) simulation validation
+results. This root README stays intentionally lean.
 
 ---
 
 ## 🎓 Training & Background
-- 📚 Stanford / Andrew Ng AI curriculum
+- 📚 Stanford / Andrew Ng AI curriculum (Machine Learning Specialization,
+  Deep Learning Specialization — coursework completed, not formal
+  certifications) · CS50: Introduction to Databases with SQL (Harvard, edX)
 - 🦅 Commander Smart Eagle Program
-- 🏗️ 3-module production portfolio built in 3 weeks
+- 🏗️ 9-module production portfolio, architecture-first design discipline
 
 ---
 
@@ -148,4 +99,3 @@ ai-engineering-portfolio/
 **Geoffrey Jones Okwi** | AI/ML Engineer
 - 🐙 GitHub: [joneslokouba-ui](https://github.com/joneslokouba-ui)
 - 💼 Open to: Senior AI Engineer · MLOps Engineer · AI Platform roles
-"@ | Out-File -FilePath README.md -Encoding utf8
