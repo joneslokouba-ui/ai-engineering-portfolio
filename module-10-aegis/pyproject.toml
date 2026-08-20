@@ -1,0 +1,32 @@
+[project]
+name = "aegis-aml-detection"
+version = "0.1.0"
+description = "AEGIS — On-Chain Fraud & AML Detection Engine (Module 10, ai-engineering-portfolio)"
+authors = [{ name = "Geoffrey Okwi (Jones)" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit",
+    "plotly",
+    "pandas",
+    "networkx",
+    "scikit-learn",
+]
+
+[tool.poetry]
+name = "aegis-aml-detection"
+version = "0.1.0"
+description = "AEGIS — On-Chain Fraud & AML Detection Engine (Module 10, ai-engineering-portfolio)"
+authors = ["Geoffrey Okwi (Jones)"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "*"
+plotly = "*"
+pandas = "*"
+networkx = "*"
+scikit-learn = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

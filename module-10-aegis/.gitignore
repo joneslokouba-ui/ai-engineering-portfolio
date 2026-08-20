@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.streamlit/secrets.toml
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+data/synthetic_ledger/*.csv
+!data/synthetic_ledger/.gitkeep
