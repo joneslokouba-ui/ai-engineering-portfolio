@@ -44,6 +44,34 @@ ESCALATION_THRESHOLD = 0.6
 
 
 # ---------------------------------------------------------------------
+# Cross-version compatibility shim.
+#
+# Streamlit's `width='stretch'` API (replacing `use_container_width`)
+# was only added in ~1.5x+; the exact version cutoff differs per
+# element (plotly_chart vs dataframe), and different deployment targets
+# (local .venv, Streamlit Cloud) can end up on different installed
+# versions even with the same requirements.txt pin -- e.g. if Cloud's
+# build cache hasn't picked up a requirements.txt change yet. Rather
+# than depend on every environment matching exactly, these wrappers try
+# the modern API first and fall back to the older one on TypeError, so
+# the dashboard renders correctly regardless of which Streamlit version
+# actually ends up installed.
+# ---------------------------------------------------------------------
+def _plotly_chart(fig):
+    try:
+        st.plotly_chart(fig, width="stretch")
+    except TypeError:
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def _dataframe(data):
+    try:
+        st.dataframe(data, width="stretch")
+    except TypeError:
+        st.dataframe(data, use_container_width=True)
+
+
+# ---------------------------------------------------------------------
 # Cached pipeline run — regenerating on every widget interaction would
 # retrain the ensemble each time, so the full pipeline is cached and
 # only the human-adjudication step happens live via session_state.
@@ -151,7 +179,7 @@ with tab_overview:
             )
         )
         fig.update_layout(height=320, margin=dict(t=10, b=10, l=10, r=10))
-        st.plotly_chart(fig, width='stretch')
+        _plotly_chart(fig)
 
     with col_right:
         st.markdown("**Composite Score Separation (Ground Truth)**")
@@ -160,7 +188,7 @@ with tab_overview:
             subset = composite[composite["is_laundering"] == label]["composite_score"]
             fig2.add_trace(go.Box(y=subset, name=name, marker_color=color))
         fig2.update_layout(height=320, margin=dict(t=10, b=10, l=10, r=10))
-        st.plotly_chart(fig2, width='stretch')
+        _plotly_chart(fig2)
 
     st.caption(
         "Composite score = 0.7 × ensemble ML probability + 0.3 × sanctions rule score, "
@@ -219,7 +247,7 @@ with tab_graph:
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
     )
-    st.plotly_chart(fig3, width='stretch')
+    _plotly_chart(fig3)
     st.caption("Node size and color scale with composite risk score. Red = CRITICAL, orange = HIGH, yellow = MEDIUM, grey = LOW.")
 
 # ---------------------------------------------------------------------
@@ -266,7 +294,7 @@ with tab_queue:
     if log:
         st.divider()
         st.markdown("**Enforcement Log** (only reachable via confirmed adjudication)")
-        st.dataframe(pd.DataFrame(log), width='stretch')
+        _dataframe(pd.DataFrame(log))
 
     # Demonstrate the hard gate explicitly
     st.divider()
@@ -294,7 +322,7 @@ with tab_explain:
     imp_df.columns = ["feature", "importance"]
     fig4 = go.Figure(go.Bar(x=imp_df["importance"], y=imp_df["feature"], orientation="h"))
     fig4.update_layout(height=450, margin=dict(t=10, b=10, l=10, r=10), yaxis=dict(autorange="reversed"))
-    st.plotly_chart(fig4, width='stretch')
+    _plotly_chart(fig4)
 
     st.divider()
     st.subheader("Per-Wallet Score Breakdown")
@@ -311,7 +339,7 @@ with tab_explain:
     c3.metric("Composite Score", f"{row['composite_score']:.3f}", delta=row["risk_tier"])
 
     st.markdown("**Underlying feature values for this wallet**")
-    st.dataframe(feat_row.to_frame().T, width='stretch')
+    _dataframe(feat_row.to_frame().T)
 
     st.caption(
         "Note: this panel shows global feature importances plus the wallet's raw feature "
