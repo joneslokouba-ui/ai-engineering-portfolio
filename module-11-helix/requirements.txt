@@ -1,0 +1,21 @@
+ Module 11 — HELIX: Streamlit Cloud requirements
+# Points to explicitly in Streamlit Cloud "Advanced Settings" -> Requirements file path.
+
+streamlit>=1.37
+simpy>=4.1
+pandas>=2.2
+
+# Ingestion layer
+# (stdlib csv/re used elsewhere — no extra deps needed for clinvar/gnomad/omim loaders)
+
+# Hybrid RAG — VectorSim (TF-IDF) + KeywordScore retrieval, Groq generation
+faiss-cpu>=1.8
+scikit-learn>=1.5
+numpy>=1.26
+groq>=0.11
+
+# Local secrets loading (.env) — see README Setup section
+python-dotenv>=1.0
+
+# Testing
+pytest>=8.0
