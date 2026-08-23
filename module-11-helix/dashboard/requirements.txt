@@ -1,0 +1,22 @@
+﻿# Module 11 — HELIX: Streamlit Cloud requirements
+# Placed here (dashboard/) rather than the module root because Streamlit
+# Community Cloud searches the entrypoint file's own directory FIRST,
+# before falling back to the repo root — there is no "Requirements file
+# path" setting in the current Cloud UI to point elsewhere explicitly.
+# See: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies
+
+streamlit>=1.37
+simpy>=4.1
+pandas>=2.2
+
+# Hybrid RAG — VectorSim (TF-IDF) + KeywordScore retrieval, Groq generation
+faiss-cpu>=1.8
+scikit-learn>=1.5
+numpy>=1.26
+groq>=0.11
+
+# Local secrets loading (.env)
+python-dotenv>=1.0
+
+# Testing
+pytest>=8.0
