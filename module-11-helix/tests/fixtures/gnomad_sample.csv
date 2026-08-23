@@ -1,0 +1,11 @@
+GeneSymbol,VariantName,AlleleFrequency
+CFTR,c.1521_1523delCTT (p.Phe508del),0.0000180
+CFTR,c.350G>A (p.Arg117His),0.0008500
+HBB,c.20A>T (p.Glu7Val),0.0000420
+HBB,c.315+1G>A,0.0000090
+HTT,c.53_55dup (p.Leu18dup),0.0000010
+DMD,c.263del (p.Pro88fs),0.0000005
+DMD,c.1197A>G (p.Leu399=),0.0420000
+F8,c.6046C>T (p.Arg2016Ter),0.0000030
+F8,c.870A>G (p.Ala290=),0.0510000
+MLH1,c.1852_1853del (p.Lys618fs),0.0000015

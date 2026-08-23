@@ -1,0 +1,12 @@
+Category,Gene_Or_Locus,Disorder,Inheritance_Pattern,Reference_Variant_Or_Pattern,Notes
+Monogenic,CFTR,Cystic Fibrosis,Autosomal recessive,c.1521_1523delCTT (p.Phe508del),Most common CF-causing variant (ΔF508); in-frame indel
+Monogenic,HBB,Sickle Cell Disease,Autosomal recessive,c.20A>T (p.Glu7Val),Also known as HbS; classic missense
+Monogenic,HTT,Huntington's Disease,Autosomal dominant,CAG repeat expansion,Trinucleotide repeat disorder — not a standard SNV
+Chromosomal,Trisomy 21,Down Syndrome,Numerical (nondisjunction),"47,XX/XY,+21",Karyotype-level; not variant-level
+Chromosomal,Monosomy X,Turner Syndrome,Numerical (nondisjunction),"45,X",Karyotype-level; not variant-level
+Multifactorial,Polygenic (multi-locus),Type 2 Diabetes,Polygenic + environmental,PRS over curated risk-allele set,No single causal variant
+Multifactorial,Polygenic (multi-locus),Coronary Heart Disease,Polygenic + environmental,PRS over curated risk-allele set,No single causal variant
+X-linked,DMD,Duchenne Muscular Dystrophy,X-linked recessive,c.263del (p.Pro88fs),Frameshift; hemizygous males fully affected
+X-linked,F8,Hemophilia A,X-linked recessive,c.6046C>T (p.Arg2016Ter),Nonsense; hemizygous males fully affected
+Mitochondrial,MT-TL1,MELAS,Maternal (mtDNA),m.3243A>G,Heteroplasmy threshold ~60%
+Mitochondrial,MT-ND4,Leber Hereditary Optic Neuropathy,Maternal (mtDNA),m.11778G>A,Heteroplasmy threshold ~70%

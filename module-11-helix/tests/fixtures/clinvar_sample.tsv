@@ -1,0 +1,11 @@
+GeneSymbol	Name	ClinicalSignificance	ReviewStatus	PhenotypeList
+CFTR	NM_000492.4(CFTR):c.1521_1523delCTT (p.Phe508del)	Pathogenic	reviewed by expert panel	Cystic fibrosis
+CFTR	NM_000492.4(CFTR):c.350G>A (p.Arg117His)	Uncertain significance	criteria provided, multiple submitters	Cystic fibrosis
+HBB	NM_000518.5(HBB):c.20A>T (p.Glu7Val)	Pathogenic	practice guideline	Sickle cell disease
+HBB	NM_000518.5(HBB):c.315+1G>A	Pathogenic	criteria provided, single submitter	Beta thalassemia
+HTT	NM_002111.8(HTT):c.53_55dup (p.Leu18dup)	Uncertain significance	no assertion criteria provided	Huntington disease
+DMD	NM_004006.3(DMD):c.263del (p.Pro88fs)	Pathogenic	reviewed by expert panel	Duchenne muscular dystrophy
+DMD	NM_004006.3(DMD):c.1197A>G (p.Leu399=)	Benign	criteria provided, multiple submitters	not provided
+F8	NM_000132.4(F8):c.6046C>T (p.Arg2016Ter)	Pathogenic	criteria provided, multiple submitters	Hemophilia A
+F8	NM_000132.4(F8):c.870A>G (p.Ala290=)	Benign	criteria provided, single submitter	not provided
+MLH1	NM_000249.4(MLH1):c.1852_1853del (p.Lys618fs)	Pathogenic	criteria provided, multiple submitters	Lynch syndrome

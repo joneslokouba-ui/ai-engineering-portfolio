@@ -1,0 +1,4 @@
+Gene,Disorder,CausesInheritance,Prevalence,ResearchAdvances,ClinicalApplications
+CFTR,Cystic Fibrosis,"Autosomal recessive; CFTR mutations impair chloride ion transport.","~1 in 2,500-3,500 live births (European descent).","CFTR modulator combination therapies target the underlying protein defect.","Diagnosis via newborn screening and sweat chloride test; management includes CFTR modulators."
+HBB,Sickle Cell Disease,"Autosomal recessive; single HBB point mutation produces hemoglobin S.","Carrier rates exceed 10% in parts of sub-Saharan Africa.","Gene therapy reactivating fetal hemoglobin has reached clinical use.","Diagnosis via newborn screening and hemoglobin electrophoresis; hydroxyurea therapy."
+HTT,Huntington's Disease,"Autosomal dominant; CAG repeat expansion in HTT.","Roughly 3-7 per 100,000 (Western European descent).","Antisense oligonucleotide gene-silencing approaches in clinical trials.","Predictive genetic testing available; management is symptomatic."

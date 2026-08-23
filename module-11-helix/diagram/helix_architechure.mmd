@@ -1,0 +1,75 @@
+%% Module 11 — HELIX: Genetic Disorders Classification & Knowledge System
+%% Architecture Diagram — accompanies ADR 011
+
+flowchart TD
+
+    subgraph SOURCES["Public Reference Data (static, curated)"]
+        CV["ClinVar\nvariant_summary.txt.gz"]
+        GN["gnomAD\npopulation frequency extract"]
+        OM["OMIM\ngene-disorder-phenotype map"]
+    end
+
+    subgraph INGEST["Ingestion Layer"]
+        CVL["clinvar_loader.py"]
+        GNL["gnomad_loader.py"]
+        OML["omim_loader.py"]
+        PANEL["curated_gene_panel.csv\n(~15 genes, 5 categories)"]
+    end
+
+    CV --> CVL --> PANEL
+    GN --> GNL --> PANEL
+    OM --> OML --> PANEL
+
+    PANEL --> ROUTER
+
+    subgraph ROUTING["Category Router"]
+        ROUTER{"category_router.py\nDisorder category?"}
+    end
+
+    ROUTER -->|Monogenic| M1["monogenic_model.py\nClinVar review-status +\nconsequence + conservation"]
+    ROUTER -->|Chromosomal| M2["chromosomal_model.py\nKaryotype-pattern lookup"]
+    ROUTER -->|Multifactorial| M3["multifactorial_model.py\nSimplified polygenic\nrisk score (PRS)"]
+    ROUTER -->|X-linked| M4["xlinked_model.py\nMonogenic scoring +\nsex-linked inheritance logic"]
+    ROUTER -->|Mitochondrial| M5["mitochondrial_model.py\nHeteroplasmy-aware\nmtDNA scoring"]
+
+    M1 --> TIER["Classification Output\nBenign / VUS / Pathogenic\n(+ category-specific notes)"]
+    M2 --> TIER
+    M3 --> TIER
+    M4 --> TIER
+    M5 --> TIER
+
+    subgraph GOVERNANCE["Governance Boundary (code-enforced)"]
+        AB["authority_boundary.py\nExplains & classifies only —\nnever diagnoses/manages/advises"]
+    end
+
+    TIER --> AB
+
+    subgraph SIMULATION["Discrete-Event Simulation"]
+        SIM["intake_pipeline_sim.py\nSample intake → Router →\nSub-model → Clinician review queue"]
+    end
+
+    PANEL --> SIM
+    ROUTER --> SIM
+    SIM --> METRICS["Throughput & backlog\nmetrics by category"]
+
+    subgraph RAG["Hybrid RAG Knowledge Assistant"]
+        KB["knowledge_base_builder.py\nOMIM text →\nCauses & Inheritance / Prevalence /\nResearch & Advances / Clinical Applications"]
+        HR["hybrid_rag.py\n\u03b1\u00b7VectorSim + (1-\u03b1)\u00b7KeywordScore\nGroq llama-3.3-70b-versatile"]
+    end
+
+    OM --> KB --> HR
+
+    subgraph DASHBOARD["Streamlit Dashboard (app.py)"]
+        D1["Disorder category browser"]
+        D2["Variant/case lookup +\nsub-model output display"]
+        D3["Pipeline throughput viz"]
+        D4["RAG query interface\n(governance disclaimer\npersistently surfaced)"]
+    end
+
+    AB --> D2
+    METRICS --> D3
+    HR --> D4
+    PANEL --> D1
+
+    style AB fill:#f9d5d5,stroke:#c0392b,stroke-width:2px
+    style GOVERNANCE fill:#fdf2f2,stroke:#c0392b,stroke-width:1px
