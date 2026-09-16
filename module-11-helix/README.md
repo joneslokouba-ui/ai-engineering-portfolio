@@ -6,6 +6,8 @@ its own purpose-built sub-model rather than forced into one uniform
 classifier. See [ADR 011](../docs/adr/011-helix-genetic-disorders-classification-system.md)
 for the full architecture decision record.
 
+**Live app:** https://ai-engineering-genomics.streamlit.app/
+
 ## Governance boundary
 
 **HELIX explains and classifies published, de-identified genetic research
@@ -76,10 +78,17 @@ still pending the same update.
 ```bash
 python -m venv .venv
 .venv\Scripts\activate          # Windows
-pip install -r requirements.txt
+pip install -r dashboard/requirements.txt
 ```
 
-Create a `.env` file (never committed — see `.gitignore`) with:
+**Note:** `requirements.txt` lives in `dashboard/`, not the module root.
+Streamlit Community Cloud searches the entrypoint file's own directory
+first, then falls back to the repo root — it never checks the module
+root — so keeping a single copy in `dashboard/` avoids two files silently
+drifting out of sync with only one of them actually governing deployment.
+
+Create a `.env` file in `dashboard/` (never committed — see `.gitignore`)
+or set as a Streamlit Cloud secret:
 ```
 GROQ_API_KEY=your_key_here
 ```
@@ -100,7 +109,7 @@ streamlit run dashboard/app.py
   chosen for representativeness and interview-defensibility, not
   exhaustive clinical coverage.
 - **Consequence inference from HGVS notation is a simplified proxy**
-  (`src/ingestion/clinvar_loader.py`) standing in for real VEP/SnpEql
+  (`src/ingestion/clinvar_loader.py`) standing in for real VEP/SnpEff
   annotation — documented in-code, not silently assumed accurate.
 - **No conservation score source** is wired in yet (would be phyloP/GERP
   in a real deployment); the ingestion layer requires it be supplied
@@ -115,11 +124,11 @@ streamlit run dashboard/app.py
 
 ## Test coverage
 
-97+ tests across ingestion, all five sub-models, the router, the
+129 tests across ingestion, all five sub-models, the router, the
 governance boundary, and RAG retrieval — including regression tests for
-two real bugs caught during development (a ClinVar/gnomAD variant-name
-join mismatch, and a missing in-frame-indel classification for CFTR's
-ΔF508, the most common cystic fibrosis-causing variant).
+real bugs caught during development (a ClinVar/gnomAD variant-name join
+mismatch, and a missing in-frame-indel classification for CFTR's ΔF508,
+the most common cystic fibrosis-causing variant).
 
 ```bash
 pytest tests/ -v
