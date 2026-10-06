@@ -67,7 +67,7 @@ researcher | analyst | rag_agent | FINISH
 # ─────────────────────────────────────────
 def supervisor_node(state: SupervisorState) -> SupervisorState:
     """Supervisor decides which agent handles the task."""
-        llm = ChatGroq(
+    llm = ChatGroq(
         model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,
