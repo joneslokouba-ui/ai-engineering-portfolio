@@ -12,6 +12,8 @@ from langchain_core.tools import tool
 
 load_dotenv()
 
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 
 # ─────────────────────────────────────────
 # ANALYST TOOLS
@@ -169,8 +171,8 @@ RULES:
 # ─────────────────────────────────────────
 def analyst_node(state: dict) -> dict:
     """Analyst agent — salary, skills, calculations."""
-    llm = ChatGroq(
-        model="llama-3.3-70b-versatile",
+        llm = ChatGroq(
+        model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,
         max_tokens=1024,
