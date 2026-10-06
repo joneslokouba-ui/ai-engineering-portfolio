@@ -15,6 +15,8 @@ from langgraph.graph.message import add_messages
 
 load_dotenv()
 
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 # ─────────────────────────────────────────
 # SUPERVISOR STATE
 # ─────────────────────────────────────────
@@ -65,11 +67,11 @@ researcher | analyst | rag_agent | FINISH
 # ─────────────────────────────────────────
 def supervisor_node(state: SupervisorState) -> SupervisorState:
     """Supervisor decides which agent handles the task."""
-    llm = ChatGroq(
-        model="llama-3.3-70b-versatile",
+        llm = ChatGroq(
+        model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
-        temperature=0,       # deterministic routing
-        max_tokens=10,       # only needs one word
+        temperature=0.1,
+        max_tokens=1024,
     )
 
     messages = [SystemMessage(content=SUPERVISOR_PROMPT)] + state["messages"]
