@@ -161,7 +161,7 @@ class MetricsCollector:
             "active_sessions": random.randint(5, 42),
             "cache_hit_rate_pct": round(random.uniform(18, 45), 1),
             "hallucination_rate_pct": round(random.uniform(1.5, 6.0), 2),
-            "models_in_use": ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
+            "models_in_use": ["openai/gpt-oss-120b", "openai/gpt-oss-20b"],
         }
 
     def record_request(self, model: str, latency_ms: float, tokens: int, success: bool = True):
