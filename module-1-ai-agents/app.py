@@ -98,7 +98,7 @@ st.markdown("""
 # ─── Sidebar ───────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### 🛠 Agent Config")
-    st.selectbox("Model", ["llama-3.3-70b-versatile"], index=0)
+    st.selectbox("Model", ["openai/gpt-oss-120b"], index=0)
     st.slider("Temperature", 0.0, 1.0, 0.1, 0.05)
     st.slider("Max Iterations", 3, 15, 10)
 
@@ -115,7 +115,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 📦 Stack")
     st.caption("LangChain · LangGraph · Groq · Streamlit")
-    st.caption("llama-3.3-70b-versatile")
+    st.caption("openai/gpt-oss-120b")
 
     if st.button("🗑 Clear History", use_container_width=True):
         st.session_state.messages = []
