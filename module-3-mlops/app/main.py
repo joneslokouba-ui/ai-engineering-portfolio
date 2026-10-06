@@ -70,8 +70,8 @@ with st.sidebar:
 
     experiment_name = st.text_input("Experiment Name", value="llm-agent-v3")
     model_name = st.selectbox("Model", [
-        "llama-3.3-70b-versatile",
-        "llama-3.1-8b-instant",
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
         "mixtral-8x7b-32768",
         "gemma2-9b-it"
     ])
