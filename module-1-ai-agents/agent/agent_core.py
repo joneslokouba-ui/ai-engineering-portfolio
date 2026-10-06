@@ -27,13 +27,14 @@ class AgentState(TypedDict):
     iteration: int
     final_answer: str
 
-
 # ─────────────────────────────────────────
 # 2. LLM
 # ─────────────────────────────────────────
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 def get_llm():
     return ChatGroq(
-        model="llama-3.3-70b-versatile",
+        model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,
         max_tokens=2048,
