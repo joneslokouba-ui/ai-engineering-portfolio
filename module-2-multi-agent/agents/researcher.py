@@ -12,6 +12,8 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 load_dotenv()
 
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 
 # ─────────────────────────────────────────
 # DUCKDUCKGO SEARCH with retry
@@ -84,10 +86,10 @@ Always end with 1 concrete next step.
 # ─────────────────────────────────────────
 def researcher_node(state: dict) -> dict:
     """Researcher: web search + LLM synthesis with graceful fallback."""
-    llm = ChatGroq(
-        model="llama-3.3-70b-versatile",
+        llm = ChatGroq(
+        model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
-        temperature=0.2,
+        temperature=0.1,
         max_tokens=1024,
     )
 
