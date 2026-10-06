@@ -183,10 +183,10 @@ RULES:
 # ─────────────────────────────────────────
 def rag_agent_node(state: dict) -> dict:
     """RAG agent — searches document knowledge base."""
-    llm = ChatGroq(
-        model="llama-3.3-70b-versatile",
+        llm = ChatGroq(
+        model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
-        temperature=0,
+        temperature=0.1,
         max_tokens=1024,
     )
     llm_with_tools = llm.bind_tools(RAG_TOOLS, parallel_tool_calls=False)
