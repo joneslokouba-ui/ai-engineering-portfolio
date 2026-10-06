@@ -23,7 +23,7 @@ class TestMLflowTracker:
 
     def test_log_run_returns_run_id(self):
         run_id = self.tracker.log_run(
-            params={"model": "llama-3.3-70b-versatile", "temperature": 0.7},
+            params={"model": "openai/gpt-oss-120b", "temperature": 0.7}},
             metrics={"accuracy": 0.92, "latency_ms": 1200.0},
         )
         assert run_id is not None
