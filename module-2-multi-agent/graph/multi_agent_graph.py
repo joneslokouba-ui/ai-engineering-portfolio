@@ -40,7 +40,7 @@ RULES:
 def synthesizer_node(state: SupervisorState) -> SupervisorState:
     """Composes the final answer from all agent results."""
     llm = ChatGroq(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.2,
         max_tokens=1500,
