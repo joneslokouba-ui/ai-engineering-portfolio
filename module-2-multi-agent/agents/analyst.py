@@ -171,14 +171,14 @@ RULES:
 # ─────────────────────────────────────────
 def analyst_node(state: dict) -> dict:
     """Analyst agent — salary, skills, calculations."""
-        llm = ChatGroq(
+    llm = ChatGroq(
         model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,
         max_tokens=1024,
     )
     llm_with_tools = llm.bind_tools(ANALYST_TOOLS, parallel_tool_calls=False)
-
+    
     task = state.get("task", "")
     messages = [
         SystemMessage(content=ANALYST_PROMPT),
