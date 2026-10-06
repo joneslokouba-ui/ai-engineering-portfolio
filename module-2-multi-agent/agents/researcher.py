@@ -85,8 +85,8 @@ Always end with 1 concrete next step.
 # RESEARCHER NODE
 # ─────────────────────────────────────────
 def researcher_node(state: dict) -> dict:
-    """Researcher: web search + LLM synthesis with graceful fallback."""
-        llm = ChatGroq(
+    """Researcher agent description here."""
+    llm = ChatGroq(
         model=GROQ_MODEL,
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,
