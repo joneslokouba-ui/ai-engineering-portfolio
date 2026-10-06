@@ -21,7 +21,7 @@ from groq import Groq
 
 from rag.hybrid_retriever import HybridRetriever
 
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "openai/gpt-oss-120b"
 
 SYSTEM_PROMPT = (
     "You are the Bastion Query Assistant, answering questions about critical "
