@@ -15,6 +15,8 @@ from langchain_core.tools import tool
 
 load_dotenv()
 
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 
 # ─────────────────────────────────────────
 # HYBRID RAG ENGINE
