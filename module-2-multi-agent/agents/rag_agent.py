@@ -13,6 +13,11 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
 from langchain_core.tools import tool
 
+load_dotenv()
+
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
+
 # ─────────────────────────────────────────
 # HYBRID RAG ENGINE
 # Your signature formula: α·VectorSim + (1-α)·KeywordScore
@@ -171,9 +176,7 @@ RULES:
 - If no relevant docs found, say so clearly
 - Never make up information — only use what's in the documents
 """
-load_dotenv()
 
-GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 # ─────────────────────────────────────────
 # RAG AGENT NODE
