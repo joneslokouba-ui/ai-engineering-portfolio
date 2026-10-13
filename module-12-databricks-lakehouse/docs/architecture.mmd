@@ -1,0 +1,9 @@
+flowchart LR
+    subgraph Local["Local (PyCharm)"]
+        A["src/hybrid_score.py"] --> B["tests/test_hybrid_score.py (pytest)"]
+    end
+    subgraph DBX["Databricks Free Edition (serverless)"]
+        C["Notebook 01: Spark DataFrame"] --> D["Delta table + DESCRIBE HISTORY"]
+        E["Notebook 02: MLflow run"] --> F["Experiments page"]
+    end
+    Local -. "same formula, later reused in notebook 03" .-> DBX
