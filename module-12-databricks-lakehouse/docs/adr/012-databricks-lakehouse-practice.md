@@ -16,4 +16,4 @@ the HybridRAG design.
 ## Consequences
 - Honest scope: introductory exercises on a non-commercial free workspace, not production use.
 - Scoring logic is unit-tested locally and independent of the platform.
-- Notebook 03 (hybrid RAG on Databricks) is added only after it has been built and run.
+- Notebook 03 now exists, with TF-IDF standing in for embeddings.
