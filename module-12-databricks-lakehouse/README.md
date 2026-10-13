@@ -7,7 +7,7 @@ with the lakehouse model, not a production deployment.
 - **Delta tables:** create, update, inspect history, query an earlier version (`notebooks/01_delta_basics.py`)
 - **MLflow tracking:** log parameters and metrics from a notebook (`notebooks/02_mlflow_tracking.py`)
 - **Hybrid scoring:** `alpha x VectorSim + (1 - alpha) x KeywordScore` as a tested, reusable function (`src/hybrid_score.py`)
-“Notebook 03: TF-IDF hybrid retrieval over synthetic documents, with MLflow tracking per alpha.”
+-“Notebook 03: TF-IDF hybrid retrieval over synthetic documents, with MLflow tracking per alpha.”
 
 
 ## Run the tests locally
