@@ -16,7 +16,7 @@
 CATALOG = "workspace"
 SCHEMA = "default"
 VOLUME = "raw_files"
-FILE_NAME = "pipeline-incidents-data.csv"
+FILE_NAME = "pipeline-incidents-comprehensive-data.csv"
 
 folder = f"/Volumes/{CATALOG}/{SCHEMA}/{VOLUME}"
 path = f"{folder}/{FILE_NAME}"
