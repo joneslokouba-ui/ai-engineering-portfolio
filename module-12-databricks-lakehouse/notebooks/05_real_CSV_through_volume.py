@@ -24,9 +24,10 @@ display(dbutils.fs.ls(folder))
 
 # COMMAND ----------
 
-# Cell 2: read the CSV. If accented characters look garbled, add .option("encoding", "ISO-8859-1").
+# Cell 2: read the CSV. This file needs ISO-8859-1 encoding so accented letters (for example in company names) read correctly.
 raw = (
     spark.read.option("header", True)
+    .option("encoding", "ISO-8859-1")
     .option("inferSchema", True)
     .option("multiLine", True)
     .option("escape", '"')
@@ -77,8 +78,7 @@ display(spark.createDataFrame([(c, int(n), round(100 * n / total, 1)) for c, n i
 
 # Cell 5: check text encoding (a company name in this file contains an accented letter)
 display(table.filter(F.col("company").contains("Pouce")).select("company").distinct())
-# If you see a replacement symbol instead of an accented letter, add .option("encoding", "ISO-8859-1")
-# to the read in cell 2, then re-run cells 2 to 5.
+# Expected: "Pouce Coup\u00e9 Pipe Line Ltd..." with a proper accent, not a replacement symbol.
 
 # COMMAND ----------
 
@@ -116,9 +116,32 @@ display(
 
 # COMMAND ----------
 
+# Cell 8: largest single releases, and the typical (median) release by substance
+display(
+    volumes.where(F.col("volume_m3").isNotNull())
+    .select("incident_number", "year", "substance", "volume_m3", "company")
+    .orderBy(F.desc("volume_m3"))
+    .limit(10)
+)
+display(
+    volumes.where(F.col("volume_m3").isNotNull())
+    .groupBy("substance")
+    .agg(
+        F.count("*").alias("incidents"),
+        F.expr("percentile_approx(volume_m3, 0.5)").alias("median_m3"),
+        F.max("volume_m3").alias("max_m3"),
+    )
+    .orderBy(F.desc("incidents"))
+    .limit(10)
+)
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## Notes
 # MAGIC - The file has about 100 columns, and many are empty for most rows (for example wall thickness and operating pressure),
 # MAGIC   which the null-percentage table in cell 4 shows.
+# MAGIC - Release volumes are heavily skewed: a few very large gas releases dominate the totals, while the median release is small.
+# MAGIC   Gas and liquid volumes are also not comparable, so do not rank substances by total volume.
 # MAGIC - Some columns mix numbers and text, and some hold several values in one field, so cleaning matters more than the query.
 # MAGIC - The data dictionary CSV explains each column. Keep the licence note (Open Government Licence - Canada) and the source URL in the README.
