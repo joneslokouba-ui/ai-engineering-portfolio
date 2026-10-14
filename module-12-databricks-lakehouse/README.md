@@ -8,7 +8,7 @@ with the lakehouse model, not a production deployment.
 - **MLflow tracking:** log parameters and metrics from a notebook (`notebooks/02_mlflow_tracking.py`)
 - **Hybrid scoring:** `alpha x VectorSim + (1 - alpha) x KeywordScore` as a tested, reusable function (`src/hybrid_score.py`)
 - Notebook 03: TF-IDF hybrid retrieval over synthetic documents, with MLflow tracking per alpha
-
+-Notebook 05: public Canada Energy Regulator pipeline-incidents CSV loaded through a Unity Catalog Volume, with column cleaning, quality checks, and summaries. Source and licence: Open Government Licence - Canada.” Include the source URL.
 
 ## Run the tests locally
 ```bash
