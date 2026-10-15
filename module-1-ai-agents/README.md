@@ -2,7 +2,7 @@
 
 **Author:** Geoffrey Jones Okwi | AI/ML Engineer (Stanford/Andrew Ng)  
 **Stack:** LangChain + LangGraph + Groq + Streamlit  
-**Model:** configurable via the `GROQ_MODEL` environment variable (default: `openai/gpt-oss-120b`)  
+**Model:** llama-3.3-70b-versatile  
 **Target Roles:** Applied AI Practitioner · AI Consultant · Senior AI Engineer
 
 ---
@@ -110,14 +110,3 @@ production-ai-agents/
 ---
 
 *Built as part of a 3-week intensive AI Engineering sprint.*
-
-## Tests
-Run from this folder: `python -m pytest -v`
-
-- **Tool tests:** the calculator (normal sums, unsafe input, division by zero) and the search placeholder.
-- **Agent-loop tests:** a scripted fake model drives the real LangGraph loop, so routing, tool execution, the system prompt, and the 10-iteration cap are tested with no API key.
-- **Live smoke tests:** real model calls, skipped unless `GROQ_API_KEY` is set. Model output varies, so a failure means "look", not "broken".
-
-**Known issue:** the calculator misreads thousands separators (`1,000 * 2` evaluates as a tuple). It is recorded as an expected failure in the test suite.
-
-**Scope note:** the `search_web` tool is a placeholder, not live search. Job-market figures are sample data embedded in the system prompt.
