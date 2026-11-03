@@ -1,6 +1,6 @@
 # 🤖 Production AI Agent — Module 1
 
-**Author:** Geoffrey Jones Okwi | AI/ML Engineer (Stanford/Andrew Ng)  
+**Author:** Geoffrey Jones Okwi | AI/ML Engineer   
 **Stack:** LangChain + LangGraph + Groq + Streamlit  
 **Model:** llama-3.3-70b-versatile  
 **Target Roles:** Applied AI Practitioner · AI Consultant · Senior AI Engineer
