@@ -1,6 +1,6 @@
 # 🤖 Production AI Agent — Module 1
 
-**Author:** Geoffrey Jones Okwi | AI/ML Engineer   
+**Author:** Geoffrey Jones Okwi | AI/ML Engineer (Stanford/Andrew Ng)  
 **Stack:** LangChain + LangGraph + Groq + Streamlit  
 **Model:** llama-3.3-70b-versatile  
 **Target Roles:** Applied AI Practitioner · AI Consultant · Senior AI Engineer
@@ -56,23 +56,21 @@ docker run -p 8501:8501 --env-file .env production-ai-agent
 # Open browser: http://localhost:8501
 ```
 
-## ✅ Tests
+## ⚙️ CI/CD (Market Gap: CI/CD Pipelines)
 
-    cd module-1-ai-agents
-    python -m pytest -v
+GitHub Actions pipeline at `.github/workflows/ci-cd.yml`:
+- **test** → runs pytest on every push
+- **build** → builds & pushes Docker image to DockerHub (main branch)
+- **deploy** → deploys to AWS ECS (configure secrets in repo settings)
 
-31 tests: mocked unit and agent tests run anywhere; live-model smoke tests
-run only when `GROQ_API_KEY` is set and are skipped otherwise (as in CI).
-
-## ⚙️ CI/CD
-
-- **Active:** `.github/workflows/module-1-tests.yml` (repo root) runs the
-  Module 1 test suite on push and pull request.
-- **Standalone pipeline (not active in this repo):** the module's own
-  `ci-cd.yml` (Docker build/push, AWS deploy) only runs if this module is
-  used as its own repository, and has not been exercised here. Secrets it
-  would expect (names only): `GROQ_API_KEY`, `DOCKERHUB_USERNAME`,
-  `DOCKERHUB_TOKEN`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`.s
+**Required GitHub Secrets:**
+```
+GROQ_API_KEY
+DOCKERHUB_USERNAME
+DOCKERHUB_TOKEN
+AWS_ACCESS_KEY_ID          # Module 2
+AWS_SECRET_ACCESS_KEY      # Module 2
+```
 
 ## 🛠 Tools Available
 

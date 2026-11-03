@@ -1,16 +1,20 @@
 """
 Module 1: Agent Tests
 Author: Geoffrey Jones Okwi
+
+Note: job-market data now lives in the agent's system prompt (see the "FIX v2" note in agent_core.py),
+so the old get_job_market_data tool tests were replaced by a system-prompt check below.
+More detailed tests (calculator edge cases, agent loop with a scripted model) are in test_agent_core.py.
 """
 
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
-from agent.agent_core import calculate, get_job_market_data, search_web
+from agent.agent_core import calculate, search_web, SYSTEM_PROMPT
 
 
-# ─── Tool Unit Tests ───────────────────────────────────────
+# --- Tool Unit Tests ---------------------------------------------------------
 class TestCalculatorTool:
     def test_basic_addition(self):
         result = calculate.invoke({"expression": "2 + 2"})
@@ -25,14 +29,10 @@ class TestCalculatorTool:
         assert "Error" in result
 
 
-class TestJobMarketTool:
-    def test_ai_engineer_role(self):
-        result = get_job_market_data.invoke({"role": "AI Engineer"})
-        assert "LangChain" in result or "demand" in result.lower()
-
-    def test_unknown_role_graceful(self):
-        result = get_job_market_data.invoke({"role": "Underwater Basket Weaver"})
-        assert "No specific data" in result or "demand" in result.lower()
+class TestJobMarketData:
+    def test_job_market_data_is_in_the_system_prompt(self):
+        assert "AI Engineer" in SYSTEM_PROMPT
+        assert "LangChain" in SYSTEM_PROMPT
 
 
 class TestSearchTool:
@@ -42,7 +42,7 @@ class TestSearchTool:
         assert len(result) > 0
 
 
-# ─── Integration Test (requires GROQ_API_KEY) ──────────────
+# --- Integration Test (requires GROQ_API_KEY) --------------------------------
 @pytest.mark.skipif(
     not os.getenv("GROQ_API_KEY"),
     reason="Requires GROQ_API_KEY"

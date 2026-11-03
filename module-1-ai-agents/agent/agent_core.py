@@ -1,7 +1,7 @@
 """
 Module 1: Production AI Agent Core
 Author: Geoffrey Jones Okwi | AI/ML Engineer
-Stack: LangChain + LangGraph + Groq (llama-3.3-70b-versatile)
+Stack: LangChain + LangGraph + Groq (openai/gpt-oss-120b)
 FIX v2: Groq llama tool_use_failed — removed problematic tool,
          embedded knowledge in system prompt instead.
 """
