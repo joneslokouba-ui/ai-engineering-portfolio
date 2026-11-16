@@ -3,6 +3,38 @@
 A learning module built on **Databricks Free Edition**. It documents introductory work
 with the lakehouse model, not a production deployment.
 
+## Module 12: Databricks (Free Edition), introductory
+
+Hands-on introduction to Databricks Free Edition, built as five notebooks
+(`01`–`05`) covering [fill in from notebooks 01–04].
+
+**Notebook 05: real CSV through a Volume.** Downloaded the public CER
+Pipeline Incidents CSV, uploaded it to a Unity Catalog Volume, read it with
+Spark, cleaned the column names and saved it as a Delta table
+(`workspace.default.cer_pipeline_incidents`) with basic quality checks.
+
+**Dataset:** Canada Energy Regulator, Pipeline Incidents, published under the
+Open Government Licence – Canada
+(https://www.cer-rec.gc.ca/open/incident/pipeline-incidents-data.csv).
+2,034 incidents, 2008–2026 (2026 is a partial year).
+
+**Data checks before analysis**
+- No duplicate incident numbers; `year` agrees with `reported_date`.
+- Release volume is stored as text. Only 594 incidents have a numeric volume
+  ("Not Applicable" or "Not Provided" for the rest), so volume statistics
+  use `TRY_CAST` and cover that subset only.
+- Medians are reported per substance, only where 5+ incidents report a
+  volume (561 incidents). Volumes aren't comparable across substances.
+
+**Dashboard:** counter, stacked incidents per year by province with a
+province filter, and a median-release table, built in a Databricks
+dashboard. Started from the auto-generated dashboard, then curated.
+
+**Scope and limits:** a learning project on a small public dataset in a free
+workspace. It is not a production pipeline.
+
+![Incidents per year by province](screenshots/dashboard-incidents.png)
+
 ## What is covered
 - **Delta tables:** create, update, inspect history, query an earlier version (`notebooks/01_delta_basics.py`)
 - **MLflow tracking:** log parameters and metrics from a notebook (`notebooks/02_mlflow_tracking.py`)
