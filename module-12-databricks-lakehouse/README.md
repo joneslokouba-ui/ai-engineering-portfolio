@@ -53,3 +53,21 @@ Import the `.py` files from `notebooks/` into a Databricks Free Edition workspac
 ## Documentation
 - Decision record: `docs/adr/012-databricks-lakehouse-practice.md`
 - Data flow diagram (Mermaid): `docs/architecture.mmd`
+
+## Streamlit app
+
+`app.py` is a portable view of the same analysis as the Databricks dashboard, so it can be opened without a Databricks login.
+
+- **Data:** Canada Energy Regulator, Pipeline Incidents (CSV), published under the Open Government Licence - Canada. The app reads a downloaded snapshot stored at `data/pipeline-incidents-data.csv` (snapshot date: YYYY-MM-DD).
+- **Views:** total incidents, incidents per year by province (with a province filter), and median release volume by substance for substances with 5+ incidents.
+- **Data note:** the release volume column is text in the source and only some incidents have a numeric value, so medians use those incidents only.
+- **Relationship to Databricks:** the Databricks dashboard runs live in the workspace on `workspace.default.cer_pipeline_incidents`; the Streamlit app reads the same public file as a static snapshot.
+
+**Run locally**
+
+```
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Live app: <add Streamlit Cloud URL after deployment>
