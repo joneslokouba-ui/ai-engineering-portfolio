@@ -97,7 +97,7 @@ by_substance = (
         incidents_with_volume=("volume_m3", "count"),
         median_release_m3=("volume_m3", "median"),
     )
-    .query("incidents >= @MIN_INCIDENTS")
+    .query("incidents >= @MIN_INCIDENTS and incidents_with_volume > 0")
     .sort_values("median_release_m3", ascending=False)
     .reset_index()
 )
