@@ -10,8 +10,8 @@
 # MAGIC spaces or characters such as `(` and `)` in column names. Two metadata columns are added:
 # MAGIC `_source_file` and `_ingested_at`.
 # MAGIC
-# MAGIC **Before running:** upload `pipeline-incidents-data.csv` to the volume
-# MAGIC `/Volumes/workspace/default/raw/`.
+# MAGIC **Before running:** upload `pipeline-incidents-comprehensive-data.csv` to the volume
+# MAGIC `/Volumes/workspace/default/raw_files/`.
 # MAGIC
 # MAGIC Source: Canada Energy Regulator, Pipeline Incidents (Open Government Licence - Canada).
 
@@ -19,8 +19,8 @@
 
 CATALOG = "workspace"
 SCHEMA = "default"
-VOLUME = "raw"
-FILE_NAME = "pipeline-incidents-data.csv"
+VOLUME = "raw_files"
+FILE_NAME = "pipeline-incidents-comprehensive-data.csv"
 
 SOURCE_PATH = f"/Volumes/{CATALOG}/{SCHEMA}/{VOLUME}/{FILE_NAME}"
 BRONZE_TABLE = f"{CATALOG}.{SCHEMA}.cer_bronze"
