@@ -72,9 +72,7 @@ with st.sidebar:
     model_name = st.selectbox("Model", [
         "openai/gpt-oss-120b",
         "openai/gpt-oss-20b",
-        "mixtral-8x7b-32768",
-        "gemma2-9b-it"
-    ])
+     ])
     num_runs = st.slider("Training Runs", 1, 10, 3)
     enable_monitoring = st.toggle("Enable Prometheus Monitoring", value=True)
     enable_aws = st.toggle("Simulate AWS ECS Deploy", value=True)

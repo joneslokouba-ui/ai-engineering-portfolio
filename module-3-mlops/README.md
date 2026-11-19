@@ -22,7 +22,7 @@ Developer → GitHub → CodePipeline → CodeBuild → ECR → ECS Fargate
 | Component | Technology |
 |-----------|-----------|
 | App Framework | Streamlit |
-| LLM | Groq — llama-3.3-70b-versatile |
+| LLM | Groq — openai/gpt-oss-120b |
 | Experiment Tracking | MLflow 2.19 |
 | Monitoring | Prometheus + Grafana |
 | Containerization | Docker |
