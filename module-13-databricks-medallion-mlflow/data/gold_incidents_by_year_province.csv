@@ -1,0 +1,145 @@
+year,province,is_canadian_province,incidents
+2008,Alberta,True,6
+2008,British Columbia,True,16
+2008,Manitoba,True,11
+2008,New Brunswick,True,2
+2008,Nova Scotia,True,1
+2008,Ontario,True,8
+2008,Saskatchewan,True,11
+2009,Alberta,True,26
+2009,British Columbia,True,20
+2009,Manitoba,True,8
+2009,New Brunswick,True,4
+2009,Ontario,True,17
+2009,Quebec,True,3
+2009,Saskatchewan,True,7
+2010,Alberta,True,54
+2010,British Columbia,True,14
+2010,Manitoba,True,2
+2010,New Brunswick,True,6
+2010,Nova Scotia,True,1
+2010,Ontario,True,20
+2010,Quebec,True,2
+2010,Saskatchewan,True,15
+2011,Alberta,True,31
+2011,British Columbia,True,10
+2011,Manitoba,True,4
+2011,New Brunswick,True,14
+2011,Northwest Territories,True,4
+2011,Nova Scotia,True,5
+2011,Ontario,True,24
+2011,Quebec,True,1
+2011,Saskatchewan,True,10
+2012,Alberta,True,70
+2012,British Columbia,True,16
+2012,Manitoba,True,8
+2012,New Brunswick,True,20
+2012,Nova Scotia,True,2
+2012,Ontario,True,24
+2012,Quebec,True,1
+2012,Saskatchewan,True,18
+2013,Alberta,True,38
+2013,British Columbia,True,15
+2013,Manitoba,True,6
+2013,New Brunswick,True,16
+2013,Northwest Territories,True,1
+2013,Nova Scotia,True,4
+2013,Ontario,True,9
+2013,Quebec,True,3
+2013,Saskatchewan,True,35
+2014,Alberta,True,33
+2014,British Columbia,True,22
+2014,Manitoba,True,2
+2014,New Brunswick,True,8
+2014,Northwest Territories,True,2
+2014,Nova Scotia,True,2
+2014,Ontario,True,11
+2014,Quebec,True,2
+2014,Saskatchewan,True,6
+2015,Alberta,True,41
+2015,British Columbia,True,36
+2015,Manitoba,True,9
+2015,New Brunswick,True,4
+2015,Nova Scotia,True,3
+2015,Ontario,True,13
+2015,Saskatchewan,True,12
+2016,Alberta,True,40
+2016,British Columbia,True,33
+2016,Manitoba,True,3
+2016,New Brunswick,True,7
+2016,Nova Scotia,True,5
+2016,Ontario,True,25
+2016,Quebec,True,1
+2016,Saskatchewan,True,8
+2017,Alberta,True,53
+2017,British Columbia,True,56
+2017,Manitoba,True,3
+2017,New Brunswick,True,4
+2017,Ontario,True,25
+2017,Quebec,True,16
+2017,Saskatchewan,True,16
+2018,Alberta,True,33
+2018,British Columbia,True,51
+2018,Manitoba,True,11
+2018,New Brunswick,True,2
+2018,Nova Scotia,True,1
+2018,Ontario,True,19
+2018,Quebec,True,2
+2018,Saskatchewan,True,8
+2019,Alberta,True,33
+2019,British Columbia,True,21
+2019,Manitoba,True,3
+2019,New Brunswick,True,3
+2019,Ontario,True,5
+2019,Quebec,True,1
+2019,Saskatchewan,True,2
+2020,Alberta,True,40
+2020,British Columbia,True,23
+2020,Manitoba,True,2
+2020,New Brunswick,True,1
+2020,Nova Scotia,True,1
+2020,Ontario,True,14
+2020,Quebec,True,4
+2020,Saskatchewan,True,6
+2021,Alberta,True,44
+2021,British Columbia,True,62
+2021,Manitoba,True,2
+2021,New Brunswick,True,8
+2021,Ontario,True,7
+2021,Quebec,True,13
+2021,Saskatchewan,True,5
+2022,Alberta,True,52
+2022,British Columbia,True,67
+2022,Manitoba,True,4
+2022,New Brunswick,True,4
+2022,Northwest Territories,True,1
+2022,Ontario,True,11
+2022,Quebec,True,4
+2022,Saskatchewan,True,5
+2023,Alberta,True,49
+2023,British Columbia,True,69
+2023,Manitoba,True,2
+2023,Northwest Territories,True,1
+2023,Ontario,True,6
+2023,Quebec,True,2
+2023,Saskatchewan,True,4
+2024,Alberta,True,27
+2024,British Columbia,True,16
+2024,New Brunswick,True,2
+2024,Northwest Territories,True,1
+2024,Ontario,True,11
+2024,Quebec,True,1
+2024,Saskatchewan,True,4
+2025,Alberta,True,27
+2025,British Columbia,True,19
+2025,Manitoba,True,3
+2025,Ontario,True,12
+2025,Quebec,True,5
+2025,Saskatchewan,True,2
+2026,Alberta,True,16
+2026,British Columbia,True,14
+2026,Maine,False,1
+2026,Manitoba,True,2
+2026,Ontario,True,3
+2026,Quebec,True,10
+2026,Saskatchewan,True,6

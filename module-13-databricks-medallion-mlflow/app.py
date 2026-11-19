@@ -103,13 +103,20 @@ with tab_overview:
     top_types = (
         types_in_years.groupby("incident_types")["incidents"].sum().nlargest(6).index.tolist()
     )
-    types_chart = (
-        types_in_years[types_in_years["incident_types"].isin(top_types)]
-        .pivot_table(index="year", columns="incident_types", values="incidents",
-                     aggfunc="sum", fill_value=0)
+    grouped_types = types_in_years.assign(
+        incident_types=types_in_years["incident_types"].where(
+            types_in_years["incident_types"].isin(top_types), "Other combinations"
+        )
+    )
+    types_chart = grouped_types.pivot_table(
+        index="year", columns="incident_types", values="incidents",
+        aggfunc="sum", fill_value=0,
     )
     st.bar_chart(types_chart)
-    st.caption("Showing the six most common incident type combinations in the selected years.")
+    st.caption(
+        "The six most common incident type combinations are shown; all others are grouped "
+        "as 'Other combinations' so each bar matches that year's incident count."
+    )
 
 # ---------- Releases ----------
 with tab_release:

@@ -235,3 +235,4 @@ if EXPORT_CSV:
 print("Gold tables built:")
 for name in GOLD_NAMES:
     print(f"  {CATALOG}.{SCHEMA}.gold_{name}")
+

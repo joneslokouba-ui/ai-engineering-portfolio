@@ -1,0 +1,159 @@
+dimension,category,incidents
+What happened,External Interference,347
+What happened,Equipment Failure,307
+What happened,"External Interference, Incorrect Operation",263
+What happened,Incorrect Operation,241
+What happened,Corrosion and Cracking,173
+What happened,Natural Force Damage,157
+What happened,Defect and Deterioration,147
+What happened,"External Interference, Natural Force Damage",76
+What happened,Other Causes,66
+What happened,"Equipment Failure, External Interference",48
+What happened,To be determined,33
+What happened,"Equipment Failure, Incorrect Operation",30
+What happened,"Equipment Failure, External Interference, Incorrect Operation",24
+What happened,"Corrosion and Cracking, Incorrect Operation",14
+What happened,"Defect and Deterioration, Equipment Failure",11
+What happened,"Corrosion and Cracking, Defect and Deterioration",11
+What happened,"Defect and Deterioration, External Interference",9
+What happened,"Corrosion and Cracking, External Interference",9
+What happened,"External Interference, Other Causes",8
+What happened,"Incorrect Operation, Other Causes",7
+What happened,"Incorrect Operation, Natural Force Damage",7
+What happened,"Defect and Deterioration, External Interference, Incorrect Operation",5
+What happened,"Corrosion and Cracking, Equipment Failure",5
+What happened,"Defect and Deterioration, Incorrect Operation",4
+What happened,"External Interference, Incorrect Operation, Natural Force Damage",4
+What happened,"Corrosion and Cracking, Natural Force Damage",4
+What happened,"Defect and Deterioration, Equipment Failure, Incorrect Operation",3
+What happened,"External Interference, Incorrect Operation, Other Causes",3
+What happened,"Equipment Failure, External Interference, Natural Force Damage",2
+What happened,"Corrosion and Cracking, Defect and Deterioration, Incorrect Operation",2
+What happened,"Defect and Deterioration, Equipment Failure, External Interference",2
+What happened,"Corrosion and Cracking, Equipment Failure, External Interference",2
+What happened,"Corrosion and Cracking, External Interference, Incorrect Operation",2
+What happened,"Defect and Deterioration, Incorrect Operation, Natural Force Damage",1
+What happened,"Defect and Deterioration, Natural Force Damage",1
+What happened,"Equipment Failure, Other Causes",1
+What happened,"Defect and Deterioration, External Interference, Incorrect Operation, Natural Force Damage",1
+What happened,"Defect and Deterioration, Equipment Failure, External Interference, Incorrect Operation",1
+What happened,"Corrosion and Cracking, External Interference, Incorrect Operation, Natural Force Damage",1
+What happened,"Equipment Failure, Incorrect Operation, Natural Force Damage",1
+What happened,"Equipment Failure, Natural Force Damage, Other Causes",1
+Why it happened,Maintenance,504
+Why it happened,Natural or Environmental Forces,319
+Why it happened,Engineering and Planning,289
+Why it happened,Human Factors,136
+Why it happened,Standards and Procedures,96
+Why it happened,Tools and Equipment,79
+Why it happened,"Engineering and Planning, Maintenance",63
+Why it happened,To be determined,48
+Why it happened,"Maintenance, Standards and Procedures",38
+Why it happened,Inadequate Supervision,28
+Why it happened,"Human Factors, Inadequate Supervision",22
+Why it happened,"Maintenance, Tools and Equipment",20
+Why it happened,Failure in communication,19
+Why it happened,"Human Factors, Maintenance",19
+Why it happened,"Human Factors, Tools and Equipment",19
+Why it happened,"Engineering and Planning, Human Factors",14
+Why it happened,"Maintenance, Natural or Environmental Forces",14
+Why it happened,"Engineering and Planning, Tools and Equipment",14
+Why it happened,"Failure in communication, Human Factors",13
+Why it happened,"Human Factors, Standards and Procedures",12
+Why it happened,"Engineering and Planning, Standards and Procedures",12
+Why it happened,"Inadequate Supervision, Maintenance",11
+Why it happened,"Engineering and Planning, Natural or Environmental Forces",11
+Why it happened,"Inadequate Supervision, Standards and Procedures",10
+Why it happened,"Failure in communication, Human Factors, Inadequate Supervision",10
+Why it happened,"Human Factors, Inadequate Supervision, Standards and Procedures",9
+Why it happened,"Natural or Environmental Forces, Tools and Equipment",8
+Why it happened,"Engineering and Planning, Failure in communication",8
+Why it happened,"Failure in communication, Standards and Procedures",7
+Why it happened,"Engineering and Planning, Maintenance, Natural or Environmental Forces",6
+Why it happened,"Standards and Procedures, Tools and Equipment",6
+Why it happened,"Human Factors, Natural or Environmental Forces",6
+Why it happened,"Failure in communication, Human Factors, Inadequate Supervision, Standards and Procedures",6
+Why it happened,"Engineering and Planning, Inadequate Supervision",5
+Why it happened,"Human Factors, Inadequate Supervision, Tools and Equipment",5
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors",5
+Why it happened,"Engineering and Planning, Maintenance, Tools and Equipment",4
+Why it happened,"Failure in communication, Inadequate Supervision",4
+Why it happened,"Inadequate Procurement, Maintenance",4
+Why it happened,"Failure in communication, Tools and Equipment",4
+Why it happened,"Human Factors, Inadequate Supervision, Maintenance",4
+Why it happened,"Failure in communication, Human Factors, Tools and Equipment",4
+Why it happened,Inadequate Procurement,4
+Why it happened,"Human Factors, Maintenance, Standards and Procedures",3
+Why it happened,"Engineering and Planning, Human Factors, Maintenance, Standards and Procedures",3
+Why it happened,"Maintenance, Standards and Procedures, Tools and Equipment",3
+Why it happened,"Engineering and Planning, Human Factors, Standards and Procedures",3
+Why it happened,"Failure in communication, Maintenance",3
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Supervision",3
+Why it happened,"Engineering and Planning, Inadequate Procurement",3
+Why it happened,"Human Factors, Inadequate Procurement",3
+Why it happened,"Human Factors, Maintenance, Standards and Procedures, Tools and Equipment",3
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Supervision, Tools and Equipment",3
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Supervision, Standards and Procedures",3
+Why it happened,"Inadequate Supervision, Tools and Equipment",3
+Why it happened,"Engineering and Planning, Maintenance, Standards and Procedures",3
+Why it happened,"Engineering and Planning, Failure in communication, Standards and Procedures",3
+Why it happened,"Human Factors, Maintenance, Tools and Equipment",2
+Why it happened,"Inadequate Procurement, Natural or Environmental Forces",2
+Why it happened,"Inadequate Supervision, Maintenance, Tools and Equipment",2
+Why it happened,"Engineering and Planning, Failure in communication, Inadequate Supervision",2
+Why it happened,"Human Factors, Standards and Procedures, Tools and Equipment",2
+Why it happened,"Failure in communication, Human Factors, Standards and Procedures",2
+Why it happened,"Maintenance, Natural or Environmental Forces, Tools and Equipment",2
+Why it happened,"Human Factors, Inadequate Supervision, Standards and Procedures, Tools and Equipment",2
+Why it happened,"Failure in communication, Maintenance, Tools and Equipment",2
+Why it happened,"Engineering and Planning, Inadequate Supervision, Maintenance, Tools and Equipment",2
+Why it happened,"Natural or Environmental Forces, Standards and Procedures",2
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Supervision, Standards and Procedures",2
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Tools and Equipment",2
+Why it happened,"Human Factors, Inadequate Procurement, Inadequate Supervision, Maintenance",1
+Why it happened,"Engineering and Planning, Human Factors, Natural or Environmental Forces",1
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Procurement, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Inadequate Procurement, Inadequate Supervision, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Failure in communication, Human Factors, Maintenance, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Inadequate Supervision, Maintenance, Standards and Procedures",1
+Why it happened,"Failure in communication, Human Factors, Inadequate Procurement, Inadequate Supervision, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Inadequate Supervision, Maintenance, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Maintenance, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Failure in communication, Human Factors, Inadequate Supervision, Maintenance",1
+Why it happened,"Engineering and Planning, Natural or Environmental Forces, Standards and Procedures",1
+Why it happened,"Human Factors, Inadequate Supervision, Maintenance, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Supervision",1
+Why it happened,"Failure in communication, Human Factors, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Human Factors, Inadequate Procurement, Inadequate Supervision, Tools and Equipment",1
+Why it happened,"Maintenance, Natural or Environmental Forces, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Supervision, Maintenance, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Procurement",1
+Why it happened,"Failure in communication, Human Factors, Maintenance",1
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Supervision, Natural or Environmental Forces",1
+Why it happened,"Failure in communication, Maintenance, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Human Factors, Inadequate Procurement, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Failure in communication, Inadequate Procurement",1
+Why it happened,"Engineering and Planning, Human Factors, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Failure in communication, Maintenance",1
+Why it happened,"Engineering and Planning, Inadequate Supervision, Tools and Equipment",1
+Why it happened,"Inadequate Supervision, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Failure in communication, Maintenance, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Natural or Environmental Forces, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Failure in communication, Maintenance, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Procurement, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Standards and Procedures",1
+Why it happened,"Failure in communication, Human Factors, Inadequate Supervision, Natural or Environmental Forces, Standards and Procedures",1
+Why it happened,"Human Factors, Natural or Environmental Forces, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Inadequate Supervision, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Supervision, Tools and Equipment",1
+Why it happened,"Human Factors, Inadequate Supervision, Maintenance, Tools and Equipment",1
+Why it happened,"Failure in communication, Human Factors, Natural or Environmental Forces",1
+Why it happened,"Inadequate Supervision, Maintenance, Natural or Environmental Forces, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Failure in communication, Human Factors, Inadequate Supervision, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Human Factors, Maintenance, Natural or Environmental Forces, Standards and Procedures",1
+Why it happened,"Engineering and Planning, Inadequate Procurement, Maintenance",1
+Why it happened,"Inadequate Procurement, Inadequate Supervision, Standards and Procedures",1
+Why it happened,"Human Factors, Inadequate Procurement, Standards and Procedures, Tools and Equipment",1
+Why it happened,"Engineering and Planning, Human Factors, Inadequate Supervision, Maintenance, Standards and Procedures, Tools and Equipment",1

@@ -1,0 +1,32 @@
+release_substance,incidents,incidents_with_volume,median_volume_m3,total_volume_m3,max_volume_m3
+Natural Gas - Sweet,559,344,199.0,70247930.1166,16500000.0
+Crude Oil - Sweet,53,53,7.0,9547.84,7643.0
+Natural Gas - Sour,50,36,59.85,222707.2622,155958.38
+Natural Gas Liquids,23,18,0.00075,18.708900000000003,18.669
+Propane,21,19,0.94,66.66080000000001,37.0
+Water,15,15,70.0,1667.27,680.0
+Sulphur,12,11,1.0,138.567,63.0
+Lube Oil,11,11,1.9,27.645099999999996,11.0
+Mixed HVP Hydrocarbons,11,5,1.82,38.375,30.0
+Crude Oil - Synthetic,11,11,20.0,475.8,175.0
+Drilling Fluid,8,8,0.6499999999999999,84.79999999999998,74.0
+Contaminated Water,8,7,10.23,817.13,725.0
+Hydrogen Sulphide,7,6,0.44499999999999995,771.8102999999999,770.0
+Condensate,7,6,9.55,1038.1,988.0
+Fuel Gas,6,4,56.0,1513.0,1400.0
+Sulphur Dioxide,6,4,1876.5,12754.0,9000.0
+Pulp slurry,6,6,115.0,947.3199999999999,463.0
+Diesel Fuel,5,5,4.2,31.4,17.9
+Amine,4,4,8.25,2019.0,2000.0
+Gasoline,4,4,27.55,148.1,90.0
+Butane,3,3,11.0,273.1,262.0
+Crude Oil - Sour,3,3,7.44,34.94,25.0
+Glycol,2,2,3.9565,7.913,5.913
+Produced Water,2,2,164.5,329.0,309.0
+Waste Oil,2,2,6.5,13.0,11.0
+Carbon Dioxide,2,2,0.01,0.02,0.01
+Odourant,1,1,0.0001,0.0001,0.0001
+Potassium Carbonate,1,1,3.527,3.527,3.527
+Hydraulic Fluid,1,1,0.035,0.035,0.035
+Potassium Hydroxide (caustic solution),1,0,,,
+Jet Fuel,1,0,,,

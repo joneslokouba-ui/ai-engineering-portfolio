@@ -1,0 +1,137 @@
+year,incident_types,incidents
+2008,Release of Substance,35
+2008,Fire,9
+2008,Serious Injury (as defined in the OPR),3
+2008,Adverse Environmental Effects,3
+2008,"Release of Substance, Adverse Environmental Effects",2
+2008,Fatality,2
+2008,"Fire, Release of Substance",1
+2009,Release of Substance,56
+2009,Fire,12
+2009,Operation Beyond Design Limits,6
+2009,Serious Injury (as defined in the OPR),4
+2009,"Fire, Release of Substance",4
+2009,"Serious Injury (as defined in the OPR), Release of Substance",1
+2009,Explosion,1
+2009,"Explosion, Fire, Release of Substance",1
+2010,Release of Substance,70
+2010,Operation Beyond Design Limits,24
+2010,Fire,11
+2010,Serious Injury (as defined in the OPR),3
+2010,Adverse Environmental Effects,2
+2010,"Release of Substance, Adverse Environmental Effects",2
+2010,"Fire, Release of Substance",1
+2010,"Explosion, Fire",1
+2011,Release of Substance,70
+2011,Fire,21
+2011,Operation Beyond Design Limits,5
+2011,Fatality,3
+2011,Serious Injury (as defined in the OPR),2
+2011,"Fire, Release of Substance",1
+2011,"Release of Substance, Operation Beyond Design Limits",1
+2012,Release of Substance,73
+2012,Operation Beyond Design Limits,37
+2012,Fire,29
+2012,Serious Injury (as defined in the OPR),8
+2012,Explosion,6
+2012,"Fire, Release of Substance",3
+2012,"Explosion, Fire",1
+2012,"Serious Injury (as defined in the OPR), Fire, Release of Substance",1
+2012,"Release of Substance, Adverse Environmental Effects",1
+2013,Release of Substance,67
+2013,Operation Beyond Design Limits,42
+2013,Fire,14
+2013,"Fire, Release of Substance",2
+2013,Serious Injury (as defined in the OPR),1
+2013,"Serious Injury (as defined in the OPR), Fire, Release of Substance",1
+2014,Release of Substance,62
+2014,Fire,14
+2014,Operation Beyond Design Limits,5
+2014,Serious Injury (as defined in the OPR),2
+2014,"Release of Substance, Adverse Environmental Effects",2
+2014,Adverse Environmental Effects,1
+2014,"Fire, Release of Substance",1
+2014,Fatality,1
+2015,Release of Substance,71
+2015,Fire,22
+2015,Operation Beyond Design Limits,13
+2015,Adverse Environmental Effects,7
+2015,Explosion,2
+2015,Serious Injury (as defined in the OPR),2
+2015,"Explosion, Fire",1
+2016,Release of Substance,56
+2016,Operation Beyond Design Limits,34
+2016,Fire,26
+2016,Serious Injury (as defined in the OPR),2
+2016,Explosion,2
+2016,"Serious Injury (as defined in the OPR), Fire",1
+2016,Adverse Environmental Effects,1
+2017,Release of Substance,74
+2017,Operation Beyond Design Limits,57
+2017,Fire,33
+2017,Serious Injury (as defined in the OPR),7
+2017,Explosion,2
+2018,Operation Beyond Design Limits,56
+2018,Release of Substance,33
+2018,Fire,23
+2018,Serious Injury (as defined in the OPR),12
+2018,"Release of Substance, Adverse Environmental Effects",1
+2018,Adverse Environmental Effects,1
+2018,"Explosion, Fire, Release of Substance",1
+2019,Fire,23
+2019,Release of Substance,19
+2019,Operation Beyond Design Limits,17
+2019,Serious Injury (as defined in the OPR),5
+2019,Explosion,2
+2019,"Release of Substance, Adverse Environmental Effects",1
+2019,Adverse Environmental Effects,1
+2020,Operation Beyond Design Limits,32
+2020,Fire,26
+2020,Release of Substance,17
+2020,Serious Injury (as defined in the OPR),11
+2020,Explosion,3
+2020,Fatality,1
+2020,"Explosion, Fire",1
+2021,Operation Beyond Design Limits,53
+2021,Fire,40
+2021,Release of Substance,24
+2021,Serious Injury (as defined in the OPR),13
+2021,Adverse Environmental Effects,10
+2021,Explosion,1
+2022,Fire,55
+2022,Operation Beyond Design Limits,25
+2022,Release of Substance,25
+2022,Serious Injury (as defined in the OPR),25
+2022,Adverse Environmental Effects,16
+2022,"Fire, Release of Substance",1
+2022,Explosion,1
+2023,Fire,52
+2023,Adverse Environmental Effects,26
+2023,Operation Beyond Design Limits,22
+2023,Release of Substance,16
+2023,Serious Injury (as defined in the OPR),13
+2023,"Release of Substance, Adverse Environmental Effects",2
+2023,Explosion,1
+2023,"Release of Substance, Operation Beyond Design Limits",1
+2024,Operation Beyond Design Limits,25
+2024,Release of Substance,13
+2024,Fire,12
+2024,Serious Injury (as defined in the OPR),4
+2024,Adverse Environmental Effects,4
+2024,"Explosion, Fire, Release of Substance",1
+2024,"Serious Injury (as defined in the OPR), Explosion",1
+2024,"Release of Substance, Adverse Environmental Effects",1
+2024,"Explosion, Fire",1
+2025,Release of Substance,20
+2025,Operation Beyond Design Limits,18
+2025,Fire,17
+2025,Serious Injury (as defined in the OPR),6
+2025,Explosion,2
+2025,"Release of Substance, Adverse Environmental Effects",2
+2025,Adverse Environmental Effects,2
+2025,"Explosion, Fire",1
+2026,Operation Beyond Design Limits,28
+2026,Release of Substance,9
+2026,Fire,7
+2026,Adverse Environmental Effects,6
+2026,Serious Injury (as defined in the OPR),2
