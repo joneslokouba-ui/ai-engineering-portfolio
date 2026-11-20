@@ -81,7 +81,7 @@ with st.sidebar:
     st.markdown("### 📦 Portfolio")
     st.success("✅ Module 1 — LIVE")
     st.success("✅ Module 2 — LIVE")
-    st.warning("🔨 Module 3 — Building")
+    st.warning("🔨 Module 3 — DEMO")
 
     st.markdown("---")
     st.markdown("**Target:** `AI Engineer`")
@@ -424,7 +424,7 @@ with tab5:
     modules = pd.DataFrame([
         {"Module": "1 — Single ReAct Agent", "Status": "✅ LIVE", "Tech": "LangGraph · Groq · Streamlit", "Complexity": 85},
         {"Module": "2 — Multi-Agent System", "Status": "✅ LIVE", "Tech": "Supervisor · RAG · FAISS · DuckDuckGo", "Complexity": 92},
-        {"Module": "3 — MLOps Pipeline", "Status": "🔨 Building", "Tech": "MLflow · Prometheus · Docker · AWS ECS", "Complexity": 97},
+        {"Module": "3 — MLOps Pipeline", "Status": "🔨 Demo", "Tech": "MLflow · Prometheus · Docker · AWS ECS", "Complexity": 97},
     ])
     st.dataframe(modules, use_container_width=True, hide_index=True)
 
@@ -444,10 +444,10 @@ with tab5:
         - **LangGraph** — Multi-agent orchestration
         - **Groq** — Ultra-fast LLM inference
         - **MLflow** — Experiment tracking & model registry
-        - **Prometheus** — Production monitoring
+        - **Prometheus** — Metrics and monitoring setup
         - **Docker** — Containerization
-        - **AWS ECS/ECR** — Cloud deployment
-        - **GitHub Actions** — CI/CD automation
+        - **AWS ECS/ECR** — Deployment workflow (simulated)
+        - **GitHub Actions** — CI/CD workflow design
         - **FAISS + HuggingFace** — Vector search / RAG
         """)
     with col2:
@@ -459,7 +459,7 @@ with tab5:
         - Staff AI Engineer 
 
         ### 📚 Training
-        - Stanford / Andrew Ng curriculum
+        - Self-directed study: Stanford / Andrew Ng AI, ML and deep learning course materials
         - Commander Smart Eagle program
-        - 3-module production portfolio
+        - 3-module AI engineering portfolio
         """)
