@@ -84,7 +84,7 @@ with st.sidebar:
     st.warning("🔨 Module 3 — Building")
 
     st.markdown("---")
-    st.markdown("**Target:** `$150K+ AI Engineer`")
+    st.markdown("**Target:** `AI Engineer`")
     st.markdown("**Stack:** LangGraph · Groq · Docker · AWS")
 
 # ── Initialize components ─────────────────────────────────────────────────────
@@ -92,6 +92,12 @@ tracker = MLflowTracker(experiment_name=experiment_name)
 metrics_collector = MetricsCollector()
 
 # ── Main tabs ─────────────────────────────────────────────────────────────────
+st.info(
+    "Demo data: the run metrics and the ECS deployment shown here are simulated to "
+    "demonstrate MLflow tracking, Prometheus monitoring and a deployment workflow. "
+    "They are not measurements of the model and no AWS resources are created."
+)
+
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "🧪 MLflow Tracking",
     "📊 Monitoring",
@@ -261,10 +267,11 @@ with tab3:
     col1.metric("ECS Tasks Running", "3/3", "healthy")
     col2.metric("ECR Image Size", "2.1 GB", "-0.3 GB")
     col3.metric("Deploy Time", "4m 32s", "-48s")
+    st.caption("Illustrative values for the demonstration; not read from a live AWS account.")
 
     st.markdown("---")
 
-    if enable_aws and st.button("🚀 Deploy to AWS ECS", type="primary", use_container_width=True):
+    if enable_aws and st.button("🚀 Simulate AWS ECS deployment", type="primary", use_container_width=True):
         stages = [
             ("🐳 Building Docker image", 2.0),
             ("📋 Running tests", 1.5),
@@ -274,7 +281,7 @@ with tab3:
             ("🚀 Deploying to ECS cluster", 2.0),
             ("⏳ Waiting for service stability", 1.5),
             ("🏥 Running health checks", 1.0),
-            ("✅ Deployment complete!", 0.5),
+            ("✅ Simulated deployment complete (no AWS resources created)", 0.5),
         ]
 
         progress = st.progress(0)
@@ -293,16 +300,17 @@ with tab3:
             time.sleep(duration)
 
         st.balloons()
-        st.success("✅ Successfully deployed to AWS ECS!")
+        st.success("✅ Simulated ECS deployment complete. No AWS resources were created.")
         st.json({
             "cluster": "ai-portfolio-cluster",
             "service": "module-3-mlops",
             "task_definition": "module3:42",
             "running_count": 3,
-            "image": "123456789.dkr.ecr.us-east-1.amazonaws.com/ai-portfolio:latest",
-            "load_balancer": "https://module3.ai-portfolio.com",
+            "image": "<aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/ai-portfolio:latest",
+            "load_balancer": "https://example.invalid/module3",
             "deployed_at": datetime.now().isoformat(),
-            "status": "ACTIVE"
+            "status": "ACTIVE (simulated)",
+            "simulated": True
         })
 
     # Architecture diagram
@@ -445,10 +453,10 @@ with tab5:
     with col2:
         st.markdown("""
         ### 💼 Target Roles
-        - Senior AI/ML Engineer ($150K+)
-        - MLOps Engineer ($140K–$180K)
-        - AI Platform Engineer ($160K+)
-        - Staff AI Engineer ($180K+)
+        - Senior AI/ML Engineer 
+        - MLOps Engineer 
+        - AI Platform Engineer 
+        - Staff AI Engineer 
 
         ### 📚 Training
         - Stanford / Andrew Ng curriculum
