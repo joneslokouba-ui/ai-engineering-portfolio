@@ -6,6 +6,20 @@
 ![Status](https://img.shields.io/badge/Status-Building-ffa500?style=for-the-badge)
 
 ---
+## What this module is
+
+Module 3 is an MLOps demonstration for a LangGraph LLM agent. It shows the practices around a model: experiment tracking, monitoring, packaging and a deployment design.
+
+| Area | Status |
+|---|---|
+| MLflow experiment tracking | Real: parameters and metrics are logged to a local SQLite MLflow store |
+| Prometheus monitoring | Real configuration and metric definitions |
+| Docker | Real: Dockerfile with health check and compose files |
+| Tests | `tests/test_all.py` |
+| Run metrics (accuracy, latency, cost, hallucination rate) | **Simulated:** randomly generated to demonstrate tracking |
+| AWS ECS deployment | **Simulated:** no AWS resources are created |
+| CI/CD | Workflow design only |
+
 
 ## 🏗️ Architecture
 
