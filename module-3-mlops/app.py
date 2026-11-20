@@ -1,301 +1,465 @@
 """
-Module 3: MLOps Dashboard
-Author: Geoffrey Jones Okwi | AI/ML Engineer
-Shows: Live metrics, run history, agent performance, AWS deploy guide
+Module 3: MLOps Pipeline — Geoffrey Jones Okwi
+AI Engineering Portfolio | MLflow + Prometheus + AWS ECS
 """
 
 import sys
 import os
-import time
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-# Also add module-2 path for running agents
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'module-2-multi-agent'))
+
+# ── Path fix: works from root, app/, or PyCharm run config ───────────────────
+_HERE = os.path.dirname(os.path.abspath(__file__))   # .../app/
+_ROOT = os.path.dirname(_HERE)                        # .../module-3-mlops/
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
 
 import streamlit as st
-from tracking.mlflow_tracker import SimpleTracker
-from monitoring.prometheus_metrics import record_agent_call, get_dashboard_data
-from deployment.aws_deploy import print_deployment_guide, AWS_CONFIG
+import time
+import random
+import json
+from datetime import datetime, timedelta
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+from mlflow_tracking.tracker import MLflowTracker
+from monitoring.metrics import MetricsCollector
 
-# ─── Page config ───────────────────────────────────────────
+# ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="MLOps Dashboard | Geoffrey Okwi",
-    page_icon="📊",
+    page_title="MLOps Pipeline Dashboard",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ─── CSS ───────────────────────────────────────────────────
+# ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-    .stApp { background-color: #0a0f1e; color: #e2e8f0; }
-    .mlops-header {
-        background: linear-gradient(135deg, #1a1f3a 0%, #0d1117 100%);
-        border: 1px solid #2d3748;
-        border-left: 4px solid #68d391;
-        border-radius: 12px;
-        padding: 24px 28px;
-        margin-bottom: 24px;
+    .main-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem;
+        border: 1px solid #e94560;
     }
-    .mlops-header h1 { color: #68d391; margin: 0; font-size: 1.8rem; }
-    .mlops-header p  { color: #a0aec0; margin: 6px 0 0; }
     .metric-card {
-        background: #1a1f3a; border: 1px solid #2d3748;
-        border-radius: 8px; padding: 16px; text-align: center;
+        background: #16213e; padding: 1.2rem; border-radius: 10px;
+        border-left: 4px solid #e94560; margin-bottom: 1rem;
     }
-    .metric-card .value { font-size: 1.8rem; font-weight: bold; color: #68d391; }
-    .metric-card .label { font-size: 0.8rem; color: #718096; }
-    .run-card {
-        background: #1a2e1a; border: 1px solid #2d5a27;
-        border-radius: 8px; padding: 12px; margin: 6px 0;
+    .status-live { color: #00ff88; font-weight: bold; }
+    .status-warn { color: #ffa500; font-weight: bold; }
+    .status-error { color: #ff4444; font-weight: bold; }
+    .pipeline-step {
+        background: #0f3460; padding: 0.8rem 1.2rem; border-radius: 8px;
+        margin: 0.3rem 0; border: 1px solid #1a4a8a;
     }
-    .run-card-error {
-        background: #2e1a1a; border: 1px solid #5a2727;
-        border-radius: 8px; padding: 12px; margin: 6px 0;
-    }
-    [data-testid="stSidebar"] { background-color: #0d1117; }
-    [data-testid="stSidebar"] * { color: #e2e8f0 !important; }
-    .stTabs [data-baseweb="tab"] { color: #a0aec0 !important; }
-    .stTabs [aria-selected="true"] { color: #68d391 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Init tracker ──────────────────────────────────────────
-tracker = SimpleTracker(
-    log_file=os.path.join(os.path.dirname(__file__), "tracking", "agent_runs.json")
-)
-
-# ─── Sidebar ───────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("### 📊 MLOps Dashboard")
-    st.markdown("**Module 3** — Monitoring & Deployment")
-    st.markdown("---")
-    st.markdown("### 🔗 Portfolio Links")
-    st.markdown("**Module 1** → localhost:8501")
-    st.markdown("**Module 2** → localhost:8502")
-    st.markdown("**Module 3** → localhost:8503 ← HERE")
-    st.markdown("---")
-    st.markdown("### ⚙️ AWS Config")
-    st.caption(f"Region: {AWS_CONFIG['region']}")
-    st.caption(f"Cluster: {AWS_CONFIG['cluster_name']}")
-    st.caption(f"CPU: {AWS_CONFIG['cpu']} | RAM: {AWS_CONFIG['memory']}MB")
-    st.markdown("---")
-    if st.button("🔄 Refresh Metrics", use_container_width=True):
-        st.rerun()
-
-# ─── Header ────────────────────────────────────────────────
+# ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
-<div class="mlops-header">
-    <h1>📊 MLOps Dashboard — Module 3</h1>
-    <p>Geoffrey Jones Okwi · AI/ML Engineer · Monitoring + Tracking + AWS Deployment</p>
+<div class="main-header">
+    <h1 style="color:#e94560; margin:0">🚀 Module 3: MLOps Pipeline</h1>
+    <p style="color:#a0aec0; margin:0.5rem 0 0">
+        Geoffrey Jones Okwi · AI Engineering Portfolio · MLflow + Prometheus + AWS ECS
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
-# ─── Tabs ──────────────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs([
-    "📈 Live Metrics",
-    "📋 Run History",
-    "🚀 AWS Deployment",
-    "🧪 Test Agent",
+# ── Sidebar ───────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("## ⚙️ Pipeline Control")
+    st.markdown("---")
+
+    experiment_name = st.text_input("Experiment Name", value="llm-agent-v3")
+    model_name = st.selectbox("Model", [
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+     ])
+    num_runs = st.slider("Training Runs", 1, 10, 3)
+    enable_monitoring = st.toggle("Enable Prometheus Monitoring", value=True)
+    enable_aws = st.toggle("Simulate AWS ECS Deploy", value=True)
+
+    st.markdown("---")
+    st.markdown("### 📦 Portfolio")
+    st.success("✅ Module 1 — LIVE")
+    st.success("✅ Module 2 — LIVE")
+    st.warning("🔨 Module 3 — DEMO")
+
+    st.markdown("---")
+
+    st.markdown("**Stack:** LangGraph · Groq · Docker · AWS")
+
+# ── Initialize components ─────────────────────────────────────────────────────
+tracker = MLflowTracker(experiment_name=experiment_name)
+metrics_collector = MetricsCollector()
+
+# ── Main tabs ─────────────────────────────────────────────────────────────────
+st.info(
+    "Demo data: the run metrics and the ECS deployment shown here are simulated to "
+    "demonstrate MLflow tracking, Prometheus monitoring and a deployment workflow. "
+    "They are not measurements of the model and no AWS resources are created."
+)
+
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "🧪 MLflow Tracking",
+    "📊 Monitoring",
+    "☁️ AWS Deployment",
+    "🔁 CI/CD Pipeline",
+    "📈 Portfolio Stats"
 ])
 
-
-# ════════════════════════════════════════
-# TAB 1 — LIVE METRICS
-# ════════════════════════════════════════
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 1 — MLflow Tracking
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with tab1:
-    st.markdown("### 📈 Live Performance Metrics")
+    st.subheader("🧪 MLflow Experiment Tracking")
 
-    stats = tracker.get_stats()
-    dashboard = get_dashboard_data()
-
-    # Top metrics row
-    col1, col2, col3, col4, col5 = st.columns(5)
-    metrics_display = [
-        (str(stats.get("total_runs", 0)),            "Total Runs"),
-        (f"{stats.get('success_rate', 0)}%",         "Success Rate"),
-        (f"{stats.get('avg_latency_ms', 0)}ms",      "Avg Latency"),
-        (str(dashboard.get("uptime_seconds", 0))+"s","Uptime"),
-        ("✅",                                        "System Status"),
-    ]
-    for col, (val, label) in zip([col1,col2,col3,col4,col5], metrics_display):
-        col.markdown(
-            f'<div class="metric-card">'
-            f'<div class="value">{val}</div>'
-            f'<div class="label">{label}</div>'
-            f'</div>',
-            unsafe_allow_html=True
-        )
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Experiments", "12", "+3")
+    col2.metric("Total Runs", "47", "+8")
+    col3.metric("Best Accuracy", "94.2%", "+1.8%")
+    col4.metric("Avg Latency", "1.23s", "-0.15s")
 
     st.markdown("---")
 
-    # Agent usage breakdown
-    st.markdown("### 🤖 Agent Usage Breakdown")
-    agent_usage = stats.get("agent_usage", {})
+    if st.button("🚀 Run MLflow Experiment", type="primary", use_container_width=True):
+        progress = st.progress(0, text="Initializing experiment...")
+        log_container = st.empty()
+        logs = []
 
-    if agent_usage:
-        cols = st.columns(len(agent_usage))
-        icons = {"analyst":"📊","researcher":"🔍","rag_agent":"📚","supervisor":"🧠"}
-        for col, (agent, count) in zip(cols, agent_usage.items()):
-            icon = icons.get(agent, "🤖")
-            col.markdown(
-                f'<div class="metric-card">'
-                f'<div class="value">{count}</div>'
-                f'<div class="label">{icon} {agent}</div>'
-                f'</div>',
-                unsafe_allow_html=True
-            )
+        run_results = []
+        for i in range(num_runs):
+            # Simulate training run
+            params = {
+                "model": model_name,
+                "temperature": round(random.uniform(0.1, 1.0), 2),
+                "max_tokens": random.choice([512, 1024, 2048]),
+                "top_p": round(random.uniform(0.8, 1.0), 2),
+                "run_id": i + 1,
+            }
+            metrics = {
+                "accuracy": round(random.uniform(0.85, 0.97), 4),
+                "latency_ms": round(random.uniform(800, 2000), 1),
+                "tokens_per_sec": round(random.uniform(40, 120), 1),
+                "cost_per_1k": round(random.uniform(0.001, 0.005), 4),
+                "hallucination_rate": round(random.uniform(0.01, 0.08), 3),
+            }
+
+            run_id = tracker.log_run(params=params, metrics=metrics)
+            run_results.append({**params, **metrics, "run_id": run_id})
+
+            pct = int(((i + 1) / num_runs) * 100)
+            progress.progress(pct, text=f"Run {i+1}/{num_runs} complete — accuracy: {metrics['accuracy']:.4f}")
+
+            log_msg = f"[{datetime.now().strftime('%H:%M:%S')}] Run {run_id} | acc={metrics['accuracy']:.4f} | latency={metrics['latency_ms']:.0f}ms | tokens/s={metrics['tokens_per_sec']:.1f}"
+            logs.append(log_msg)
+            log_container.code("\n".join(logs[-8:]))
+            time.sleep(0.4)
+
+        progress.progress(100, text="✅ All runs complete!")
+
+        # Results table
+        df = pd.DataFrame(run_results)
+        st.dataframe(df[["run_id", "model", "temperature", "accuracy", "latency_ms", "tokens_per_sec", "hallucination_rate"]].round(4),
+                     use_container_width=True)
+
+        # Accuracy chart
+        fig = px.line(df, x="run_id", y="accuracy", markers=True,
+                      title="Accuracy Across Runs",
+                      color_discrete_sequence=["#e94560"])
+        fig.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460",
+                          font_color="white", xaxis_title="Run", yaxis_title="Accuracy")
+        st.plotly_chart(fig, use_container_width=True)
+
+        # Best run
+        best = df.loc[df["accuracy"].idxmax()]
+        st.success(f"🏆 Best Run: #{best['run_id']} | Accuracy: {best['accuracy']:.4f} | Latency: {best['latency_ms']:.0f}ms | Temp: {best['temperature']}")
+
+    # Show existing runs
+    st.markdown("### 📋 Experiment History")
+    history = tracker.get_all_runs()
+    if history:
+        st.dataframe(pd.DataFrame(history), use_container_width=True)
     else:
-        st.info("No agent runs recorded yet. Use the Test Agent tab to generate data.")
+        st.info("No runs yet — click 'Run MLflow Experiment' above.")
 
-    st.markdown("---")
-
-    # Monitoring explanation
-    st.markdown("### 🔬 What We're Monitoring")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("""
-        **Tracked per run:**
-        - ✅ User input (first 200 chars)
-        - ✅ Which agent handled it
-        - ✅ Response latency (ms)
-        - ✅ Success / failure
-        - ✅ Timestamp
-        """)
-    with col2:
-        st.markdown("""
-        **MLOps patterns used:**
-        - ✅ Experiment tracking (SimpleTracker → MLflow)
-        - ✅ Performance metrics (Prometheus pattern)
-        - ✅ Run history & audit trail
-        - ✅ Agent usage analytics
-        - ✅ Error rate monitoring
-        """)
-
-
-# ════════════════════════════════════════
-# TAB 2 — RUN HISTORY
-# ════════════════════════════════════════
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 2 — Monitoring
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with tab2:
-    st.markdown("### 📋 Agent Run History")
+    st.subheader("📊 Prometheus Metrics & Monitoring")
 
-    history = tracker.get_history(limit=20)
-
-    if not history:
-        st.info("No runs yet. Go to **Test Agent** tab and run some queries!")
+    if enable_monitoring:
+        st.markdown('<span class="status-live">● MONITORING ACTIVE</span>', unsafe_allow_html=True)
     else:
-        st.caption(f"Showing last {len(history)} runs (most recent first)")
-        for run in history:
-            status_class = "run-card" if run.get("success") else "run-card-error"
-            status_icon  = "✅" if run.get("success") else "❌"
-            agents = ", ".join(run.get("agent_used", ["unknown"]))
-            ts = run.get("timestamp", "")[:16].replace("T", " ")
+        st.markdown('<span class="status-warn">● MONITORING DISABLED</span>', unsafe_allow_html=True)
 
-            st.markdown(f"""
-            <div class="{status_class}">
-                {status_icon} <strong>{ts}</strong> &nbsp;|&nbsp;
-                Agent: <strong>{agents}</strong> &nbsp;|&nbsp;
-                Latency: <strong>{run.get('latency_ms', 0)}ms</strong><br>
-                <small>Q: {run.get('user_input', '')[:100]}...</small>
-            </div>
-            """, unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
 
+    with col1:
+        st.markdown("#### System Metrics")
+        system_data = metrics_collector.get_system_metrics()
+        fig_sys = go.Figure()
+        fig_sys.add_trace(go.Indicator(
+            mode="gauge+number+delta",
+            value=system_data["cpu_pct"],
+            title={"text": "CPU Usage %"},
+            delta={"reference": 50},
+            gauge={"axis": {"range": [0, 100]},
+                   "bar": {"color": "#e94560"},
+                   "steps": [{"range": [0, 50], "color": "#1a4a8a"},
+                              {"range": [50, 80], "color": "#ffa500"},
+                              {"range": [80, 100], "color": "#ff4444"}]},
+        ))
+        fig_sys.update_layout(paper_bgcolor="#16213e", font_color="white", height=250)
+        st.plotly_chart(fig_sys, use_container_width=True)
 
-# ════════════════════════════════════════
-# TAB 3 — AWS DEPLOYMENT
-# ════════════════════════════════════════
+        fig_mem = go.Figure()
+        fig_mem.add_trace(go.Indicator(
+            mode="gauge+number+delta",
+            value=system_data["mem_pct"],
+            title={"text": "Memory Usage %"},
+            delta={"reference": 60},
+            gauge={"axis": {"range": [0, 100]},
+                   "bar": {"color": "#00ff88"},
+                   "steps": [{"range": [0, 60], "color": "#1a4a8a"},
+                              {"range": [60, 85], "color": "#ffa500"},
+                              {"range": [85, 100], "color": "#ff4444"}]},
+        ))
+        fig_mem.update_layout(paper_bgcolor="#16213e", font_color="white", height=250)
+        st.plotly_chart(fig_mem, use_container_width=True)
+
+    with col2:
+        st.markdown("#### Request Metrics (Last 60 min)")
+        time_series = metrics_collector.get_request_timeseries(points=60)
+        df_ts = pd.DataFrame(time_series)
+
+        fig_req = px.area(df_ts, x="timestamp", y="requests_per_min",
+                          title="Requests / Minute",
+                          color_discrete_sequence=["#e94560"])
+        fig_req.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460",
+                               font_color="white", showlegend=False)
+        st.plotly_chart(fig_req, use_container_width=True)
+
+        fig_lat = px.line(df_ts, x="timestamp", y="p95_latency_ms",
+                          title="P95 Latency (ms)",
+                          color_discrete_sequence=["#00ff88"])
+        fig_lat.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460",
+                               font_color="white", showlegend=False)
+        st.plotly_chart(fig_lat, use_container_width=True)
+
+    # Alerts
+    st.markdown("#### 🔔 Active Alerts")
+    alerts = metrics_collector.get_alerts()
+    for alert in alerts:
+        if alert["severity"] == "critical":
+            st.error(f"🔴 CRITICAL: {alert['message']}")
+        elif alert["severity"] == "warning":
+            st.warning(f"🟡 WARNING: {alert['message']}")
+        else:
+            st.success(f"🟢 OK: {alert['message']}")
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 3 — AWS Deployment
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with tab3:
-    st.markdown("### 🚀 AWS ECS Deployment Guide")
-    st.markdown("Deploy your AI portfolio to AWS — **free tier eligible!**")
+    st.subheader("☁️ AWS ECS Deployment Pipeline")
 
+    col1, col2, col3 = st.columns(3)
+    col1.metric("ECS Tasks Running", "3/3", "healthy")
+    col2.metric("ECR Image Size", "2.1 GB", "-0.3 GB")
+    col3.metric("Deploy Time", "4m 32s", "-48s")
+    st.caption("Illustrative values for the demonstration; not read from a live AWS account.")
+
+    st.markdown("---")
+
+    if enable_aws and st.button("🚀 Simulate AWS ECS deployment", type="primary", use_container_width=True):
+        stages = [
+            ("🐳 Building Docker image", 2.0),
+            ("📋 Running tests", 1.5),
+            ("🔐 Authenticating with ECR", 1.0),
+            ("📤 Pushing image to ECR", 2.5),
+            ("📝 Updating ECS task definition", 1.0),
+            ("🚀 Deploying to ECS cluster", 2.0),
+            ("⏳ Waiting for service stability", 1.5),
+            ("🏥 Running health checks", 1.0),
+            ("✅ Simulated deployment complete (no AWS resources created)", 0.5),
+        ]
+
+        progress = st.progress(0)
+        status_box = st.empty()
+        log_box = st.empty()
+        deploy_logs = []
+
+        for i, (stage, duration) in enumerate(stages):
+            pct = int(((i + 1) / len(stages)) * 100)
+            status_box.markdown(f"**{stage}**")
+            progress.progress(pct)
+
+            log_line = f"[{datetime.now().strftime('%H:%M:%S')}] {stage}"
+            deploy_logs.append(log_line)
+            log_box.code("\n".join(deploy_logs))
+            time.sleep(duration)
+
+        st.balloons()
+        st.success("✅ Simulated ECS deployment complete. No AWS resources were created.")
+        st.json({
+            "cluster": "ai-portfolio-cluster",
+            "service": "module-3-mlops",
+            "task_definition": "module3:42",
+            "running_count": 3,
+            "image": "<aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/ai-portfolio:latest",
+            "load_balancer": "https://example.invalid/module3",
+            "deployed_at": datetime.now().isoformat(),
+            "status": "ACTIVE (simulated)",
+            "simulated": True
+        })
+
+    # Architecture diagram
+    st.markdown("#### 🏗️ AWS Architecture")
+    st.markdown("""
+    ```
+    Developer Push
+         │
+         ▼
+    ┌─────────────┐    ┌──────────────┐    ┌─────────────────┐
+    │   GitHub    │───▶│  CodePipeline│───▶│   CodeBuild     │
+    │  (trigger)  │    │  (orchestrate)│   │  (docker build) │
+    └─────────────┘    └──────────────┘    └────────┬────────┘
+                                                    │
+                                                    ▼
+                                           ┌─────────────────┐
+                                           │   Amazon ECR    │
+                                           │  (image store)  │
+                                           └────────┬────────┘
+                                                    │
+                                                    ▼
+                                           ┌─────────────────┐
+                                           │   Amazon ECS    │◀── ALB ──▶ Users
+                                           │  (Fargate tasks)│
+                                           └────────┬────────┘
+                                                    │
+                                           ┌────────┴────────┐
+                                           │   CloudWatch    │
+                                           │  + Prometheus   │
+                                           └─────────────────┘
+    ```
+    """)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 4 — CI/CD Pipeline
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+with tab4:
+    st.subheader("🔁 CI/CD Pipeline Status")
+
+    pipelines = [
+        {"name": "module-1-ai-agents", "branch": "main", "status": "✅ PASSED", "duration": "3m 12s", "commit": "a1b2c3d"},
+        {"name": "module-2-multi-agent", "branch": "main", "status": "✅ PASSED", "duration": "4m 48s", "commit": "e4f5g6h"},
+        {"name": "module-3-mlops", "branch": "feature/monitoring", "status": "🔄 RUNNING", "duration": "2m 01s", "commit": "i7j8k9l"},
+    ]
+    st.dataframe(pd.DataFrame(pipelines), use_container_width=True)
+
+    st.markdown("#### 📋 GitHub Actions Workflow Preview")
+    st.code("""
+name: MLOps CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, feature/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: { python-version: "3.11" }
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest tests/ -v --tb=short
+      - name: MLflow smoke test
+        run: python tests/test_mlflow_tracking.py
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build and push Docker image
+        run: |
+          docker build -t $ECR_REPO:$GITHUB_SHA .
+          docker push $ECR_REPO:$GITHUB_SHA
+          docker tag $ECR_REPO:$GITHUB_SHA $ECR_REPO:latest
+          docker push $ECR_REPO:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          service: module-3-mlops
+          cluster: ai-portfolio-cluster
+          wait-for-service-stability: true
+""", language="yaml")
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 5 — Portfolio Stats
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+with tab5:
+    st.subheader("📈 AI Engineering Portfolio — Geoffrey Jones Okwi")
+
+    modules = pd.DataFrame([
+        {"Module": "1 — Single ReAct Agent", "Status": "✅ LIVE", "Tech": "LangGraph · Groq · Streamlit", "Complexity": 85},
+        {"Module": "2 — Multi-Agent System", "Status": "✅ LIVE", "Tech": "Supervisor · RAG · FAISS · DuckDuckGo", "Complexity": 92},
+        {"Module": "3 — MLOps Pipeline", "Status": "🔨 Building", "Tech": "MLflow · Prometheus · Docker · AWS ECS", "Complexity": 97},
+    ])
+    st.dataframe(modules, use_container_width=True, hide_index=True)
+
+    fig_comp = px.bar(modules, x="Module", y="Complexity",
+                      title="Portfolio Complexity Score",
+                      color="Complexity", color_continuous_scale="reds",
+                      text="Complexity")
+    fig_comp.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460",
+                            font_color="white")
+    st.plotly_chart(fig_comp, use_container_width=True)
+
+    st.markdown("---")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        #### Architecture
-        ```
-        Your Code
-            ↓
-        Docker Image
-            ↓
-        AWS ECR (registry)
-            ↓
-        AWS ECS Fargate
-            ↓
-        Public URL 🌐
-        ```
+        ### 🎯 Skills Demonstrated
+        - **LangGraph** — Multi-agent orchestration
+        - **Groq** — Ultra-fast LLM inference
+        - **MLflow** — Experiment tracking & model registry
+        - **Prometheus** — Production monitoring
+        - **Docker** — Containerization
+        - **AWS ECS/ECR** — Cloud deployment
+        - **GitHub Actions** — CI/CD automation
+        - **FAISS + HuggingFace** — Vector search / RAG
         """)
     with col2:
         st.markdown("""
-        #### AWS Services Used
-        | Service | Purpose | Cost |
-        |---------|---------|------|
-        | ECR | Store Docker images | Free 500MB |
-        | ECS | Run containers | Free 750hrs |
-        | Fargate | Serverless compute | ~$0 demo |
-        | CloudWatch | Logs & monitoring | Free tier |
+        ### 💼 Target Roles
+        - Senior AI/ML Engineer ($150K+)
+        - MLOps Engineer ($140K–$180K)
+        - AI Platform Engineer ($160K+)
+        - Staff AI Engineer ($180K+)
+
+        ### 📚 Training
+        - Stanford / Andrew Ng curriculum
+        - Commander Smart Eagle program
+        - 3-module production portfolio
         """)
-
-    st.markdown("---")
-    st.markdown("#### Step-by-Step Commands")
-
-    steps = {
-        "1️⃣ Install AWS CLI": "pip install awscli\naws configure",
-        "2️⃣ Build Docker Image": "docker build -t production-ai-agents .",
-        "3️⃣ Create ECR Repo": "aws ecr create-repository --repository-name production-ai-agents --region us-east-1",
-        "4️⃣ Push to ECR": "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account>.dkr.ecr.us-east-1.amazonaws.com\ndocker push <account>.dkr.ecr.us-east-1.amazonaws.com/production-ai-agents:latest",
-        "5️⃣ Deploy to ECS": "aws ecs create-service --cluster ai-engineering-portfolio --service-name production-ai-agents --task-definition production-ai-agents --desired-count 1 --launch-type FARGATE",
-    }
-    for title, cmd in steps.items():
-        with st.expander(title):
-            st.code(cmd, language="bash")
-
-
-# ════════════════════════════════════════
-# TAB 4 — TEST AGENT (with tracking)
-# ════════════════════════════════════════
-with tab4:
-    st.markdown("### 🧪 Test Agent — With Live Tracking")
-    st.markdown("Every query here is **logged and tracked** in the Run History tab.")
-
-    user_input = st.text_input(
-        "Enter a query:",
-        placeholder="e.g. What is the salary for an AI Engineer?"
-    )
-
-    if st.button("🚀 Run Agent + Track", use_container_width=True):
-        if user_input.strip():
-            with st.spinner("Running agent and tracking metrics..."):
-                start_time = time.time()
-                try:
-                    from graph.multi_agent_graph import run_multi_agent
-                    result     = run_multi_agent(user_input)
-                    answer     = result["answer"]
-                    agent_used = result["agent_used"]
-                    latency_ms = (time.time() - start_time) * 1000
-
-                    # Log to tracker
-                    tracker.log(
-                        user_input=user_input,
-                        agent_used=agent_used,
-                        answer=answer,
-                        latency_ms=latency_ms,
-                    )
-                    # Log to metrics
-                    for agent in agent_used:
-                        record_agent_call(agent, latency_ms, True)
-
-                    st.success(f"✅ Tracked! Agent: {agent_used} | Latency: {latency_ms:.0f}ms")
-                    st.markdown("**Answer:**")
-                    st.markdown(answer)
-
-                except Exception as e:
-                    latency_ms = (time.time() - start_time) * 1000
-                    tracker.log(
-                        user_input=user_input,
-                        agent_used=["error"],
-                        answer="",
-                        latency_ms=latency_ms,
-                        error=str(e),
-                    )
-                    st.error(f"Error: {e}")
-        else:
-            st.warning("Please enter a query first.")
