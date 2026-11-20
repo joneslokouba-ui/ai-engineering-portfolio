@@ -84,7 +84,7 @@ with st.sidebar:
     st.warning("🔨 Module 3 — DEMO")
 
     st.markdown("---")
-
+    st.markdown("**Target:** `AI Engineer`")
     st.markdown("**Stack:** LangGraph · Groq · Docker · AWS")
 
 # ── Initialize components ─────────────────────────────────────────────────────
@@ -424,7 +424,7 @@ with tab5:
     modules = pd.DataFrame([
         {"Module": "1 — Single ReAct Agent", "Status": "✅ LIVE", "Tech": "LangGraph · Groq · Streamlit", "Complexity": 85},
         {"Module": "2 — Multi-Agent System", "Status": "✅ LIVE", "Tech": "Supervisor · RAG · FAISS · DuckDuckGo", "Complexity": 92},
-        {"Module": "3 — MLOps Pipeline", "Status": "🔨 Building", "Tech": "MLflow · Prometheus · Docker · AWS ECS", "Complexity": 97},
+        {"Module": "3 — MLOps Pipeline", "Status": "🔨 Demo", "Tech": "MLflow · Prometheus · Docker · AWS ECS", "Complexity": 97},
     ])
     st.dataframe(modules, use_container_width=True, hide_index=True)
 
@@ -444,22 +444,22 @@ with tab5:
         - **LangGraph** — Multi-agent orchestration
         - **Groq** — Ultra-fast LLM inference
         - **MLflow** — Experiment tracking & model registry
-        - **Prometheus** — Production monitoring
+        - **Prometheus** — Metrics and monitoring setup
         - **Docker** — Containerization
-        - **AWS ECS/ECR** — Cloud deployment
-        - **GitHub Actions** — CI/CD automation
+        - **AWS ECS/ECR** — Deployment workflow (simulated)
+        - **GitHub Actions** — CI/CD workflow design
         - **FAISS + HuggingFace** — Vector search / RAG
         """)
     with col2:
         st.markdown("""
         ### 💼 Target Roles
-        - Senior AI/ML Engineer ($150K+)
-        - MLOps Engineer ($140K–$180K)
-        - AI Platform Engineer ($160K+)
-        - Staff AI Engineer ($180K+)
+        - Senior AI/ML Engineer 
+        - MLOps Engineer 
+        - AI Platform Engineer 
+        - Staff AI Engineer 
 
         ### 📚 Training
-        - Stanford / Andrew Ng curriculum
+        - Stanford / Artificial Intelligence - Machine Learning and Deep Learning
         - Commander Smart Eagle program
-        - 3-module production portfolio
+        - 3-module AI engineering portfolio
         """)
