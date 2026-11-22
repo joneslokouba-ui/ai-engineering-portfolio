@@ -180,8 +180,8 @@ with tab_pipeline:
 | Layer | Tables | Purpose |
 |---|---|---|
 | Bronze | `cer_bronze` | Raw CER CSV loaded as text into a Delta table; only column names normalized |
-| Silver | `cer_silver` | Typed dates, numbers and counts; standardized fields; duplicates removed; parse failures counted |
-| Data quality | `cer_dq_results` | 13 checks (4 error, 9 warn) with results kept over time and a gate that stops on errors |
+| Silver | `cer_silver` | Typed dates, numbers and counts; standardized fields and company names; duplicates removed; parse failures counted |
+| Data quality | `cer_dq_results` | 14 checks (4 error, 10 warn) with results kept over time and a gate that stops on errors |
 | Gold | 8 `gold_*` tables | Aggregates for this dashboard and the Databricks dashboard |
 | Model | MLflow experiment | Models predicting the `significant` flag |
 """
