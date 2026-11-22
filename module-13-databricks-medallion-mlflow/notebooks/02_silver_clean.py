@@ -6,11 +6,11 @@
 # MAGIC with proper types and a few standardized helper columns.
 # MAGIC
 # MAGIC **What silver does**
-# MAGIC - trims whitespace and turns empty strings into nulls
+# MAGIC - trims whitespace and turns empty strings and the text "null" into nulls
 # MAGIC - converts dates, timestamps, numbers and counts to real types (unparseable values become
 # MAGIC   null and are **counted in a parse report**, never silently dropped)
 # MAGIC - adds helper columns: `volume_m3`, `significant_flag`, `is_canadian_province`,
-# MAGIC   `release_substance`
+# MAGIC   `release_substance`, `company_clean`
 # MAGIC - removes duplicate incident numbers and reports how many there were
 # MAGIC
 # MAGIC Source: Canada Energy Regulator, Pipeline Incidents (Open Government Licence - Canada).
@@ -33,7 +33,7 @@ print("Bronze rows:", bronze.count(), "| columns:", len(bronze.columns))
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 1. Trim text and turn empty strings into nulls
+# MAGIC ## 1. Trim text and turn empty strings and the text "null" into nulls
 
 # COMMAND ----------
 
@@ -41,7 +41,7 @@ data_cols = [c for c in bronze.columns if c not in META_COLS]
 
 trimmed = bronze.select(
     *[
-        F.when(F.trim(F.col(c)) == "", None).otherwise(F.trim(F.col(c))).alias(c)
+        F.when(F.lower(F.trim(F.col(c))).isin("", "null"), None).otherwise(F.trim(F.col(c))).alias(c)
         for c in data_cols
     ],
     *[F.col(c) for c in META_COLS],
@@ -59,6 +59,8 @@ trimmed = bronze.select(
 
 DATE_FORMATS = ["M/d/yyyy", "yyyy-MM-dd"]
 TS_FORMATS = [
+    "yyyy/MM/dd hh:mm:ss a",
+    "yyyy/MM/dd HH:mm:ss",
     "M/d/yyyy H:mm",
     "M/d/yyyy H:mm:ss",
     "M/d/yyyy h:mm a",
@@ -86,7 +88,11 @@ TYPE_RULES = {c: rule for c, rule in TYPE_RULES.items() if c in trimmed.columns}
 
 
 def parse_ts(col_name, formats):
-    return F.coalesce(*[F.expr(f"try_to_timestamp(`{col_name}`, '{fmt}')") for fmt in formats])
+    # Timestamps in the CER file look like "2017/02/21 05:00:00 PM Mountain": a local time
+    # followed by a time-zone name. The zone name is split into its own column further down;
+    # here everything after AM or PM is removed before parsing.
+    text = f"regexp_replace(`{col_name}`, '(?<=[AP]M) +.*$', '')"
+    return F.coalesce(*[F.expr(f"try_to_timestamp({text}, '{fmt}')") for fmt in formats])
 
 
 def typed_expr(col_name, kind, formats):
@@ -164,9 +170,32 @@ CANADIAN_PROVINCES = [
     "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon",
 ]
 
-silver_df = trimmed
+silver_df = (
+    trimmed
+    # Time-zone name after the time ("Mountain", "Pacific", ...), kept as its own column
+    .withColumn("occurrence_timezone",
+                F.expr("nullif(regexp_extract(`occurrence_date_and_time`, '(?<=[AP]M) +(.*)$', 1), '')"))
+    .withColumn("discovered_timezone",
+                F.expr("nullif(regexp_extract(`discovered_date_and_time`, '(?<=[AP]M) +(.*)$', 1), '')"))
+)
 for c, (kind, formats) in TYPE_RULES.items():
     silver_df = silver_df.withColumn(c, typed_expr(c, kind, formats))
+
+# Same legal entity written differently. Explicit and reviewable (mirrors src/company.py);
+# distinct legal entities are deliberately NOT merged.
+COMPANY_ALIASES = {
+    "NGTL GP Ltd., as general partner, on behalf of NGTL Limited Partnership":
+        "NGTL GP Ltd., as general partner on behalf of NGTL Limited Partnership",
+    "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission":
+        "Westcoast Energy Inc.",
+    "Alliance Pipeline Ltd., as General Partner for and on behalf of Alliance Pipeline Limited Partnership":
+        "Alliance Pipeline Ltd.",
+    "Minell Pipeline Limited":
+        "Minell Pipeline Ltd.",
+    "TransCanada PipeLines Limited B.C. System":
+        "TransCanada PipeLines Limited",
+}
+company_map = F.create_map([F.lit(x) for pair in COMPANY_ALIASES.items() for x in pair])
 
 significant_text = F.lower(F.col("significant"))
 
@@ -185,6 +214,8 @@ silver_df = (
     )
     # The province column also holds one US state (Maine) for cross-border pipelines
     .withColumn("is_canadian_province", F.col("province").isin(CANADIAN_PROVINCES))
+    # Standardized company name; the original company column is kept unchanged
+    .withColumn("company_clean", F.coalesce(company_map[F.col("company")], F.col("company")))
     # "Not Applicable" means nothing was released; keep the original column, add a clean one
     .withColumn(
         "release_substance",
@@ -242,6 +273,10 @@ numeric_volumes = check.filter(F.col("volume_m3").isNotNull()).count()
 print("Silver rows:", rows)
 print("Silver columns:", len(check.columns))
 print("Incidents with a numeric volume:", numeric_volumes)
+print("Distinct company names:", check.select("company").distinct().count(),
+      "->", check.select("company_clean").distinct().count(), "after cleaning (expected: 5 fewer)")
+print("Occurrence timestamps parsed:",
+      check.filter(F.col("occurrence_date_and_time").isNotNull()).count(), "of", rows)
 
 assert rows > 0, "Silver table is empty"
 print("Row count matches Module 12." if rows == EXPECTED_ROWS

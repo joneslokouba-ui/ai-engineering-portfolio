@@ -145,11 +145,14 @@ display(save_gold(causes, "causes"))
 
 # MAGIC %md
 # MAGIC ## 6. Companies with the most incidents
+# MAGIC
+# MAGIC Uses `company_clean` (standardized in silver), so spelling variants of one legal entity
+# MAGIC are counted together.
 
 # COMMAND ----------
 
 top_companies = (
-    silver.withColumn("company", F.coalesce(F.col("company"), F.lit("Not recorded")))
+    silver.withColumn("company", F.coalesce(F.col("company_clean"), F.lit("Not recorded")))
     .groupBy("company")
     .agg(
         F.count("*").alias("incidents"),
@@ -235,4 +238,3 @@ if EXPORT_CSV:
 print("Gold tables built:")
 for name in GOLD_NAMES:
     print(f"  {CATALOG}.{SCHEMA}.gold_{name}")
-

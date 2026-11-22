@@ -10,8 +10,8 @@
 # MAGIC spaces or characters such as `(` and `)` in column names. Two metadata columns are added:
 # MAGIC `_source_file` and `_ingested_at`.
 # MAGIC
-# MAGIC **Before running:** upload `pipeline-incidents-comprehensive-data.csv` to the volume
-# MAGIC `/Volumes/workspace/default/raw_files/`.
+# MAGIC **Before running:** upload `pipeline-incidents-data.csv` to the volume
+# MAGIC `/Volumes/workspace/default/raw/`.
 # MAGIC
 # MAGIC Source: Canada Energy Regulator, Pipeline Incidents (Open Government Licence - Canada).
 
@@ -19,8 +19,8 @@
 
 CATALOG = "workspace"
 SCHEMA = "default"
-VOLUME = "raw_files"
-FILE_NAME = "pipeline-incidents-comprehensive-data.csv"
+VOLUME = "raw"
+FILE_NAME = "pipeline-incidents-data.csv"
 
 SOURCE_PATH = f"/Volumes/{CATALOG}/{SCHEMA}/{VOLUME}/{FILE_NAME}"
 BRONZE_TABLE = f"{CATALOG}.{SCHEMA}.cer_bronze"
@@ -55,7 +55,7 @@ raw = (
     .option("multiLine", True)
     .option("quote", '"')
     .option("escape", '"')
-    .option("encoding", "UTF-8")
+    .option("encoding", "ISO-8859-1")  # the CER file is not UTF-8; UTF-8 turns accents into "?"
     .load(SOURCE_PATH)
 )
 
@@ -141,6 +141,11 @@ print("Rows in bronze:", row_count)
 print("Columns in bronze (including 2 metadata columns):", len(table.columns))
 
 assert row_count > 0, "Bronze table is empty"
+
+# A replacement character appears when text is decoded with the wrong encoding
+replacement_char = "\ufffd"
+bad_company = table.filter(F.col("company").contains(replacement_char)).count()
+print("Rows with a replacement character in company (should be 0):", bad_company)
 if row_count != EXPECTED_ROWS:
     print(
         f"WARNING: expected {EXPECTED_ROWS} rows (Nov 2, 2026 snapshot) but found {row_count}. "
@@ -151,9 +156,8 @@ else:
 
 # COMMAND ----------
 
-# Quick look at the data, and a text-encoding check: accented names should read correctly
-# (for example "Quebec" or "Québec", not strange symbols). If you see garbled characters,
-# change the encoding option in step 2 to "ISO-8859-1" and re-run.
+# Quick look at the data. The file is read as ISO-8859-1, so accented company names such as
+# "Trans Québec & Maritimes Pipeline Inc." should read correctly.
 display(table.groupBy("province").count().orderBy(F.desc("count")))
 
 # COMMAND ----------

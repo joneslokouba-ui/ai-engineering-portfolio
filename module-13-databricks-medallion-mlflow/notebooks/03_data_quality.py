@@ -77,6 +77,9 @@ RULES = [
     ("significant_flag_not_null", "warn",
      "Significant flag could be read as true or false (model target)",
      "significant_flag IS NULL"),
+    ("company_encoding_ok", "warn",
+     "Company names contain no replacement characters (text read with the wrong encoding)",
+     "company LIKE '%" + "\ufffd" + "%'"),
 ]
 
 aggs = [F.sum(F.when(F.expr(cond), 1).otherwise(0)).alias(name) for name, _, _, cond in RULES]
