@@ -1,6 +1,6 @@
 # Module 13: CER Pipeline Incidents - Databricks Medallion Pipeline
 
-A bronze, silver and gold lakehouse pipeline on Databricks (PySpark and Delta Lake) for the Canada Energy Regulator (CER) Pipeline Incidents open dataset, with a data-quality gate, eight gold tables, a three-page Databricks dashboard and a deployed Streamlit app.
+A bronze, silver and gold lakehouse pipeline on Databricks (PySpark and Delta Lake) for the Canada Energy Regulator (CER) Pipeline Incidents open dataset, with a data-quality gate, eight gold tables, a four-page Databricks dashboard and a deployed Streamlit app.
 
 **Live app:** `<add Streamlit Cloud URL>`
 
@@ -11,7 +11,7 @@ A bronze, silver and gold lakehouse pipeline on Databricks (PySpark and Delta La
 | Part | Status |
 |---|---|
 | Bronze, silver, data quality, gold notebooks (01-04) | Done and run on Databricks Free Edition |
-| Databricks dashboard (3 pages) | Done (screenshots below; the workspace is private) |
+| Databricks dashboard (4 pages, including model results) | Done (screenshots below; the workspace is private) |
 | Streamlit app | Done, reads CSV exports of the gold tables |
 | MLflow model for the `significant` flag (05-06) | Done and run on Databricks Free Edition |
 
@@ -25,7 +25,7 @@ flowchart LR
     D --> E["03 Data quality<br/>cer_dq_results"]
     E -. "gate: stops on errors" .-> F
     D --> F["04 Gold<br/>8 gold_* tables"]
-    F --> G["Databricks dashboard<br/>3 pages"]
+    F --> G["Databricks dashboard<br/>4 pages"]
     F --> H["CSV exports"]
     H --> I["Streamlit app"]
     D --> J["05-06 MLflow model"]
@@ -113,6 +113,9 @@ Ranking the 315 test incidents by predicted probability, the top 25 contain 23 s
 ![Companies with the most incidents](docs/dashboard_types_causestable.png)
 ![Share of incidents classed as significant](docs/dashboard_significantplot.png)
 ![Incident locations](docs/dashboard_significant_map.png)
+![Model results: baseline and best PR-AUC, and test PR-AUC by model](docs/dashboard_model_summary.png)
+![Share of incidents classed as significant, by incident type](docs/dashboard_model_type_rates.png)
+![Top-K ranking on the test years compared with a random pick](docs/dashboard_model_topk.png)
 
 ## Repository layout
 
