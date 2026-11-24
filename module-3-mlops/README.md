@@ -15,11 +15,38 @@ Module 3 is an MLOps demonstration for a LangGraph LLM agent. It shows the pract
 | MLflow experiment tracking | Real: parameters and metrics are logged to a local SQLite MLflow store |
 | Prometheus monitoring | Real configuration and metric definitions |
 | Docker | Real: Dockerfile with health check and compose files |
-| Tests | `tests/test_all.py` |
-| Run metrics (accuracy, latency, cost, hallucination rate) | **Simulated:** randomly generated to demonstrate tracking |
+| Tests | `tests/test_all.py` and `tests/test_evaluation.py` |
+| Run metrics (accuracy, latency, tokens, cost) | **Measured offline:** `evaluation/run_eval.py` calls the Groq API on 15 fixed questions and logs each run to MLflow |
+| Monitoring tab figures (gauges, request counts, costs, alerts) | **Simulated:** randomly generated demo data |
 | AWS ECS deployment | **Simulated:** no AWS resources are created |
 | CI/CD | Workflow design only |
 
+
+## Evaluation: measured results
+
+`evaluation/run_eval.py` is an offline script (the public app never calls Groq). For every configuration (model x temperature) it asks 15 fixed questions with automatically checkable answers, measures response time, token counts and cost from Groq's usage figures, scores the answers, logs the run to MLflow through `MLflowTracker`, and saves `evaluation/results/eval_results.json` for the Streamlit app.
+
+```
+python -m evaluation.run_eval --limit 3   # quick smoke test
+python -m evaluation.run_eval             # full run: 2 models x 2 temperatures x 15 questions
+```
+
+**Results (run on 2026-11-23, reasoning effort "low", max 2,048 completion tokens, one machine):**
+
+| Model | Temperature | Accuracy | Median latency | Cost for 15 questions |
+|---|---|---|---|---|
+| openai/gpt-oss-120b | 0.0 | 100% (15/15) | 282 ms | $0.00046 |
+| openai/gpt-oss-120b | 0.7 | 100% (15/15) | 295 ms | $0.00046 |
+| openai/gpt-oss-20b | 0.0 | 100% (15/15) | 248 ms | $0.00024 |
+| openai/gpt-oss-20b | 0.7 | 100% (15/15) | 256 ms | $0.00024 |
+
+Cost uses Groq's list prices checked on 2026-11-23 ($0.15 and $0.60 per million input and output tokens for the 120b model, $0.075 and $0.30 for the 20b model); update `PRICES_PER_MILLION` in the script before a new run.
+
+**How to read it**
+- All four configurations answered all 15 questions correctly, so this question set is too easy to separate the models. Accuracy is at the ceiling. The run shows that the measurement and tracking pipeline works, not that the models are equally good in general.
+- On this small set the 20b model had about 12-13% lower median latency and about half the cost. Latency includes network time and comes from one machine and one run, so treat it as indicative.
+- Temperature made no visible difference to accuracy on these questions.
+- Next steps: harder questions on which the models disagree, and repeated runs to measure variance.
 
 ## 🏗️ Architecture
 
@@ -82,27 +109,20 @@ pytest tests/ -v
 ## 📊 Features
 
 ### 🧪 MLflow Experiment Tracking
-- Log parameters, metrics, and artifacts for every run
-- Compare runs across experiments
-- Model registry with staging/production promotion
-- Persistent experiment history
+- Logs parameters and metrics for every evaluation run to a local SQLite MLflow store
+- Runs are produced by the offline evaluation script (see above)
+- Runs can be compared in the MLflow UI
 
 ### 📈 Prometheus Monitoring
-- Real-time CPU, memory, GPU metrics
-- Request rate, P50/P95/P99 latency
-- LLM-specific: tokens/sec, hallucination rate, cost tracking
-- Configurable alerting thresholds
+- Metric definitions and a scrape configuration for CPU, memory, request rate, latency, tokens per second and cost
+- The dashboard's Monitoring tab shows simulated values to illustrate such a dashboard
 
 ### ☁️ AWS ECS Deployment
-- One-click Docker → ECR → ECS pipeline
-- Auto health checks and stability monitoring
-- Task definition management
-- CloudWatch log integration
+- A Docker to ECR to ECS flow, modelled in the dashboard as a simulation
+- No AWS resources are created
 
 ### 🔁 CI/CD Pipeline
-- GitHub Actions workflow (test → build → push → deploy)
-- Automated testing on every push
-- Zero-downtime rolling deployments
+- Workflow design only (test, build, push, deploy)
 
 ## 📁 Project Structure
 
@@ -117,12 +137,18 @@ module-3-mlops/
 │   ├── __init__.py
 │   ├── metrics.py           # Prometheus metrics collector
 │   └── prometheus.yml       # Prometheus scrape config
+├── evaluation/
+│   ├── questions.json       # 15 fixed questions with automatic checks
+│   ├── scoring.py           # answer checks, cost and summary statistics
+│   ├── run_eval.py          # offline Groq evaluation, logs runs to MLflow
+│   └── results/             # saved results shown in the app
 ├── deployment/
 │   ├── __init__.py
 │   └── ecs_deployer.py      # AWS ECS deployment manager
 ├── tests/
 │   ├── __init__.py
-│   └── test_all.py          # Full test suite
+│   ├── test_all.py          # Full test suite
+│   └── test_evaluation.py   # Scoring and cost logic
 ├── Dockerfile               # Production container
 ├── docker-compose.yml       # Local dev stack
 ├── requirements.txt         # Python dependencies

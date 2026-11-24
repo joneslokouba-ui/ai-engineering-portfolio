@@ -1,0 +1,61 @@
+model,temperature,repeat,question_id,category,passed,error,latency_s,prompt_tokens,completion_tokens,cost_usd,answer
+openai/gpt-oss-120b,0.0,1,q01,arithmetic,True,False,0.266,102,16,2.49e-05,391
+openai/gpt-oss-120b,0.0,1,q02,geography,True,False,0.282,99,18,2.565e-05,Edmonton.
+openai/gpt-oss-120b,0.0,1,q03,geoscience,True,False,0.299,108,22,2.94e-05,An **aquifer**.
+openai/gpt-oss-120b,0.0,1,q04,mlops,True,False,0.35,109,40,4.034999999999999e-05,The two most common values logged for each MLflow run are **parameters (hyper‑parameters)** and **metrics (performance measurements)**.
+openai/gpt-oss-120b,0.0,1,q05,cloud,True,False,0.305,99,24,2.925e-05,ECS stands for **Elastic Container Service**.
+openai/gpt-oss-120b,0.0,1,q06,mlops,True,False,0.342,104,35,3.66e-05,"It mainly collects numeric metrics (counters, gauges, histograms, and summaries) exposed by services."
+openai/gpt-oss-120b,0.0,1,q07,arithmetic,True,False,0.23,102,17,2.55e-05,2500
+openai/gpt-oss-120b,0.0,1,q08,science,True,False,0.278,101,16,2.475e-05,Na
+openai/gpt-oss-120b,0.0,1,q09,science,True,False,0.235,100,18,2.5799999999999997e-05,Photosynthesis.
+openai/gpt-oss-120b,0.0,1,q10,arithmetic,True,False,0.232,104,21,2.8199999999999998e-05,210
+openai/gpt-oss-120b,0.0,1,q11,python,True,False,0.282,101,27,3.1349999999999996e-05,`len()` returns the number of items in a list.
+openai/gpt-oss-120b,0.0,1,q12,mlops,True,False,0.288,101,30,3.315e-05,CI/CD stands for **Continuous Integration / Continuous Delivery (or Continuous Deployment)**.
+openai/gpt-oss-120b,0.0,1,q13,geography,True,False,0.264,96,18,2.5199999999999996e-05,British Columbia.
+openai/gpt-oss-120b,0.0,1,q14,arithmetic,True,False,0.24,102,27,3.15e-05,36
+openai/gpt-oss-120b,0.0,1,q15,machine learning,True,False,0.352,120,56,5.16e-05,"Yes. Because the dataset is highly imbalanced, precision‑recall curves focus on the minority (positive) class performance, whereas accuracy can be misleadingly high even with poor detection of positives."
+openai/gpt-oss-120b,0.7,1,q01,arithmetic,True,False,0.286,102,16,2.49e-05,391
+openai/gpt-oss-120b,0.7,1,q02,geography,True,False,0.27,99,18,2.565e-05,Edmonton.
+openai/gpt-oss-120b,0.7,1,q03,geoscience,True,False,0.325,108,22,2.94e-05,An **aquifer**.
+openai/gpt-oss-120b,0.7,1,q04,mlops,True,False,0.374,109,32,3.555e-05,Parameters and metrics are the two most commonly logged values for each MLflow run.
+openai/gpt-oss-120b,0.7,1,q05,cloud,True,False,0.128,99,24,2.925e-05,ECS stands for **Elastic Container Service**.
+openai/gpt-oss-120b,0.7,1,q06,mlops,True,False,0.363,104,35,3.66e-05,"It mainly collects numeric metrics (counters, gauges, histograms, and summaries) exposed by services."
+openai/gpt-oss-120b,0.7,1,q07,arithmetic,True,False,0.295,102,19,2.67e-05,2500
+openai/gpt-oss-120b,0.7,1,q08,science,True,False,0.274,101,16,2.475e-05,Na
+openai/gpt-oss-120b,0.7,1,q09,science,True,False,0.219,100,18,2.5799999999999997e-05,Photosynthesis.
+openai/gpt-oss-120b,0.7,1,q10,arithmetic,True,False,0.24,104,29,3.3e-05,210
+openai/gpt-oss-120b,0.7,1,q11,python,True,False,0.301,101,27,3.1349999999999996e-05,`len()` returns the number of items in a list.
+openai/gpt-oss-120b,0.7,1,q12,mlops,True,False,0.323,101,30,3.315e-05,CI/CD stands for **Continuous Integration / Continuous Delivery (or Continuous Deployment)**.
+openai/gpt-oss-120b,0.7,1,q13,geography,True,False,0.285,96,18,2.5199999999999996e-05,British Columbia.
+openai/gpt-oss-120b,0.7,1,q14,arithmetic,True,False,0.301,102,27,3.15e-05,36
+openai/gpt-oss-120b,0.7,1,q15,machine learning,True,False,0.351,120,54,5.04e-05,"**Yes.** Because the class is extremely imbalanced, precision‑recall focuses on the minority (positive) class performance, whereas accuracy would be dominated by the many negatives."
+openai/gpt-oss-20b,0.0,1,q01,arithmetic,True,False,0.193,102,20,1.3649999999999998e-05,391
+openai/gpt-oss-20b,0.0,1,q02,geography,True,False,0.153,99,17,1.2524999999999998e-05,Edmonton.
+openai/gpt-oss-20b,0.0,1,q03,geoscience,True,False,0.292,108,19,1.38e-05,Aquifer.
+openai/gpt-oss-20b,0.0,1,q04,mlops,True,False,0.355,109,46,2.1975e-05,"In MLflow, each run most commonly logs **metrics** (numeric values that change over time) and **parameters** (static configuration values)."
+openai/gpt-oss-20b,0.0,1,q05,cloud,True,False,0.291,99,25,1.4925e-05,Elastic Container Service (ECS).
+openai/gpt-oss-20b,0.0,1,q06,mlops,True,False,0.261,104,56,2.46e-05,"Prometheus mainly collects numeric metrics (counters, gauges, histograms, and summaries) exposed by services to monitor their performance and health."
+openai/gpt-oss-20b,0.0,1,q07,arithmetic,True,False,0.162,102,24,1.4849999999999998e-05,2500
+openai/gpt-oss-20b,0.0,1,q08,science,True,False,0.262,101,16,1.2375e-05,Na
+openai/gpt-oss-20b,0.0,1,q09,science,True,False,0.26,100,18,1.2899999999999998e-05,Photosynthesis.
+openai/gpt-oss-20b,0.0,1,q10,arithmetic,True,False,0.159,104,24,1.5e-05,210
+openai/gpt-oss-20b,0.0,1,q11,python,True,False,0.248,101,26,1.5375e-05,`len()` returns the number of items in a list.
+openai/gpt-oss-20b,0.0,1,q12,mlops,True,False,0.207,101,30,1.6575e-05,CI/CD stands for **Continuous Integration / Continuous Delivery** (or Continuous Deployment).
+openai/gpt-oss-20b,0.0,1,q13,geography,True,False,0.167,96,18,1.2599999999999998e-05,British Columbia.
+openai/gpt-oss-20b,0.0,1,q14,arithmetic,True,False,0.197,102,21,1.3949999999999999e-05,36
+openai/gpt-oss-20b,0.0,1,q15,machine learning,True,False,0.34,120,48,2.34e-05,"Yes. Because with such a low positive rate, accuracy can be misleadingly high while a precision‑recall curve directly reflects performance on the minority class."
+openai/gpt-oss-20b,0.7,1,q01,arithmetic,True,False,0.209,102,21,1.3949999999999999e-05,391
+openai/gpt-oss-20b,0.7,1,q02,geography,True,False,0.252,99,17,1.2524999999999998e-05,Edmonton.
+openai/gpt-oss-20b,0.7,1,q03,geoscience,True,False,0.199,108,19,1.38e-05,Aquifer.
+openai/gpt-oss-20b,0.7,1,q04,mlops,True,False,0.293,109,47,2.2275e-05,The two most common values logged for each run are **parameters** (hyperparameters) and **metrics** (performance numbers).
+openai/gpt-oss-20b,0.7,1,q05,cloud,True,False,0.294,99,23,1.4325e-05,Elastic Container Service (ECS).
+openai/gpt-oss-20b,0.7,1,q06,mlops,True,False,0.159,104,36,1.8599999999999998e-05,"Prometheus mainly collects numeric metrics (like counters, gauges, histograms, summaries) from services via HTTP endpoints."
+openai/gpt-oss-20b,0.7,1,q07,arithmetic,True,False,0.256,102,32,1.725e-05,2500
+openai/gpt-oss-20b,0.7,1,q08,science,True,False,0.201,101,18,1.2974999999999999e-05,Na
+openai/gpt-oss-20b,0.7,1,q09,science,True,False,0.14,100,17,1.26e-05,Photosynthesis.
+openai/gpt-oss-20b,0.7,1,q10,arithmetic,True,False,0.283,104,24,1.5e-05,210
+openai/gpt-oss-20b,0.7,1,q11,python,True,False,0.254,101,25,1.5074999999999999e-05,The built‑in function is `len()`.
+openai/gpt-oss-20b,0.7,1,q12,mlops,True,False,0.279,101,40,1.9574999999999998e-05,CI/CD stands for **Continuous Integration / Continuous Deployment** (sometimes Continuous Delivery).
+openai/gpt-oss-20b,0.7,1,q13,geography,True,False,0.27,96,18,1.2599999999999998e-05,British Columbia.
+openai/gpt-oss-20b,0.7,1,q14,arithmetic,True,False,0.286,102,21,1.3949999999999999e-05,36
+openai/gpt-oss-20b,0.7,1,q15,machine learning,True,False,0.302,120,52,2.46e-05,"Yes. In highly imbalanced data, precision–recall curves focus on the minority class and better capture model performance than overall accuracy, which can be misleading."

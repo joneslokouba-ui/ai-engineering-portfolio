@@ -1,0 +1,101 @@
+{
+  "evaluated_at": "2026-11-24T03:34:31+00:00",
+  "question_set": {
+    "file": "questions.json",
+    "version": "1",
+    "n_questions": 15
+  },
+  "settings": {
+    "max_completion_tokens": 2048,
+    "reasoning_effort": "low",
+    "repeats": 1,
+    "system_prompt": "You are a concise assistant. Answer the question directly and briefly."
+  },
+  "prices_per_million_usd": {
+    "openai/gpt-oss-120b": {
+      "input": 0.15,
+      "output": 0.6
+    },
+    "openai/gpt-oss-20b": {
+      "input": 0.075,
+      "output": 0.3
+    }
+  },
+  "prices_checked": "2026-11-23",
+  "groq_sdk": "0.13.1",
+  "runs": [
+    {
+      "run_id": "AA617941",
+      "label": "gpt-oss-120b t=0.0 #1",
+      "model": "openai/gpt-oss-120b",
+      "temperature": 0.0,
+      "repeat": 1,
+      "n_questions": 15,
+      "accuracy": 1.0,
+      "error_count": 0,
+      "latency_ms_mean": 283.0,
+      "latency_ms_p50": 282.0,
+      "latency_ms_p95": 350.0,
+      "tokens_per_sec_mean": 88.7,
+      "prompt_tokens_total": 1548,
+      "completion_tokens_total": 385,
+      "cost_usd_total": 0.000463,
+      "cost_usd_per_1k_requests": 0.0309
+    },
+    {
+      "run_id": "8AD124CE",
+      "label": "gpt-oss-120b t=0.7 #1",
+      "model": "openai/gpt-oss-120b",
+      "temperature": 0.7,
+      "repeat": 1,
+      "n_questions": 15,
+      "accuracy": 1.0,
+      "error_count": 0,
+      "latency_ms_mean": 289.0,
+      "latency_ms_p50": 295.0,
+      "latency_ms_p95": 363.0,
+      "tokens_per_sec_mean": 91.7,
+      "prompt_tokens_total": 1548,
+      "completion_tokens_total": 385,
+      "cost_usd_total": 0.000463,
+      "cost_usd_per_1k_requests": 0.0309
+    },
+    {
+      "run_id": "0C7D7062",
+      "label": "gpt-oss-20b t=0.0 #1",
+      "model": "openai/gpt-oss-20b",
+      "temperature": 0.0,
+      "repeat": 1,
+      "n_questions": 15,
+      "accuracy": 1.0,
+      "error_count": 0,
+      "latency_ms_mean": 236.5,
+      "latency_ms_p50": 248.0,
+      "latency_ms_p95": 340.0,
+      "tokens_per_sec_mean": 116.3,
+      "prompt_tokens_total": 1548,
+      "completion_tokens_total": 408,
+      "cost_usd_total": 0.000238,
+      "cost_usd_per_1k_requests": 0.0159
+    },
+    {
+      "run_id": "2880BE1C",
+      "label": "gpt-oss-20b t=0.7 #1",
+      "model": "openai/gpt-oss-20b",
+      "temperature": 0.7,
+      "repeat": 1,
+      "n_questions": 15,
+      "accuracy": 1.0,
+      "error_count": 0,
+      "latency_ms_mean": 245.1,
+      "latency_ms_p50": 256.0,
+      "latency_ms_p95": 294.0,
+      "tokens_per_sec_mean": 113.6,
+      "prompt_tokens_total": 1548,
+      "completion_tokens_total": 410,
+      "cost_usd_total": 0.000239,
+      "cost_usd_per_1k_requests": 0.0159
+    }
+  ],
+  "notes": "Measured against the Groq API from a single machine on a small fixed question set; latency includes network time and varies with load. Accuracy is the share of answers passing an automatic keyword, regex or number check, so one question is worth 6.7%."
+}

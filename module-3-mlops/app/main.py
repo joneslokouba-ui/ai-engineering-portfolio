@@ -16,6 +16,7 @@ import streamlit as st
 import time
 import random
 import json
+from pathlib import Path
 from datetime import datetime, timedelta
 import pandas as pd
 import plotly.graph_objects as go
@@ -69,11 +70,7 @@ with st.sidebar:
     st.markdown("---")
 
     experiment_name = st.text_input("Experiment Name", value="llm-agent-v3")
-    model_name = st.selectbox("Model", [
-        "openai/gpt-oss-120b",
-        "openai/gpt-oss-20b",
-     ])
-    num_runs = st.slider("Training Runs", 1, 10, 3)
+    st.caption("The MLflow Tracking tab shows results measured offline against the Groq API.")
     enable_monitoring = st.toggle("Enable Prometheus Monitoring", value=True)
     enable_aws = st.toggle("Simulate AWS ECS Deploy", value=True)
 
@@ -91,11 +88,21 @@ with st.sidebar:
 tracker = MLflowTracker(experiment_name=experiment_name)
 metrics_collector = MetricsCollector()
 
+RESULTS_DIR = Path(_ROOT) / "evaluation" / "results"
+
+
+def load_eval_results():
+    """Saved output of `python -m evaluation.run_eval`, or None if it has not been run."""
+    path = RESULTS_DIR / "eval_results.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
 # ── Main tabs ─────────────────────────────────────────────────────────────────
 st.info(
-    "Demo data: the run metrics and the ECS deployment shown here are simulated to "
-    "demonstrate MLflow tracking, Prometheus monitoring and a deployment workflow. "
-    "They are not measurements of the model and no AWS resources are created."
+    "Measured vs simulated: the MLflow Tracking tab shows results measured offline against the "
+    "Groq API on a small question set. The Monitoring figures and the ECS deployment are simulated "
+    "demos, and no AWS resources are created."
 )
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
@@ -112,83 +119,74 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("🧪 MLflow Experiment Tracking")
 
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Experiments", "12", "+3")
-    col2.metric("Total Runs", "47", "+8")
-    col3.metric("Best Accuracy", "94.2%", "+1.8%")
-    col4.metric("Avg Latency", "1.23s", "-0.15s")
-
-    st.markdown("---")
-
-    if st.button("🚀 Run MLflow Experiment", type="primary", use_container_width=True):
-        progress = st.progress(0, text="Initializing experiment...")
-        log_container = st.empty()
-        logs = []
-
-        run_results = []
-        for i in range(num_runs):
-            # Simulate training run
-            params = {
-                "model": model_name,
-                "temperature": round(random.uniform(0.1, 1.0), 2),
-                "max_tokens": random.choice([512, 1024, 2048]),
-                "top_p": round(random.uniform(0.8, 1.0), 2),
-                "run_id": i + 1,
-            }
-            metrics = {
-                "accuracy": round(random.uniform(0.85, 0.97), 4),
-                "latency_ms": round(random.uniform(800, 2000), 1),
-                "tokens_per_sec": round(random.uniform(40, 120), 1),
-                "cost_per_1k": round(random.uniform(0.001, 0.005), 4),
-                "hallucination_rate": round(random.uniform(0.01, 0.08), 3),
-            }
-
-            run_id = tracker.log_run(params=params, metrics=metrics)
-            run_results.append({**params, **metrics, "run_id": run_id})
-
-            pct = int(((i + 1) / num_runs) * 100)
-            progress.progress(pct, text=f"Run {i+1}/{num_runs} complete — accuracy: {metrics['accuracy']:.4f}")
-
-            log_msg = f"[{datetime.now().strftime('%H:%M:%S')}] Run {run_id} | acc={metrics['accuracy']:.4f} | latency={metrics['latency_ms']:.0f}ms | tokens/s={metrics['tokens_per_sec']:.1f}"
-            logs.append(log_msg)
-            log_container.code("\n".join(logs[-8:]))
-            time.sleep(0.4)
-
-        progress.progress(100, text="✅ All runs complete!")
-
-        # Results table
-        df = pd.DataFrame(run_results)
-        st.dataframe(df[["run_id", "model", "temperature", "accuracy", "latency_ms", "tokens_per_sec", "hallucination_rate"]].round(4),
-                     use_container_width=True)
-
-        # Accuracy chart
-        fig = px.line(df, x="run_id", y="accuracy", markers=True,
-                      title="Accuracy Across Runs",
-                      color_discrete_sequence=["#e94560"])
-        fig.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460",
-                          font_color="white", xaxis_title="Run", yaxis_title="Accuracy")
-        st.plotly_chart(fig, use_container_width=True)
-
-        # Best run
-        best = df.loc[df["accuracy"].idxmax()]
-        st.success(f"🏆 Best Run: #{best['run_id']} | Accuracy: {best['accuracy']:.4f} | Latency: {best['latency_ms']:.0f}ms | Temp: {best['temperature']}")
-
-    # Show existing runs
-    st.markdown("### 📋 Experiment History")
-    history = tracker.get_all_runs()
-    if history:
-        st.dataframe(pd.DataFrame(history), use_container_width=True)
+    eval_data = load_eval_results()
+    if eval_data is None:
+        st.info(
+            "No evaluation results found. Run `python -m evaluation.run_eval` from the "
+            "module-3-mlops folder, then commit evaluation/results/."
+        )
     else:
-        st.info("No runs yet — click 'Run MLflow Experiment' above.")
+        runs_df = pd.DataFrame(eval_data["runs"])
+        qset = eval_data["question_set"]
+        st.caption(
+            f"Measured on {eval_data['evaluated_at'][:10]} against the Groq API using "
+            f"{qset['n_questions']} fixed questions. Prices checked {eval_data['prices_checked']}."
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Runs measured", len(runs_df))
+        col2.metric("Best accuracy", f"{runs_df['accuracy'].max():.0%}")
+        col3.metric("Median latency", f"{runs_df['latency_ms_p50'].median() / 1000:.2f} s")
+        col4.metric("Total cost", f"${runs_df['cost_usd_total'].sum():.4f}")
+
+        st.markdown("---")
+        table = runs_df[[
+            "run_id", "model", "temperature", "accuracy", "latency_ms_p50", "latency_ms_p95",
+            "tokens_per_sec_mean", "completion_tokens_total", "cost_usd_total", "error_count",
+        ]].round(4)
+        st.dataframe(table, use_container_width=True, hide_index=True)
+
+        chart_df = runs_df.assign(config=runs_df["model"].str.split("/").str[-1] + " t=" + runs_df["temperature"].astype(str))
+        left, right = st.columns(2)
+        with left:
+            fig_acc = px.bar(chart_df, x="config", y="accuracy", title="Accuracy by configuration",
+                             color_discrete_sequence=["#e94560"])
+            fig_acc.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460", font_color="white",
+                                  xaxis_title="", yaxis_title="Accuracy", yaxis_range=[0, 1])
+            st.plotly_chart(fig_acc, use_container_width=True)
+        with right:
+            fig_lat = px.bar(chart_df, x="config", y="latency_ms_p50", title="Median latency (ms)",
+                             color_discrete_sequence=["#4cc9f0"])
+            fig_lat.update_layout(paper_bgcolor="#16213e", plot_bgcolor="#0f3460", font_color="white",
+                                  xaxis_title="", yaxis_title="Milliseconds")
+            st.plotly_chart(fig_lat, use_container_width=True)
+
+        details_path = RESULTS_DIR / "eval_details.csv"
+        if details_path.exists():
+            with st.expander("Per-question results"):
+                st.dataframe(pd.read_csv(details_path), use_container_width=True, hide_index=True)
+
+        st.caption(eval_data["notes"] + " With only a few questions, treat the comparison as a demonstration "
+                   "of the method, not a benchmark.")
+
+    st.markdown("### 📋 Experiment History")
+    st.caption(
+        "Each configuration is logged as an MLflow run (parameters and metrics) in a local MLflow store "
+        "when the evaluation script runs. This app displays the saved results file."
+    )
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # TAB 2 — Monitoring
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with tab2:
     st.subheader("📊 Prometheus Metrics & Monitoring")
+    st.warning(
+        "Simulated data: the gauges, request counts, costs and rates on this tab are randomly generated "
+        "to demonstrate what a monitoring dashboard looks like. They are not measurements of any live service."
+    )
 
     if enable_monitoring:
-        st.markdown('<span class="status-live">● MONITORING ACTIVE</span>', unsafe_allow_html=True)
+        st.markdown('<span class="status-live">● MONITORING DEMO (SIMULATED DATA)</span>', unsafe_allow_html=True)
     else:
         st.markdown('<span class="status-warn">● MONITORING DISABLED</span>', unsafe_allow_html=True)
 
