@@ -457,7 +457,7 @@ with tab5:
         - Staff AI Engineer 
 
         ### 📚 Training
-        - Self-directed study: Stanford / Andrew Ng AI, ML and deep learning course materials
+        - Stanford / Andrew Ng AI, ML and deep learning course materials
         - Commander Smart Eagle program
         - 3-module AI engineering portfolio
         """)
