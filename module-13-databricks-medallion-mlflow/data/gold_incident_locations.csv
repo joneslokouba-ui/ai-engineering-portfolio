@@ -4,7 +4,7 @@ INC2017-105,2017,British Columbia,True,"Westcoast Energy Inc., carrying on busin
 INC2017-114,2017,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,17022.0,False,54.057238,-113.219046
 INC2018-050,2018,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,45.64084,-73.926493
 INC2018-159,2018,British Columbia,True,Foothills Pipe Lines Ltd.,Operation Beyond Design Limits,,,False,49.27367,-115.59596
-INC2018-160,2018,Alberta,True,Pouce Coup� Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Operation Beyond Design Limits,,,False,55.875358,-119.845442
+INC2018-160,2018,Alberta,True,Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Operation Beyond Design Limits,,,False,55.875358,-119.845442
 INC2019-049,2019,New Brunswick,True,Twin Rivers Paper Company Inc.,Release of Substance,Water,236.0,False,47.36,-68.33
 INC2021-043,2021,New Brunswick,True,Twin Rivers Paper Company Inc.,Release of Substance,Pulp slurry,200.0,False,47.368498,-68.330478
 INC2021-128,2021,New Brunswick,True,Twin Rivers Paper Company Inc.,Release of Substance,Water,2.27,False,47.36138,-68.32803
@@ -190,7 +190,7 @@ INC2019-096,2019,British Columbia,True,"Westcoast Energy Inc., carrying on busin
 INC2020-061,2020,Alberta,True,TransCanada Keystone Pipeline GP Ltd.,"Explosion, Fire",,,False,52.64363744,-111.2775357
 INC2020-072,2020,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,49.29079839,-122.9502759
 INC2021-066,2021,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,17128.0,False,56.85251,-118.13427
-INC2021-069,2021,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,45.903078,-73.338683
+INC2021-069,2021,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,45.903078,-73.338683
 INC2022-137,2022,British Columbia,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,52.952405,-119.389287
 INC2023-160,2023,Alberta,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,53.46253512,-117.4645825
 INC2025-042,2025,Ontario,True,TransCanada PipeLines Limited,Fire,,,False,49.800358,-86.529031
@@ -311,7 +311,7 @@ INC2018-085,2018,British Columbia,True,"Westcoast Energy Inc., carrying on busin
 INC2018-171,2018,Manitoba,True,Enbridge Pipelines Inc.,Serious Injury (as defined in the OPR),,,True,49.323,-99.173
 INC2020-073,2020,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,53.836111,-117.030833
 INC2021-062,2021,Alberta,True,Trans Mountain Pipeline ULC,Adverse Environmental Effects,,,True,53.588615,-116.497454
-INC2021-163,2021,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,16373.0,False,45.72681,-73.5327
+INC2021-163,2021,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,16373.0,False,45.72681,-73.5327
 INC2022-113,2022,Ontario,True,Enbridge Pipelines Inc.,Release of Substance,Crude Oil - Synthetic,5.0,False,42.952425,-82.37243611
 INC2022-142,2022,Alberta,True,NOVA Gas Transmission Ltd.,Adverse Environmental Effects,,,True,54.092,-117.522
 INC2022-209,2022,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,52.245265,-119.206141
@@ -395,7 +395,7 @@ INC2015-022,2015,Saskatchewan,True,Enbridge Pipelines Inc.,Explosion,,,False,51.
 INC2015-082,2015,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Release of Substance,Sulphur,1.8,False,55.56909171,-121.9446616
 INC2015-097,2015,Alberta,True,Enbridge Pipelines Inc.,"Explosion, Fire",,,False,52.639314,-111.27931
 INC2016-021,2016,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Release of Substance,Natural Gas - Sour,13.23,True,55.569092,-121.944662
-INC2017-036,2017,British Columbia,True,Pouce Coup� Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Release of Substance,Natural Gas Liquids,0.001,False,55.94382999,-120.19327
+INC2017-036,2017,British Columbia,True,Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Release of Substance,Natural Gas Liquids,0.001,False,55.94382999,-120.19327
 INC2017-037,2017,Manitoba,True,TransCanada PipeLines Limited,Fire,,,False,50.07237,-100.0
 INC2017-172,2017,Saskatchewan,True,Enbridge Pipelines Inc.,Serious Injury (as defined in the OPR),,,True,51.348868,-106.967462
 INC2019-077,2019,Alberta,True,Trans Mountain Pipeline ULC,Fire,,,False,53.54290845,-113.3644501
@@ -469,7 +469,7 @@ INC2015-059,2015,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,
 INC2015-078,2015,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Adverse Environmental Effects,,,True,55.56909171,-121.9446616
 INC2016-142,2016,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,51.939713,-112.073701
 INC2017-005,2017,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,55.521447,-119.3545135
-INC2017-076,2017,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,1995.0,False,45.603401,-73.861893
+INC2017-076,2017,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,1995.0,False,45.603401,-73.861893
 INC2017-151,2017,Ontario,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,43.506022,-79.615112
 INC2018-090,2018,British Columbia,True,Foothills Pipe Lines Ltd.,Operation Beyond Design Limits,,,False,49.27367,-115.59596
 INC2018-092,2018,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Operation Beyond Design Limits,,,False,56.81692125,-120.5627595
@@ -504,7 +504,7 @@ INC2025-008,2025,Alberta,True,"NGTL GP Ltd., as general partner, on behalf of NG
 INC2025-084,2025,British Columbia,True,Westcoast Energy Inc.,Release of Substance,Natural Gas - Sweet,3.68,False,57.23498921,-122.2244982
 INC2025-093,2025,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,45.60412,-73.76125
 INC2025-096,2025,British Columbia,True,Westcoast Energy GP Inc. on behalf of Westcoast Energy Limited Partnership,Release of Substance,Natural Gas - Sweet,47310.0,True,56.851798,-122.327865
-INC2026-074,2026,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.727,-73.5321
+INC2026-074,2026,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.727,-73.5321
 INC2008-087,2008,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Release of Substance,Butane,0.1,False,56.14631,-120.6692
 INC2008-103,2008,Manitoba,True,TransCanada PipeLines Limited,Release of Substance,Natural Gas - Sweet,,False,49.65789,-96.16268
 INC2011-064,2011,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,,False,59.06394,-118.84693
@@ -524,7 +524,7 @@ INC2017-094,2017,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design
 INC2019-062,2019,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,51.91564,-111.74472
 INC2019-067,2019,Quebec,True,Champion Pipe Line Corporation Limited,Release of Substance,Natural Gas - Sweet,1.0,False,47.761,-79.471
 INC2021-027,2021,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,57.19255,-118.19701
-INC2021-127,2021,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.710839,-73.757347
+INC2021-127,2021,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.710839,-73.757347
 INC2021-130,2021,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,52.908328,-115.00664
 INC2022-006,2022,British Columbia,True,Trans Mountain Pipeline ULC,Serious Injury (as defined in the OPR),,,True,51.5931689,-120.11822
 INC2022-010,2022,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,52.116958,-119.308819
@@ -570,7 +570,7 @@ INC2017-123,2017,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Desi
 INC2017-188,2017,Alberta,True,Alliance Pipeline Ltd.,Release of Substance,Natural Gas - Sweet,1.0,False,54.52823203,-118.1594179
 INC2017-201,2017,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,252.0,False,54.04370807,-117.4205423
 INC2018-069,2018,Alberta,True,Enbridge Pipelines Inc.,Operation Beyond Design Limits,,,False,52.8043,-111.72651
-INC2018-162,2018,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,45.03339107,-71.50002623
+INC2018-162,2018,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,45.03339107,-71.50002623
 INC2018-173,2018,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Operation Beyond Design Limits,,,False,57.91971088,-122.7179877
 INC2019-100,2019,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,51.40375331,-114.0339696
 INC2020-066,2020,Ontario,True,TransCanada PipeLines Limited,Operation Beyond Design Limits,,,False,48.93875,-89.774665
@@ -633,7 +633,7 @@ INC2018-132,2018,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,49.0,-120.
 INC2021-009,2021,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,45.498227,-74.003769
 INC2021-012,2021,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,49.269932,-122.93373
 INC2021-017,2021,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,50.17339,-111.04742
-INC2022-078,2022,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,45.998604,-73.394392
+INC2022-078,2022,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,45.998604,-73.394392
 INC2023-036,2023,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,49.07786219,-122.202148
 INC2023-113,2023,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,49.144639,-122.549307
 INC2025-001,2025,British Columbia,True,Trans Mountain Pipeline ULC,"Explosion, Fire",,,False,49.373475,-121.422772
@@ -716,8 +716,8 @@ INC2023-073,2023,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,53.792003,
 INC2023-079,2023,Saskatchewan,True,TransCanada PipeLines Limited,Operation Beyond Design Limits,,,False,50.300604,-103.146245
 INC2025-049,2025,Alberta,True,Alliance Pipeline Ltd.,Operation Beyond Design Limits,,,False,54.834199,-118.592345
 INC2026-043,2026,Alberta,True,"NGTL GP Ltd., as general partner on behalf of NGTL Limited Partnership",Operation Beyond Design Limits,,,False,57.34677,-119.067783
-INC2024-068,2024,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,46.35156264,-72.62676914
-INC2025-063,2025,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,254.0,False,45.51216298,-73.99200672
+INC2024-068,2024,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,46.35156264,-72.62676914
+INC2025-063,2025,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,254.0,False,45.51216298,-73.99200672
 INC2026-056,2026,Alberta,True,"NGTL GP Ltd., as general partner on behalf of NGTL Limited Partnership",Fire,,,False,54.41743513,-119.3550128
 INC2026-048,2026,Alberta,True,"NGTL GP Ltd., as general partner on behalf of NGTL Limited Partnership",Operation Beyond Design Limits,,,False,53.63742,-112.01933
 INC2010-016,2010,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,,False,54.83034,-118.64722
@@ -1029,7 +1029,7 @@ INC2023-094,2023,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,
 INC2023-098,2023,British Columbia,True,Trans Mountain Pipeline ULC,Serious Injury (as defined in the OPR),,,True,49.18743,-122.72846
 INC2023-181,2023,British Columbia,True,Trans Mountain Pipeline ULC,Adverse Environmental Effects,,,True,49.155423,-121.85206
 INC2023-185,2023,Alberta,True,NOVA Gas Transmission Ltd.,"Release of Substance, Operation Beyond Design Limits",Natural Gas - Sweet,2595.0,True,51.22156763,-114.6325971
-INC2018-034,2018,British Columbia,True,Pouce Coup� Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Operation Beyond Design Limits,,,False,56.139827,-120.638677
+INC2018-034,2018,British Columbia,True,Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership,Operation Beyond Design Limits,,,False,56.139827,-120.638677
 INC2021-006,2021,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,54.773742,-111.820673
 INC2021-004,2021,Alberta,True,TransCanada Keystone Pipeline GP Ltd.,Serious Injury (as defined in the OPR),,,True,51.823543,-110.562564
 INC2021-018,2021,British Columbia,True,Westcoast Energy Inc.,Fire,,,False,55.649047,-122.207477
@@ -1178,7 +1178,7 @@ INC2023-126,2023,British Columbia,True,Trans Mountain Pipeline ULC,Adverse Envir
 INC2024-002,2024,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,51.2203582,-114.492852
 INC2025-104,2025,Alberta,True,"NGTL GP Ltd., as general partner on behalf of NGTL Limited Partnership",Fire,,,False,56.37079958,-119.9226624
 INC2025-101,2025,British Columbia,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,49.424214,-121.309331
-INC2026-085,2026,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,True,45.36833812,-74.12436962
+INC2026-085,2026,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,True,45.36833812,-74.12436962
 INC2008-086,2008,Ontario,True,TransCanada PipeLines Limited,Release of Substance,Natural Gas - Sweet,,False,49.85542,-93.36393
 INC2010-147,2010,New Brunswick,True,Maritimes & Northeast Pipeline Management Ltd.,Release of Substance,Natural Gas - Sweet,0.5,False,45.886624,-66.551134
 INC2011-075,2011,Quebec,True,Enbridge Pipelines Inc.,Release of Substance,Crude Oil - Sweet,4.0,False,45.72466,-73.69588
@@ -1283,7 +1283,7 @@ INC2017-153,2017,Saskatchewan,True,Enbridge Pipelines Inc.,Release of Substance,
 INC2018-006,2018,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,56.080761,-112.540799
 INC2018-026,2018,Alberta,True,Enbridge Pipelines Inc.,Release of Substance,Diesel Fuel,5.0,False,53.543,-113.354
 INC2019-005,2019,British Columbia,True,NOVA Gas Transmission Ltd.,Fire,,,False,56.510406,-121.869944
-INC2020-133,2020,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,45.03339107,-71.50002623
+INC2020-133,2020,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,45.03339107,-71.50002623
 INC2021-180,2021,Alberta,True,NOVA Gas Transmission Ltd.,Serious Injury (as defined in the OPR),,,True,54.19423,-117.67928
 INC2022-064,2022,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,53.24568023,-116.2396272
 INC2023-012,2023,British Columbia,True,Trans Mountain Pipeline ULC,Adverse Environmental Effects,,,True,49.17994,-122.63308
@@ -1304,7 +1304,7 @@ INC2020-105,2020,British Columbia,True,Trans Mountain Pipeline ULC,Fire,,,False,
 INC2020-112,2020,Manitoba,True,Enbridge Southern Lights GP Inc. on behalf of Enbridge Southern Lights LP,Operation Beyond Design Limits,,,False,49.40767,-98.83013
 INC2021-099,2021,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,57.191515,-118.19432
 INC2021-107,2021,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design Limits,,,False,55.7536,-112.26055
-INC2022-077,2022,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,46.318561,-72.601999
+INC2022-077,2022,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,46.318561,-72.601999
 INC2022-163,2022,Alberta,True,Trans Mountain Pipeline ULC,Serious Injury (as defined in the OPR),,,True,53.57580147,-116.6475544
 INC2023-028,2023,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,54.385804,-118.01089
 INC2025-004,2025,Alberta,True,"NGTL GP Ltd., as general partner, on behalf of NGTL Limited Partnership",Fire,,,False,57.19378,-118.19737
@@ -1497,7 +1497,7 @@ INC2017-048,2017,Alberta,True,NOVA Gas Transmission Ltd.,Operation Beyond Design
 INC2017-128,2017,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,45.630971,-73.531765
 INC2017-135,2017,Quebec,True,Trans-Northern Pipelines Inc.,Operation Beyond Design Limits,,,False,45.630971,-73.531765
 INC2019-091,2019,Alberta,True,NOVA Gas Transmission Ltd.,Serious Injury (as defined in the OPR),,,True,53.88869,-117.11462
-INC2021-072,2021,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,46.6996,-71.4419
+INC2021-072,2021,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,46.6996,-71.4419
 INC2021-080,2021,British Columbia,True,Foothills Pipe Lines (South B.C.) Ltd.,Release of Substance,Natural Gas - Sweet,2350.0,False,49.2802,-115.47198
 INC2021-168,2021,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,59.8,False,53.63671854,-112.0190649
 INC2021-178,2021,British Columbia,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,49.691373,-121.01045
@@ -1629,7 +1629,7 @@ INC2023-180,2023,Quebec,True,Montreal Pipe Line Limited,Operation Beyond Design 
 INC2024-058,2024,Alberta,True,"NGTL GP Ltd., as general partner, on behalf of NGTL Limited Partnership",Serious Injury (as defined in the OPR),,,True,49.644165,-114.63648
 INC2024-060,2024,Northwest Territories,True,Enbridge Pipelines (NW) Inc.,Operation Beyond Design Limits,,,False,62.080133,-122.026567
 INC2024-061,2024,Alberta,True,"NGTL GP Ltd., as general partner, on behalf of NGTL Limited Partnership",Operation Beyond Design Limits,,,False,54.835385,-118.08285
-INC2026-024,2026,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.93212432,-73.33946409
+INC2026-024,2026,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Operation Beyond Design Limits,,,False,45.93212432,-73.33946409
 INC2026-028,2026,Manitoba,True,TransCanada PipeLines Limited,Release of Substance,Natural Gas - Sweet,277726.91,True,49.0018,-97.0571
 INC2026-032,2026,Manitoba,True,Enbridge Pipelines Inc.,Release of Substance,Crude Oil - Synthetic,78.0,False,49.01757197,-97.555526
 INC2024-075,2024,New Brunswick,True,Twin Rivers Pulp Ltd.,Release of Substance,Water,680.0,False,47.367402,-68.327602
@@ -1740,7 +1740,7 @@ INC2019-112,2019,Alberta,True,Trans Mountain Pipeline ULC,Release of Substance,C
 INC2020-063,2020,British Columbia,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,52.506788,-119.106979
 INC2020-082,2020,Ontario,True,TransCanada PipeLines Limited,Operation Beyond Design Limits,,,False,47.63417,-79.78694
 INC2021-063,2021,Alberta,True,NOVA Gas Transmission Ltd.,Fire,,,False,52.71908998,-115.7086161
-INC2021-067,2021,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Fire,,,False,45.709997,-73.87652
+INC2021-067,2021,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Fire,,,False,45.709997,-73.87652
 INC2021-165,2021,Ontario,True,TransCanada PipeLines Limited,Operation Beyond Design Limits,,,False,48.552579,-88.996618
 INC2022-027,2022,Alberta,True,NOVA Gas Transmission Ltd.,Adverse Environmental Effects,,,True,54.1125,-117.4351
 INC2022-134,2022,Alberta,True,Trans Mountain Pipeline ULC,Fire,,,False,53.5215,-113.7871
@@ -1904,7 +1904,7 @@ INC2023-119,2023,Alberta,True,Enbridge Pipelines Inc.,Release of Substance,Crude
 INC2023-132,2023,Alberta,True,Trans Mountain Pipeline ULC,Operation Beyond Design Limits,,,False,53.593255,-115.330791
 INC2024-003,2024,Alberta,True,Enbridge Pipelines Inc.,"Explosion, Fire",,,False,52.638386,-111.279381
 INC2025-002,2025,Manitoba,True,Enbridge Pipelines Inc.,Operation Beyond Design Limits,,,False,49.53692531,-99.28897108
-INC2026-072,2026,Quebec,True,Trans Qu�bec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,58257.0,True,45.72660129,-73.53179276
+INC2026-072,2026,Quebec,True,Trans Québec and Maritimes Pipeline Inc.,Release of Substance,Natural Gas - Sweet,58257.0,True,45.72660129,-73.53179276
 INC2010-134,2010,British Columbia,True,"Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",Adverse Environmental Effects,,,True,55.39952,-122.09349
 INC2012-086,2012,Alberta,True,NOVA Gas Transmission Ltd.,Release of Substance,Natural Gas - Sweet,5.0,False,54.83015,-118.64728
 INC2012-097,2012,Ontario,True,TransCanada PipeLines Limited,Fire,,,False,49.48156,-91.95934

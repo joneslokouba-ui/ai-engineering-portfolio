@@ -1,0 +1,59 @@
+{
+  "models": [
+    {
+      "feature_set": "reporting_time",
+      "model": "gradient_boosting",
+      "val_pr_auc": 0.9688,
+      "test_pr_auc": 0.8529,
+      "test_precision": 0.8696,
+      "test_recall": 0.7895,
+      "test_f1": 0.8276
+    },
+    {
+      "feature_set": "reporting_time",
+      "model": "logistic_regression",
+      "val_pr_auc": 0.961,
+      "test_pr_auc": 0.8076,
+      "test_precision": 0.7711,
+      "test_recall": 0.8421,
+      "test_f1": 0.805
+    },
+    {
+      "feature_set": "context_only",
+      "model": "gradient_boosting",
+      "val_pr_auc": 0.4565,
+      "test_pr_auc": 0.4033,
+      "test_precision": 0.4375,
+      "test_recall": 0.0921,
+      "test_f1": 0.1522
+    },
+    {
+      "feature_set": "context_only",
+      "model": "logistic_regression",
+      "val_pr_auc": 0.4201,
+      "test_pr_auc": 0.424,
+      "test_precision": 0.4206,
+      "test_recall": 0.5921,
+      "test_f1": 0.4918
+    },
+    {
+      "feature_set": "context_only",
+      "model": "baseline",
+      "val_pr_auc": 0.2768,
+      "test_pr_auc": 0.2413,
+      "test_precision": 0.0,
+      "test_recall": 0.0,
+      "test_f1": 0.0
+    },
+    {
+      "feature_set": "reporting_time",
+      "model": "baseline",
+      "val_pr_auc": 0.2768,
+      "test_pr_auc": 0.2413,
+      "test_precision": 0.0,
+      "test_recall": 0.0,
+      "test_f1": 0.0
+    }
+  ],
+  "notes": "Time split: train 2008-2020 (n=1430), validation 2021-2022 (n=289), test 2023-2026 (n=315). Share of significant incidents: train 14.3%, validation 27.7%, test 24.1%. Models are chosen on validation PR-AUC; precision, recall and F1 use a 0.5 threshold. The baseline predicts the training rate for every incident, so its PR-AUC equals the share of significant incidents in each period."
+}
