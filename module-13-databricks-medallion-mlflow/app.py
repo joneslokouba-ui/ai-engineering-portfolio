@@ -212,6 +212,8 @@ with tab_model:
                 "a forecast made beforehand. The context_only models (test PR-AUC about "
                 "0.40 to 0.42 against a 0.24 baseline) show what can be predicted "
                 "without those fields."
+                "For the baseline, precision, recall and F1 are 0 because it never predicts "
+                "a significant incident at the 0.5 threshold. "
             )
         except (ValueError, KeyError) as exc:
             st.error(f"Could not read model_metrics.json: {exc}")
