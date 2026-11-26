@@ -205,6 +205,14 @@ with tab_model:
             )
             if metrics.get("notes"):
                 st.caption(metrics["notes"])
+            st.caption(
+                "Reading the results: the reporting_time feature set includes incident "
+                "type and substance, which are only known once an incident has been "
+                "reported, so its scores describe classification at reporting time, not "
+                "a forecast made beforehand. The context_only models (test PR-AUC about "
+                "0.40 to 0.42 against a 0.24 baseline) show what can be predicted "
+                "without those fields."
+            )
         except (ValueError, KeyError) as exc:
             st.error(f"Could not read model_metrics.json: {exc}")
 
